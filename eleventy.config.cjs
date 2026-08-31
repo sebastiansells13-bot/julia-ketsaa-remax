@@ -24,6 +24,12 @@ const assetPaths = {
   stylesheet: `/assets/css/index.${contentHash(assetFiles.stylesheet)}.css`,
 };
 
+// Absolute site origin + pathPrefix, with no trailing slash — used to build
+// absolute URLs (canonical links, Open Graph/Twitter tags, JSON-LD) that
+// can't rely on html-base-plugin's automatic root-relative rewriting.
+// Update this alongside `pathPrefix` below once Julia has a real domain.
+const siteUrl = "https://sebastiansells13-bot.github.io/julia-ketsaa-remax";
+
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
   eleventyConfig.addPlugin(pluginNavigation);
@@ -44,6 +50,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.watchIgnores.add("**/.DS_Store");
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addGlobalData("assetPaths", assetPaths);
+  eleventyConfig.addGlobalData("siteUrl", siteUrl);
 
   eleventyConfig.addLayoutAlias("page", "layouts/page.njk");
   eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
@@ -96,6 +103,33 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setLibrary("md", markdownLibrary);
 
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
+
+  // Renders business.json as a schema.org RealEstateAgent JSON-LD block.
+  // Missing/empty fields are dropped automatically by JSON.stringify.
+  eleventyConfig.addFilter("businessSchema", (business, absoluteSiteUrl) => {
+    const sameAs = Object.values(business.social || {}).filter(Boolean);
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "RealEstateAgent",
+      name: business.name,
+      jobTitle: business.title,
+      description: business.tagline,
+      url: `${absoluteSiteUrl}/`,
+      image: business.photo ? `${absoluteSiteUrl}${business.photo}` : undefined,
+      telephone: business.phoneCell,
+      email: business.email,
+      address: {
+        "@type": "PostalAddress",
+        streetAddress: business.streetAddress,
+        addressLocality: business.addressLocality,
+        addressRegion: business.addressRegion,
+        postalCode: business.postalCode,
+        addressCountry: "US",
+      },
+    };
+    if (sameAs.length) schema.sameAs = sameAs;
+    return JSON.stringify(schema, null, 2);
+  });
 
   return {
     templateFormats: ["md", "njk", "html", "liquid"],

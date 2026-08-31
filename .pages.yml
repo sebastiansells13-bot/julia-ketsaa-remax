@@ -214,6 +214,24 @@ content:
       - name: address
         label: Office Address
         type: string
+        description: Full address as shown on the Contact page.
+
+      - name: streetAddress
+        label: Street Address (for SEO data)
+        type: string
+        description: Just the street portion, e.g. "2805 Doral Ct." Keep in sync with Office Address above.
+
+      - name: addressLocality
+        label: City (for SEO data)
+        type: string
+
+      - name: addressRegion
+        label: State abbreviation (for SEO data)
+        type: string
+
+      - name: postalCode
+        label: ZIP Code (for SEO data)
+        type: string
 
       - name: license
         label: License Text
