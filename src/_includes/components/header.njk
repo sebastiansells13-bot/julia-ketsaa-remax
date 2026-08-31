@@ -4,7 +4,11 @@
       <span class="remax-wordmark"><span class="remax-wordmark__re">RE</span>/<span class="remax-wordmark__max">MAX</span></span>
       <span class="site-header__agent">{{ business.name or metadata.title }}</span>
     </a>
-    <nav>
+    <button type="button" class="site-header__toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
+      <span class="sr-only">Menu</span>
+      <span class="site-header__toggle-icon" aria-hidden="true"></span>
+    </button>
+    <nav id="site-nav">
       <ul>
         {% for item in navigation %}
         <li><a href="{{ item.url }}"{% if page.url == item.url %} class="is-active" aria-current="page"{% endif %}>{{ item.text }}</a></li>

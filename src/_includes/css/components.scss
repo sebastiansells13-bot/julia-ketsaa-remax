@@ -52,10 +52,83 @@
     text-decoration: none;
     color: $color-text;
     font-weight: 600;
+    white-space: nowrap;
 
     &:hover,
     &.is-active {
       color: $color-remax-red;
+    }
+  }
+
+  .site-header__toggle {
+    display: none;
+    background: none;
+    border: none;
+    padding: 0.5rem;
+    margin: -0.5rem;
+    cursor: pointer;
+    color: $color-text;
+  }
+
+  .site-header__toggle-icon {
+    position: relative;
+    display: block;
+    width: 1.5rem;
+    height: 0.15rem;
+    background: currentColor;
+    border-radius: 1px;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: currentColor;
+      border-radius: 1px;
+    }
+
+    &::before {
+      top: -0.4rem;
+    }
+
+    &::after {
+      top: 0.4rem;
+    }
+  }
+
+  @media (max-width: 40rem) {
+    .site-header__toggle {
+      display: block;
+    }
+
+    nav {
+      display: none;
+      flex-basis: 100%;
+      order: 3;
+
+      &.is-open {
+        display: block;
+      }
+    }
+
+    nav ul {
+      flex-direction: column;
+      gap: 0;
+      padding-top: 0.75rem;
+      margin-top: 0.75rem;
+      border-top: 1px solid $color-border;
+    }
+
+    nav li {
+      width: 100%;
+    }
+
+    nav a {
+      display: block;
+      padding: 0.65rem 0;
+      white-space: normal;
     }
   }
 }
