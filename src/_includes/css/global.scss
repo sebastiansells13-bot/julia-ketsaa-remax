@@ -1,0 +1,51 @@
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: $font-body;
+  color: $color-text;
+  background: $color-bg;
+  line-height: 1.5;
+}
+
+a {
+  color: $color-accent;
+}
+
+.wrapper {
+  max-width: $max-width;
+  margin: 0 auto;
+  padding: 0 $gutter;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+h1,
+h2,
+h3 {
+  font-family: $font-heading;
+  line-height: 1.2;
+}

@@ -1,0 +1,16 @@
+// RE/MAX's real brand colors — red, blue, white. See README.md for why the
+// literal RE/MAX logo graphic isn't embedded (only the color/type system).
+$color-bg: #ffffff;
+$color-text: #1a1a1a;
+$color-muted: #666666;
+$color-remax-red: #e4002b;
+$color-remax-blue: #003da5;
+$color-accent: $color-remax-red;
+$color-dark: #101820;
+$color-border: #e2e2e2;
+
+$font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-heading: $font-body;
+
+$max-width: 72rem;
+$gutter: 1.5rem;

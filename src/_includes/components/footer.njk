@@ -1,0 +1,32 @@
+<section class="newsletter">
+  <div class="wrapper">
+    <div class="newsletter__inner">
+      <div>
+        <h2>Stay in the loop</h2>
+        <p>New listings and Las Cruces market updates — no spam, unsubscribe anytime.</p>
+      </div>
+      {% include "components/newsletter-form.njk" %}
+    </div>
+  </div>
+</section>
+
+<footer class="site-footer">
+  <div class="wrapper">
+    <div class="site-footer__legal">
+      <div class="equal-housing">
+        {% include "components/equal-housing-icon.njk" %}
+        <span>Equal Housing Opportunity</span>
+      </div>
+      <p class="site-footer__disclaimer">{{ business.disclaimer }}</p>
+    </div>
+
+    <div class="site-footer__bottom">
+      <span>&copy; {% year %} {{ business.name or metadata.title }}, {{ business.title }}</span>
+      <span>
+        {% if business.email %}<a href="mailto:{{ business.email }}">{{ business.email }}</a>{% endif %}
+        {% if business.phoneCell %} · Cell {{ business.phoneCell }}{% endif %}
+        {% if business.phoneOffice %} · Office {{ business.phoneOffice }}{% endif %}
+      </span>
+    </div>
+  </div>
+</footer>
