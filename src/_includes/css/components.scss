@@ -366,9 +366,19 @@
 }
 
 .listing-card {
+  display: block;
   border: 1px solid $color-border;
   border-radius: 0.5rem;
   overflow: hidden;
+  color: $color-text;
+  text-decoration: none;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+
+  &:hover,
+  &:focus-visible {
+    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.1);
+    transform: translateY(-2px);
+  }
 
   h3 {
     margin: 0.15rem 0;
@@ -378,7 +388,10 @@
 .listing-card__media {
   position: relative;
 
-  img {
+  img,
+  .listing-placeholder {
+    display: block;
+    width: 100%;
     aspect-ratio: 4 / 3;
     object-fit: cover;
   }
@@ -398,9 +411,29 @@
   border-radius: 0.25rem;
 
   &--pending {
-    background: $color-accent;
-    color: $color-dark;
+    background: $color-remax-blue;
+    color: #fff;
   }
+
+  &--sold {
+    background: $color-muted;
+    color: #fff;
+  }
+}
+
+.listing-card__sample {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: #fff;
+  color: $color-text;
+  border: 1px solid $color-border;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.3rem 0.6rem;
+  border-radius: 0.25rem;
 }
 
 .listing-card__body {
@@ -520,5 +553,131 @@
 
   dd {
     margin: 0 0 1rem;
+  }
+}
+
+// Individual listing page (src/listing-detail.njk)
+.sample-banner {
+  background: #fdf1e8;
+  border: 1px solid $color-remax-red;
+  color: $color-text;
+  padding: 0.75rem 1rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+
+  a {
+    font-weight: 700;
+  }
+}
+
+.listing-detail {
+  max-width: 42rem;
+  padding-top: 1.5rem;
+  padding-bottom: 4rem;
+
+  > * + * {
+    margin-top: 1.25rem;
+  }
+}
+
+.listing-detail__back a {
+  text-decoration: none;
+  color: $color-muted;
+  font-weight: 600;
+
+  &:hover {
+    color: $color-remax-red;
+  }
+}
+
+.listing-detail__media {
+  position: relative;
+  border-radius: 0.5rem;
+  overflow: hidden;
+
+  img,
+  .listing-placeholder {
+    display: block;
+    width: 100%;
+    aspect-ratio: 16 / 10;
+    object-fit: cover;
+  }
+}
+
+.listing-detail__header {
+  h1 {
+    margin: 0.2rem 0;
+  }
+}
+
+.listing-detail__price {
+  color: $color-accent;
+  font-weight: 700;
+  font-size: 1.5rem;
+  margin: 0;
+}
+
+.listing-detail__location {
+  color: $color-muted;
+  margin: 0;
+}
+
+.listing-detail__stats {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2rem;
+  padding: 1rem 0;
+  border-top: 1px solid $color-border;
+  border-bottom: 1px solid $color-border;
+
+  div {
+    min-width: 5rem;
+  }
+
+  dt {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: $color-muted;
+    margin: 0 0 0.15rem;
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 700;
+  }
+}
+
+.listing-detail__description {
+  line-height: 1.6;
+}
+
+.listing-detail__features {
+  h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.25rem;
+
+    li {
+      margin: 0.35rem 0;
+    }
+  }
+}
+
+.listing-detail__cta a {
+  display: inline-block;
+  text-decoration: none;
+  color: #fff;
+  background: $color-remax-red;
+  font-weight: 700;
+  padding: 0.75rem 1.25rem;
+  border-radius: 0.3rem;
+
+  &:hover {
+    background: darken($color-remax-red, 8%);
   }
 }

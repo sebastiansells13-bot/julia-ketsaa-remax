@@ -10,6 +10,7 @@
   <title>{{ pageTitle }}</title>
   <meta name="description" content="{{ pageDescription }}">
   <link rel="canonical" href="{{ pageUrl }}">
+  {% if noindex or listing.isSample %}<meta name="robots" content="noindex, nofollow">{% endif %}
   <link rel="stylesheet" href="{{ assetPaths.stylesheet }}">
   {% if collections %}<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="{{ business.name }}">{% endif %}
 

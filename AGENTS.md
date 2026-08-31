@@ -67,9 +67,14 @@ Keep it up to date as the site diverges from the template.
   and operated" disclaimer from the footer (`components/footer.njk`) — both are
   standard elements of real-estate marketing; check with Julia's broker before
   touching either
-- Don't invent fake listings, testimonials, or market stats under Julia's real name.
-  `listings.json`/`testimonials.json` start empty on purpose — leave them empty (the
-  templates already render a friendly "nothing yet" message) until real ones exist
+- Don't invent fake testimonials or market stats under Julia's real name.
+  `testimonials.json` starts empty on purpose — leave it empty (the homepage
+  already skips the section when it's empty) until real ones exist
+- `listings.json` ships with 4 example properties, each `isSample: true` with no
+  `image` (so they render an illustrated placeholder + a visible "Sample" badge and
+  get `noindex`ed — see `src/listing-detail.njk`). Don't strip the `isSample` flag,
+  the placeholder fallback, or the noindex logic — a real listing is added by setting
+  `isSample: false` and a real `image`, not by editing a sample in place to look real
 - Don't claim the newsletter form is "connected" or remove its `data-endpoint`
   placeholder check in `src/_includes/js/newsletter.js` until a real email service is
   wired up — see the comment at the top of that file

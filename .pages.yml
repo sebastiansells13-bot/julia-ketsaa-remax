@@ -107,6 +107,15 @@ content:
             type: number
             required: true
 
+          - name: yearBuilt
+            label: Year Built
+            type: number
+
+          - name: lotSize
+            label: Lot Size
+            type: string
+            description: "e.g. 0.21 acres"
+
           - name: status
             label: Status
             type: select
@@ -117,7 +126,7 @@ content:
           - name: image
             label: Photo
             type: image
-            required: true
+            description: Leave blank to show a placeholder illustration instead (used for sample listings).
             options:
               path: listings
 
@@ -125,6 +134,23 @@ content:
             label: Short Description
             type: string
             description: One sentence shown on the listing card.
+
+          - name: description
+            label: Full Description
+            type: rich-text
+            description: Longer write-up shown on the listing's own page.
+
+          - name: features
+            label: Features
+            type: string
+            list: true
+            description: Short bullet points, e.g. "2-car garage"
+
+          - name: isSample
+            label: This is a sample listing (not a real property)
+            type: boolean
+            default: false
+            description: Shows a "Sample" badge and keeps the page out of Google search results. Leave unchecked for real listings.
 
   - name: services
     label: How I Can Help

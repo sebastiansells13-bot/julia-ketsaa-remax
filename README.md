@@ -34,13 +34,31 @@ Two disclosures required on real-estate marketing appear in the site footer
 Don't remove either without checking with Julia's broker first — both are
 standard, typically required elements of real-estate marketing materials.
 
-## Listings & testimonials are intentionally empty
+## Listings: 4 samples, clearly marked — testimonials still empty
 
-`src/_data/listings.json` and `src/_data/testimonials.json` both start as
-empty lists. Nothing was fabricated under Julia's real name — invented fake
-listings or fake client reviews would be actively misleading. Add real ones
-any time through the CMS (see below); the homepage and Listings page both
-show a friendly "nothing yet, get in touch" message until then.
+`src/_data/listings.json` ships with 4 example properties so the listings
+feature (click a card → full detail page with photo, stats, description,
+features) has something to show and can be reviewed before real listings
+exist. Every one of them:
+
+- Has `isSample: true`, which renders a visible **"Sample"** badge on the
+  card and a banner on its detail page ("This is a sample listing for
+  demonstration — not a real property for sale.")
+- Uses an illustrated placeholder instead of a real photo (`image` is left
+  blank), so it can never be mistaken for an actual photographed house
+- Gets `<meta name="robots" content="noindex, nofollow">` and is excluded
+  from the sitemap, so none of it turns up in Google
+
+**To add a real listing:** in the CMS, add a new entry, leave "This is a
+sample listing" **unchecked**, and upload a real photo — the placeholder
+illustration and badge only appear when those are left blank/unchecked.
+**To remove the samples:** delete their entries in the CMS or in
+`src/_data/listings.json` once real ones exist.
+
+`src/_data/testimonials.json` starts empty — nothing was fabricated under
+Julia's real name for reviews, since a fake client quote is a different
+order of misleading than a labeled sample listing. Add real ones any time
+through the CMS.
 
 ## Newsletter signup
 

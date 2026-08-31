@@ -1,0 +1,26 @@
+{#
+  A small original illustration used when a listing has no real photo yet —
+  deliberately illustrated rather than photographic, so a sample listing
+  never reads as "here's a photo of the actual house." Cycles through 4
+  palettes so sample cards don't look identical.
+#}
+{% macro listingPlaceholder(seed) %}
+{% set palettes = [
+  { bg: "#fdf1e8", house: "#e4002b", roof: "#101820" },
+  { bg: "#eaf1fb", house: "#003da5", roof: "#101820" },
+  { bg: "#fdf1e8", house: "#101820", roof: "#e4002b" },
+  { bg: "#eaf1fb", house: "#101820", roof: "#003da5" }
+] %}
+{% set p = palettes[seed % 4] %}
+<svg viewBox="0 0 320 200" class="listing-placeholder" role="img" aria-label="Illustration standing in for a listing photo">
+  <rect width="320" height="200" fill="{{ p.bg }}"/>
+  <circle cx="256" cy="46" r="24" fill="#f5c344"/>
+  <polygon points="0,150 55,92 110,150" fill="#c9bfae" opacity="0.45"/>
+  <polygon points="70,160 160,76 250,160" fill="#c9bfae" opacity="0.35"/>
+  <rect x="90" y="120" width="140" height="70" fill="{{ p.house }}"/>
+  <polygon points="80,120 160,58 240,120" fill="{{ p.roof }}"/>
+  <rect x="140" y="150" width="30" height="40" fill="{{ p.bg }}"/>
+  <rect x="104" y="134" width="24" height="24" fill="{{ p.bg }}"/>
+  <rect x="192" y="134" width="24" height="24" fill="{{ p.bg }}"/>
+</svg>
+{% endmacro %}

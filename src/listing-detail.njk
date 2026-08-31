@@ -1,0 +1,60 @@
+---
+pagination:
+  data: listings.list
+  size: 1
+  alias: listing
+permalink: "/listings/{{ listing.address | slugify }}/"
+eleventyExcludeFromCollections: true
+layout: layouts/page.njk
+eleventyComputed:
+  title: "{{ listing.address }}"
+  description: "{{ listing.blurb }}"
+---
+{% from "macros/listing-placeholder.njk" import listingPlaceholder %}
+<div class="listing-detail wrapper">
+  <p class="listing-detail__back"><a href="/listings/">← All listings</a></p>
+
+  {% if listing.isSample %}
+  <p class="sample-banner">This is a sample listing for demonstration — not a real property for sale. <a href="/contact/">Contact Julia</a> for current listings.</p>
+  {% endif %}
+
+  <div class="listing-detail__media">
+    {% if listing.image %}
+    <img src="{{ listing.image }}" alt="{{ listing.address }}">
+    {% else %}
+    {{ listingPlaceholder(pagination.pageNumber) }}
+    {% endif %}
+    <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}">{{ listing.status }}</span>
+  </div>
+
+  <div class="listing-detail__header">
+    <p class="listing-detail__price">{{ listing.price }}</p>
+    <h1>{{ listing.address }}</h1>
+    <p class="listing-detail__location">{{ listing.location }}</p>
+  </div>
+
+  <dl class="listing-detail__stats">
+    <div><dt>Beds</dt><dd>{{ listing.beds }}</dd></div>
+    <div><dt>Baths</dt><dd>{{ listing.baths }}</dd></div>
+    <div><dt>Sqft</dt><dd>{{ listing.sqft }}</dd></div>
+    {% if listing.yearBuilt %}<div><dt>Year Built</dt><dd>{{ listing.yearBuilt }}</dd></div>{% endif %}
+    {% if listing.lotSize %}<div><dt>Lot Size</dt><dd>{{ listing.lotSize }}</dd></div>{% endif %}
+  </dl>
+
+  {% if listing.description %}
+  <p class="listing-detail__description">{{ listing.description | safe }}</p>
+  {% endif %}
+
+  {% if listing.features and listing.features.length %}
+  <div class="listing-detail__features">
+    <h2>Features</h2>
+    <ul>
+      {% for feature in listing.features %}
+      <li>{{ feature }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+  {% endif %}
+
+  <p class="listing-detail__cta"><a href="/contact/">Ask Julia about this property →</a></p>
+</div>

@@ -3,18 +3,22 @@ layout: layouts/page.njk
 title: Listings
 permalink: /listings/
 ---
+{% from "macros/listing-placeholder.njk" import listingPlaceholder %}
 <div class="wrapper">
   <h1>Current Listings</h1>
 </div>
 <section class="listings-grid wrapper">
   {% for listing in listings.list %}
-  <div class="listing-card">
-    {% if listing.image %}
+  <a class="listing-card" href="/listings/{{ listing.address | slugify }}/">
     <div class="listing-card__media">
+      {% if listing.image %}
       <img src="{{ listing.image }}" alt="">
+      {% else %}
+      {{ listingPlaceholder(loop.index0) }}
+      {% endif %}
       <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}">{{ listing.status }}</span>
+      {% if listing.isSample %}<span class="listing-card__sample">Sample</span>{% endif %}
     </div>
-    {% endif %}
     <div class="listing-card__body">
       <p class="listing-card__price">{{ listing.price }}</p>
       <h3>{{ listing.address }}</h3>
@@ -22,7 +26,7 @@ permalink: /listings/
       <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
       <p>{{ listing.blurb }}</p>
     </div>
-  </div>
+  </a>
   {% else %}
   <p>No active listings right now — <a href="/contact/">get in touch</a> and Julia can fill you in on what's coming up.</p>
   {% endfor %}

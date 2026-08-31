@@ -1,3 +1,92 @@
 {
-  "list": []
+  "list": [
+    {
+      "isSample": true,
+      "address": "1421 Sierra Vista Dr",
+      "location": "Las Cruces, NM",
+      "price": "$385,000",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1850,
+      "yearBuilt": 2006,
+      "lotSize": "0.21 acres",
+      "status": "For Sale",
+      "image": "",
+      "blurb": "Updated single-story home with mountain views and a low-maintenance xeriscape yard.",
+      "description": "This updated single-story home sits on a quiet street in Sierra Vista, with mountain views from the backyard and a layout that keeps everyday living simple. The kitchen opens directly onto the main living area, making it easy to entertain, and owned solar panels keep utility costs low year-round. Step outside to a covered patio and a yard designed for the desert — low maintenance, high curb appeal.",
+      "features": [
+        "Attached 2-car garage",
+        "Owned solar panels",
+        "Open-concept kitchen and living area",
+        "Covered back patio",
+        "Xeriscaped front and back yards"
+      ]
+    },
+    {
+      "isSample": true,
+      "address": "876 Mesquite Bloom Way",
+      "location": "Las Cruces, NM",
+      "price": "$299,500",
+      "beds": 3,
+      "baths": 2,
+      "sqft": 1420,
+      "yearBuilt": 1998,
+      "lotSize": "0.16 acres",
+      "status": "Pending",
+      "image": "",
+      "blurb": "Cozy starter home near Mesilla Valley with a fully fenced backyard.",
+      "description": "A great fit for a first-time buyer, this home is close to Mesilla Valley with a fenced backyard that's ready for pets or a garden. The roof was replaced in 2023, tile runs through the main living areas, and the primary bedroom has a generous walk-in closet. Schools and parks are just a short walk away.",
+      "features": [
+        "Fenced backyard",
+        "New roof (2023)",
+        "Tile flooring throughout main living areas",
+        "Walk-in closet in primary bedroom",
+        "Close to schools and parks"
+      ]
+    },
+    {
+      "isSample": true,
+      "address": "233 Organ Vista Cir",
+      "location": "Las Cruces, NM",
+      "price": "$459,900",
+      "beds": 4,
+      "baths": 3,
+      "sqft": 2380,
+      "yearBuilt": 2014,
+      "lotSize": "0.28 acres",
+      "status": "For Sale",
+      "image": "",
+      "blurb": "Spacious family home with direct views of the Organ Mountains and a three-car garage.",
+      "description": "Built in 2014, this four-bedroom home has room to grow into — a formal dining room for hosting, a primary suite with a walk-in shower, and a three-car garage for all the gear. The backyard faces the Organ Mountains, and residents get access to the neighborhood's shared pool for the summer months.",
+      "features": [
+        "3-car garage",
+        "Views of the Organ Mountains",
+        "Formal dining room",
+        "Primary suite with walk-in shower",
+        "Community pool access"
+      ]
+    },
+    {
+      "isSample": true,
+      "address": "58 Rio Grande Trail",
+      "location": "Las Cruces, NM",
+      "price": "$342,000",
+      "beds": 3,
+      "baths": 2.5,
+      "sqft": 1975,
+      "yearBuilt": 2001,
+      "lotSize": "0.19 acres",
+      "status": "Sold",
+      "image": "",
+      "blurb": "Charming two-story home just minutes from Downtown Las Cruces.",
+      "description": "A two-story layout with a bonus loft space gives this home flexibility that's hard to find close to Downtown Las Cruces. The covered front porch is a great spot to catch the evening light, and the attached garage keeps day-to-day life easy. This one moved fast — Julia can help you find the next one like it.",
+      "features": [
+        "Two-story layout",
+        "Bonus loft space",
+        "Attached garage",
+        "Covered front porch",
+        "Minutes from Downtown Las Cruces"
+      ]
+    }
+  ]
 }

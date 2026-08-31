@@ -13,7 +13,11 @@ You can update your site's content without touching any code.
 - **Blog Posts** — add, edit, or remove posts. Each post has a title, short
   description, date, tags, an optional cover image, and the body text.
 - **Listings** — the properties shown on the Home and Listings pages: address,
-  price, beds/baths/sqft, status (For Sale / Pending / Sold), and a photo.
+  price, beds/baths/sqft, year built, lot size, status (For Sale / Pending /
+  Sold), a photo, a full description, and a features list. The site starts
+  with 4 example listings marked "This is a sample listing" — when you add a
+  real one, leave that box unchecked and upload a real photo; leave it
+  checked (or the photo blank) and it'll show a "Sample" badge instead.
 - **How I Can Help** — the three service cards shown on the Home and How I Help
   pages.
 - **Testimonials** — client quotes shown on the homepage.

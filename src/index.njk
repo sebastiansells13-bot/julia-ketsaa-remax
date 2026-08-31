@@ -5,6 +5,7 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
+{% from "macros/listing-placeholder.njk" import listingPlaceholder %}
 <div class="hero hero--photo">
   <img class="hero__bg" src="/img/hero/realty-hero.jpg" alt="" width="1920" height="900">
   <div class="hero__content wrapper">
@@ -21,20 +22,23 @@ eleventyNavigation:
   </div>
 </section>
 <section class="listings-grid wrapper">
-  {% for listing in listings.list %}
-  <div class="listing-card">
-    {% if listing.image %}
+  {% for listing in listings.list | head(3) %}
+  <a class="listing-card" href="/listings/{{ listing.address | slugify }}/">
     <div class="listing-card__media">
+      {% if listing.image %}
       <img src="{{ listing.image }}" alt="">
+      {% else %}
+      {{ listingPlaceholder(loop.index0) }}
+      {% endif %}
       <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}">{{ listing.status }}</span>
+      {% if listing.isSample %}<span class="listing-card__sample">Sample</span>{% endif %}
     </div>
-    {% endif %}
     <div class="listing-card__body">
       <p class="listing-card__price">{{ listing.price }}</p>
       <h3>{{ listing.address }}</h3>
       <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
     </div>
-  </div>
+  </a>
   {% else %}
   <p>New listings are on the way — <a href="/contact/">reach out</a> for what's currently available.</p>
   {% endfor %}
