@@ -380,8 +380,59 @@
     transform: translateY(-2px);
   }
 
+  &[hidden] {
+    display: none;
+  }
+
   h3 {
     margin: 0.15rem 0;
+  }
+}
+
+.listings-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem 1.5rem;
+  align-items: flex-end;
+  padding-top: 1rem;
+}
+
+.listings-toolbar__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+
+  label {
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: $color-muted;
+  }
+
+  select {
+    padding: 0.5rem 0.75rem;
+    border: 1px solid $color-border;
+    border-radius: 0.3rem;
+    font-size: 0.95rem;
+    font-family: inherit;
+    background: #fff;
+    color: $color-text;
+    min-width: 10rem;
+
+    &:focus-visible {
+      outline: 2px solid $color-remax-blue;
+      outline-offset: 1px;
+    }
+  }
+}
+
+.listings-empty {
+  padding: 1rem 0 3rem;
+  color: $color-muted;
+
+  &[hidden] {
+    display: none;
   }
 }
 
