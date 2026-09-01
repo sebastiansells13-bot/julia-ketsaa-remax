@@ -28,12 +28,24 @@ permalink: /listings/
       </select>
     </div>
     <div class="listings-toolbar__field">
+      <label for="filter-baths">Min. baths</label>
+      <select id="filter-baths">
+        <option value="0">Any</option>
+        <option value="1">1+</option>
+        <option value="1.5">1.5+</option>
+        <option value="2">2+</option>
+        <option value="2.5">2.5+</option>
+        <option value="3">3+</option>
+      </select>
+    </div>
+    <div class="listings-toolbar__field">
       <label for="sort-listings">Sort by</label>
       <select id="sort-listings">
         <option value="default">Featured</option>
         <option value="price-asc">Price: Low to High</option>
         <option value="price-desc">Price: High to Low</option>
         <option value="beds-desc">Beds: Most to Fewest</option>
+        <option value="baths-desc">Baths: Most to Fewest</option>
         <option value="sqft-desc">Sqft: Largest to Smallest</option>
       </select>
     </div>
@@ -42,7 +54,7 @@ permalink: /listings/
 </div>
 <section class="listings-grid wrapper" id="listings-grid">
   {% for listing in listings.list %}
-  <a class="listing-card" href="/listings/{{ listing.address | slugify }}/" data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}">
+  <a class="listing-card" href="/listings/{{ listing.address | slugify }}/" data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}">
     <div class="listing-card__media">
       {% if listing.image %}
       <img src="{{ listing.image }}" alt="">

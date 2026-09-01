@@ -9,6 +9,7 @@
 
   const statusSelect = document.getElementById("filter-status");
   const bedsSelect = document.getElementById("filter-beds");
+  const bathsSelect = document.getElementById("filter-baths");
   const sortSelect = document.getElementById("sort-listings");
   const emptyMessage = document.getElementById("listings-empty");
 
@@ -19,19 +20,23 @@
     return parseInt((card.dataset.price || "0").replace(/[^0-9]/g, ""), 10) || 0;
   }
 
-  function intValue(card, key) {
-    return parseInt(card.dataset[key], 10) || 0;
+  // Beds/baths/sqft can be fractional (e.g. 2.5 baths) — parseFloat handles
+  // both whole and fractional values.
+  function numValue(card, key) {
+    return parseFloat(card.dataset[key]) || 0;
   }
 
   function apply() {
     const status = statusSelect.value;
-    const minBeds = parseInt(bedsSelect.value, 10) || 0;
+    const minBeds = parseFloat(bedsSelect.value) || 0;
+    const minBaths = parseFloat(bathsSelect.value) || 0;
     const sort = sortSelect.value;
 
     const visible = cards.filter(function (card) {
       const matchesStatus = status === "all" || card.dataset.status === status;
-      const matchesBeds = intValue(card, "beds") >= minBeds;
-      return matchesStatus && matchesBeds;
+      const matchesBeds = numValue(card, "beds") >= minBeds;
+      const matchesBaths = numValue(card, "baths") >= minBaths;
+      return matchesStatus && matchesBeds && matchesBaths;
     });
 
     let ordered;
@@ -47,9 +52,11 @@
           case "price-desc":
             return priceValue(b) - priceValue(a);
           case "beds-desc":
-            return intValue(b, "beds") - intValue(a, "beds");
+            return numValue(b, "beds") - numValue(a, "beds");
+          case "baths-desc":
+            return numValue(b, "baths") - numValue(a, "baths");
           case "sqft-desc":
-            return intValue(b, "sqft") - intValue(a, "sqft");
+            return numValue(b, "sqft") - numValue(a, "sqft");
           default:
             return 0;
         }
@@ -69,5 +76,6 @@
 
   statusSelect.addEventListener("change", apply);
   bedsSelect.addEventListener("change", apply);
+  bathsSelect.addEventListener("change", apply);
   sortSelect.addEventListener("change", apply);
 })();
