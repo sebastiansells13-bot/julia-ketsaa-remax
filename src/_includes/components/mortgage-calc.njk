@@ -1,0 +1,34 @@
+{#
+  Shared mortgage-estimate widget. Callers set `mcHeading` and
+  `mcStartingPrice` before including this (both optional — see defaults
+  below). Powered by src/_includes/js/mortgage-calculator.js.
+#}
+<div class="mortgage-calc" id="mortgage-calc" data-price="{{ mcStartingPrice or 350000 }}">
+  <h2>{{ mcHeading or "Estimate Your Payment" }}</h2>
+  <div class="mortgage-calc__grid">
+    <label class="mortgage-calc__field">
+      Home price
+      <input type="number" id="mc-price" min="0" step="1000" inputmode="numeric">
+    </label>
+    <label class="mortgage-calc__field">
+      Down payment (%)
+      <input type="number" id="mc-down" min="0" max="100" step="1" value="20" inputmode="numeric">
+    </label>
+    <label class="mortgage-calc__field">
+      Interest rate (%)
+      <input type="number" id="mc-rate" min="0" max="20" step="0.1" value="6.5" inputmode="decimal">
+    </label>
+    <label class="mortgage-calc__field">
+      Loan term
+      <select id="mc-term">
+        <option value="30" selected>30 years</option>
+        <option value="15">15 years</option>
+      </select>
+    </label>
+  </div>
+  <div class="mortgage-calc__result">
+    <p class="mortgage-calc__result-label">Estimated monthly payment</p>
+    <p class="mortgage-calc__amount" id="mc-result">$0 / mo</p>
+    <p class="mortgage-calc__note">Principal &amp; interest only — excludes taxes, insurance, and HOA dues. This is an estimate for illustration, not a loan offer; contact a lender for actual terms.</p>
+  </div>
+</div>

@@ -913,6 +913,17 @@
   line-height: 1.5;
 }
 
+// Standalone /mortgage-calculator/ page
+.mortgage-calc-page {
+  max-width: 40rem;
+  padding-bottom: 4rem;
+
+  > p {
+    color: $color-muted;
+    margin-bottom: 1.5rem;
+  }
+}
+
 // Contact form (src/_includes/components/contact-form.njk)
 .contact-form {
   padding: 1.5rem 0 4rem;

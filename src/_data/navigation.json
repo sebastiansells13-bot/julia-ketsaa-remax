@@ -1,6 +1,7 @@
 [
   { "text": "Home", "url": "/" },
   { "text": "Listings", "url": "/listings/" },
+  { "text": "Calculator", "url": "/mortgage-calculator/" },
   { "text": "About", "url": "/about/" },
   { "text": "How I Help", "url": "/how-i-help/" },
   { "text": "Blog", "url": "/blog/" },
