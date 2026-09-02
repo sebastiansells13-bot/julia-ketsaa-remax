@@ -344,7 +344,10 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
   gap: 2rem;
-  padding: 2rem 0 4rem;
+  // padding-top/-bottom only — this is also a .wrapper (for its horizontal
+  // gutter/centering); the `padding` shorthand would zero that out.
+  padding-top: 2rem;
+  padding-bottom: 4rem;
 }
 
 .service-card {
@@ -370,7 +373,9 @@
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
   gap: 2rem;
-  padding: 1.5rem 0 1rem;
+  // See .services-grid above re: padding-top/-bottom only.
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
 }
 
 .listing-card {
@@ -474,7 +479,9 @@
 }
 
 .listings-empty {
-  padding: 1rem 0 3rem;
+  // See .services-grid above re: padding-top/-bottom only.
+  padding-top: 1rem;
+  padding-bottom: 3rem;
   color: $color-muted;
 
   &[hidden] {
@@ -610,7 +617,9 @@
 
 // Testimonials
 .testimonials {
-  padding: 1rem 0 4rem;
+  // See .services-grid above re: padding-top/-bottom only.
+  padding-top: 1rem;
+  padding-bottom: 4rem;
 
   h2 {
     text-align: center;
@@ -699,7 +708,12 @@
 }
 
 .contact-details {
-  padding: 2rem 0 1rem;
+  // padding-top/-bottom only (not the `padding` shorthand) so this doesn't
+  // clobber the horizontal padding .contact-details already gets from also
+  // being a .wrapper — that shorthand zeroing left/right padding is what
+  // pushed this block flush against the viewport edge.
+  padding-top: 2rem;
+  padding-bottom: 1rem;
 
   dt {
     font-weight: 700;
@@ -924,10 +938,13 @@
   }
 }
 
-// Contact form (src/_includes/components/contact-form.njk)
+// Contact form (src/_includes/components/contact-form.njk). Not a .wrapper
+// itself — see the comment in that template — so plain vertical padding is
+// safe here; there's no horizontal gutter to accidentally zero out.
 .contact-form {
   padding: 1.5rem 0 4rem;
   max-width: 34rem;
+  margin: 0;
 }
 
 .contact-form__row {
