@@ -26,8 +26,12 @@
         {% if business.email %}<a href="mailto:{{ business.email }}">{{ business.email }}</a>{% endif %}
         {% if business.phoneCell %} · Cell {{ business.phoneCell }}{% endif %}
         {% if business.phoneOffice %} · Office {{ business.phoneOffice }}{% endif %}
-        · <a href="/faq/">FAQ</a>
       </span>
     </div>
+    <nav class="site-footer__links" aria-label="More pages">
+      <a href="/home-value/">What's My Home Worth?</a>
+      <a href="/faq/">FAQ</a>
+      <a href="/privacy/">Privacy</a>
+    </nav>
   </div>
 </footer>

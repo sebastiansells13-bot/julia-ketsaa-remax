@@ -124,11 +124,24 @@ content:
               values: [For Sale, Pending, Sold]
 
           - name: image
-            label: Photo
+            label: Cover Photo
             type: image
-            description: Leave blank to show a placeholder illustration instead (used for sample listings).
+            description: Leave blank to show a placeholder illustration instead (used for sample listings). Shown on listing cards and as the first gallery photo.
             options:
               path: listings
+
+          - name: images
+            label: Additional Photos
+            type: image
+            list: true
+            description: Extra photos shown in the gallery on the listing's own page, alongside the cover photo.
+            options:
+              path: listings
+
+          - name: videoUrl
+            label: Video Tour URL
+            type: string
+            description: A YouTube or Vimeo link (any format — a share link is fine). Leave blank if there isn't one.
 
           - name: blurb
             label: Short Description

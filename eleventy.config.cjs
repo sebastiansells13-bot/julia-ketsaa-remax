@@ -214,6 +214,62 @@ module.exports = function (eleventyConfig) {
     return JSON.stringify(schema, null, 2);
   });
 
+  // Combines a listing's cover photo (`image`) with any additional gallery
+  // photos (`images`) into one ordered, empty-filtered list for the detail
+  // page gallery. Stays empty for every sample listing (no `image`/`images`
+  // set), which correctly falls back to the illustrated placeholder.
+  eleventyConfig.addFilter("galleryImages", (listing) => {
+    const images = [listing && listing.image, ...((listing && listing.images) || [])];
+    return images.filter(Boolean);
+  });
+
+  // Normalizes a YouTube or Vimeo URL (whatever format an agent is likely
+  // to paste — watch?v=, youtu.be, a plain vimeo.com link) into its
+  // embeddable iframe-src form. Passes unrecognized-but-plausible URLs
+  // through as a best effort; returns null for anything unparseable so the
+  // template can skip rendering rather than embed a broken iframe.
+  eleventyConfig.addFilter("embedVideoUrl", (url) => {
+    if (!url) return null;
+    let parsed;
+    try {
+      parsed = new URL(url);
+    } catch (err) {
+      return null;
+    }
+    const host = parsed.hostname.replace(/^www\.|^m\./, "");
+    if (host === "youtube.com") {
+      const id = parsed.searchParams.get("v");
+      if (id) return `https://www.youtube.com/embed/${id}`;
+      if (parsed.pathname.startsWith("/embed/")) return url;
+    }
+    if (host === "youtu.be") {
+      const id = parsed.pathname.slice(1);
+      if (id) return `https://www.youtube.com/embed/${id}`;
+    }
+    if (host === "vimeo.com") {
+      const id = parsed.pathname.split("/").filter(Boolean)[0];
+      if (id) return `https://player.vimeo.com/video/${id}`;
+    }
+    if (host === "player.vimeo.com") return url;
+    return url;
+  });
+
+  // Renders a list of {name, url} crumbs as a schema.org BreadcrumbList
+  // JSON-LD block (src/listing-detail.njk).
+  eleventyConfig.addFilter("breadcrumbSchema", (crumbs, absoluteSiteUrl) => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "BreadcrumbList",
+      itemListElement: (crumbs || []).map((crumb, i) => ({
+        "@type": "ListItem",
+        position: i + 1,
+        name: crumb.name,
+        item: crumb.url ? `${absoluteSiteUrl}${crumb.url}` : undefined,
+      })),
+    };
+    return JSON.stringify(schema, null, 2);
+  });
+
   return {
     templateFormats: ["md", "njk", "html", "liquid"],
     // GitHub Pages project site (no custom domain yet) serves this at

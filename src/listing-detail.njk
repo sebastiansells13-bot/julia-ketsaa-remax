@@ -12,16 +12,34 @@ eleventyComputed:
 ---
 {% from "macros/listing-placeholder.njk" import listingPlaceholder %}
 {% set slug = listing.address | slugify %}
+{% set gallery = listing | galleryImages %}
+{% set videoEmbedUrl = listing.videoUrl | embedVideoUrl %}
+{% set crumbs = [{name: "Home", url: "/"}, {name: "Listings", url: "/listings/"}, {name: listing.address, url: "/listings/" + slug + "/"}] %}
 <div class="listing-detail wrapper" data-listing-slug="{{ slug }}">
-  <p class="listing-detail__back"><a href="/listings/">← All listings</a></p>
+  <nav class="breadcrumbs" aria-label="Breadcrumb">
+    <a href="/">Home</a> <span aria-hidden="true">/</span>
+    <a href="/listings/">Listings</a> <span aria-hidden="true">/</span>
+    <span aria-current="page">{{ listing.address }}</span>
+  </nav>
 
   {% if listing.isSample %}
   <p class="sample-banner">This is a sample listing for demonstration — not a real property for sale. <a href="/contact/">Contact Julia</a> for current listings.</p>
   {% endif %}
 
-  <div class="listing-detail__media">
-    {% if listing.image %}
-    <img src="{{ listing.image }}" alt="{{ listing.address }}">
+  <div class="listing-detail__media" id="listing-gallery">
+    {% if gallery.length %}
+    <button type="button" class="listing-detail__media-main" data-gallery-open aria-label="View larger photo">
+      <img src="{{ gallery[0] }}" alt="{{ listing.address }}" data-gallery-main-img>
+    </button>
+    {% if gallery.length > 1 %}
+    <div class="listing-detail__thumbs">
+      {% for img in gallery %}
+      <button type="button" class="listing-detail__thumb{% if loop.first %} is-active{% endif %}" data-gallery-thumb data-src="{{ img }}" aria-label="Photo {{ loop.index }} of {{ gallery.length }}">
+        <img src="{{ img }}" alt="" loading="lazy" decoding="async">
+      </button>
+      {% endfor %}
+    </div>
+    {% endif %}
     {% else %}
     {{ listingPlaceholder(pagination.pageNumber) }}
     {% endif %}
@@ -68,6 +86,15 @@ eleventyComputed:
   </div>
   {% endif %}
 
+  {% if videoEmbedUrl %}
+  <div class="video-embed-wrap">
+    <h2>Video Tour</h2>
+    <div class="video-embed">
+      <iframe src="{{ videoEmbedUrl }}" title="Video tour of {{ listing.address }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+    </div>
+  </div>
+  {% endif %}
+
   {% if listing.address %}
   {% set mapQuery = listing.address + ", " + listing.location %}
   {% include "components/map-embed.njk" %}
@@ -79,4 +106,13 @@ eleventyComputed:
 
   <p class="listing-detail__cta"><a href="/contact/">Ask Julia about this property →</a></p>
 </div>
+
+<div class="lightbox" id="lightbox" hidden>
+  <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close">&times;</button>
+  <button type="button" class="lightbox__prev" data-lightbox-prev aria-label="Previous photo">&larr;</button>
+  <img class="lightbox__img" id="lightbox-img" src="" alt="">
+  <button type="button" class="lightbox__next" data-lightbox-next aria-label="Next photo">&rarr;</button>
+</div>
+
 <script type="application/ld+json">{{ listing | listingSchema(siteUrl, slug) | safe }}</script>
+<script type="application/ld+json">{{ crumbs | breadcrumbSchema(siteUrl) | safe }}</script>
