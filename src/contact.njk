@@ -27,13 +27,7 @@ permalink: /contact/
 </dl>
 <p class="wrapper agent-bio__license">{{ business.license }}<br>{{ business.disclaimer }}</p>
 
-<!--
-  Swap this comment for a real form once you've picked a backend
-  (Netlify Forms, Formspree, etc.) per METHODOLOGY.md in the base template.
-  <form name="contact" method="POST" data-netlify="true">
-    <input type="text" name="name" placeholder="Name" required>
-    <input type="email" name="email" placeholder="Email" required>
-    <textarea name="message" placeholder="Message" required></textarea>
-    <button type="submit">Send</button>
-  </form>
--->
+<div class="wrapper">
+  <h2>Send a Message</h2>
+</div>
+{% include "components/contact-form.njk" %}

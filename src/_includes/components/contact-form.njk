@@ -1,0 +1,20 @@
+<form class="contact-form wrapper" id="contact-form" data-endpoint="CONTACT_FORM_ENDPOINT_NOT_CONFIGURED" method="post">
+  <div class="contact-form__row">
+    <label for="contact-name">Name</label>
+    <input type="text" id="contact-name" name="name" autocomplete="name" required>
+  </div>
+  <div class="contact-form__row">
+    <label for="contact-email">Email</label>
+    <input type="email" id="contact-email" name="email" autocomplete="email" required>
+  </div>
+  <div class="contact-form__row">
+    <label for="contact-phone">Phone <span class="contact-form__optional">(optional)</span></label>
+    <input type="tel" id="contact-phone" name="phone" autocomplete="tel">
+  </div>
+  <div class="contact-form__row">
+    <label for="contact-message">Message</label>
+    <textarea id="contact-message" name="message" rows="5" required></textarea>
+  </div>
+  <button type="submit">Send Message</button>
+  <p class="contact-form__status" id="contact-form-status" role="status" aria-live="polite"></p>
+</form>

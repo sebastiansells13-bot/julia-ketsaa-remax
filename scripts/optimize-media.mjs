@@ -11,6 +11,11 @@ import sharp from "sharp";
 
 const OUTPUT_DIR = "docs";
 const IMG_EXT = /\.(jpe?g|png)$/i;
+// Icon files need to stay real PNGs: iOS only accepts PNG for
+// apple-touch-icon, and PNG favicons should match their declared
+// type="image/png" — so exclude everything under favicons/ from
+// WebP conversion entirely.
+const SKIP_DIR = `${path.sep}favicons${path.sep}`;
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -32,30 +37,39 @@ async function main() {
 
   const allFiles = await walk(OUTPUT_DIR);
   const htmlFiles = allFiles.filter((f) => f.endsWith(".html"));
-  const imageFiles = allFiles.filter((f) => IMG_EXT.test(f));
+  const imageFiles = allFiles.filter((f) => IMG_EXT.test(f) && !f.includes(SKIP_DIR));
 
   if (imageFiles.length === 0) {
     console.log("[optimize-media] No JPG/PNG images found. Nothing to do.");
     return;
   }
 
+  // Only rewrite an HTML reference once we know the WebP file for it was
+  // actually produced — otherwise a failed conversion (or a JPG/PNG we
+  // deliberately skipped, like favicons) would leave behind a reference to
+  // a file that doesn't exist.
+  const convertedSuffixes = [];
   let converted = 0;
   for (const imgPath of imageFiles) {
     const webpPath = imgPath.replace(IMG_EXT, ".webp");
     try {
       await sharp(imgPath).webp({ quality: 82 }).toFile(webpPath);
       converted++;
+      convertedSuffixes.push(path.relative(OUTPUT_DIR, imgPath).split(path.sep).join("/"));
     } catch (err) {
       console.warn(`[optimize-media] Skipped ${imgPath}: ${err.message}`);
     }
   }
 
-  // Rewrite HTML references from .jpg/.png to .webp for images we converted.
+  // Rewrite HTML references from .jpg/.png to .webp, but only for paths
+  // that end in one of the relative paths we successfully converted above.
   for (const htmlPath of htmlFiles) {
     let html = await readFile(htmlPath, "utf8");
     const before = html;
-    html = html.replace(/(["'])([^"'<>]+?)\.(jpe?g|png)\1/gi, (match, quote, base, ext) => {
-      return `${quote}${base}.webp${quote}`;
+    html = html.replace(/(["'])([^"'<>]+?\.(?:jpe?g|png))\1/gi, (match, quote, refPath) => {
+      const wasConverted = convertedSuffixes.some((suffix) => refPath.endsWith(suffix));
+      if (!wasConverted) return match;
+      return `${quote}${refPath.replace(IMG_EXT, ".webp")}${quote}`;
     });
     if (html !== before) {
       await writeFile(htmlPath, html, "utf8");

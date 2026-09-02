@@ -1,16 +1,19 @@
-// Client-side filter + sort for the /listings/ page. All 4 (or however many)
-// listings are still server-rendered in the HTML — this just shows/hides and
-// reorders them, so it degrades gracefully with JS disabled (everything is
-// simply visible, unfiltered, in server order).
+// Client-side filter + sort for the /listings/ page. All listings are still
+// server-rendered in the HTML — this just shows/hides and reorders them, so
+// it degrades gracefully with JS disabled (everything is simply visible,
+// unfiltered, in server order).
 (function () {
   const toolbar = document.getElementById("listings-toolbar");
   const grid = document.getElementById("listings-grid");
   if (!toolbar || !grid) return;
 
+  const searchInput = document.getElementById("filter-search");
   const statusSelect = document.getElementById("filter-status");
   const bedsSelect = document.getElementById("filter-beds");
   const bathsSelect = document.getElementById("filter-baths");
   const sortSelect = document.getElementById("sort-listings");
+  const savedOnlyCheckbox = document.getElementById("filter-saved-only");
+  const savedCount = document.getElementById("saved-count");
   const emptyMessage = document.getElementById("listings-empty");
 
   const cards = Array.from(grid.querySelectorAll(".listing-card"));
@@ -26,17 +29,31 @@
     return parseFloat(card.dataset[key]) || 0;
   }
 
+  function isSaved(card) {
+    return !!(window.SavedListings && window.SavedListings.isSaved(card.dataset.slug));
+  }
+
+  function updateSavedCount() {
+    if (!savedCount || !window.SavedListings) return;
+    const count = cards.filter(isSaved).length;
+    savedCount.textContent = count ? "(" + count + ")" : "";
+  }
+
   function apply() {
+    const search = (searchInput.value || "").trim().toLowerCase();
     const status = statusSelect.value;
     const minBeds = parseFloat(bedsSelect.value) || 0;
     const minBaths = parseFloat(bathsSelect.value) || 0;
+    const savedOnly = savedOnlyCheckbox.checked;
     const sort = sortSelect.value;
 
     const visible = cards.filter(function (card) {
+      const matchesSearch = !search || (card.dataset.search || "").indexOf(search) !== -1;
       const matchesStatus = status === "all" || card.dataset.status === status;
       const matchesBeds = numValue(card, "beds") >= minBeds;
       const matchesBaths = numValue(card, "baths") >= minBaths;
-      return matchesStatus && matchesBeds && matchesBaths;
+      const matchesSaved = !savedOnly || isSaved(card);
+      return matchesSearch && matchesStatus && matchesBeds && matchesBaths && matchesSaved;
     });
 
     let ordered;
@@ -72,10 +89,18 @@
     });
 
     if (emptyMessage) emptyMessage.hidden = ordered.length > 0;
+    updateSavedCount();
   }
 
+  searchInput.addEventListener("input", apply);
   statusSelect.addEventListener("change", apply);
   bedsSelect.addEventListener("change", apply);
   bathsSelect.addEventListener("change", apply);
+  savedOnlyCheckbox.addEventListener("change", apply);
   sortSelect.addEventListener("change", apply);
+  // A save/unsave anywhere (this page or elsewhere) should refresh the
+  // count and, if "Saved only" is checked, the visible set too.
+  window.addEventListener("savedlistings:change", apply);
+
+  apply();
 })();

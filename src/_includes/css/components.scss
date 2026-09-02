@@ -374,16 +374,14 @@
 }
 
 .listing-card {
-  display: block;
+  position: relative;
   border: 1px solid $color-border;
   border-radius: 0.5rem;
   overflow: hidden;
-  color: $color-text;
-  text-decoration: none;
   transition: box-shadow 0.15s ease, transform 0.15s ease;
 
   &:hover,
-  &:focus-visible {
+  &:focus-within {
     box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.1);
     transform: translateY(-2px);
   }
@@ -395,6 +393,16 @@
   h3 {
     margin: 0.15rem 0;
   }
+}
+
+// Stretched-link pattern: the whole card is clickable via this invisible,
+// full-bleed anchor (z-index 1), while .listing-card__save sits above it
+// (z-index 2) so it stays independently clickable without nesting a
+// <button> inside an <a> (invalid HTML) or the two fighting over clicks.
+.listing-card__link {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
 }
 
 .listings-toolbar {
@@ -418,7 +426,8 @@
     color: $color-muted;
   }
 
-  select {
+  select,
+  input[type="search"] {
     padding: 0.5rem 0.75rem;
     border: 1px solid $color-border;
     border-radius: 0.3rem;
@@ -435,6 +444,35 @@
   }
 }
 
+.listings-toolbar__field--checkbox {
+  flex-direction: row;
+  align-items: center;
+  padding-bottom: 0.5rem;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    text-transform: none;
+    letter-spacing: normal;
+    font-weight: 600;
+    color: $color-text;
+    font-size: 0.95rem;
+    cursor: pointer;
+  }
+
+  input[type="checkbox"] {
+    width: 1.1rem;
+    height: 1.1rem;
+    accent-color: $color-remax-blue;
+  }
+
+  #saved-count {
+    color: $color-muted;
+    font-weight: 400;
+  }
+}
+
 .listings-empty {
   padding: 1rem 0 3rem;
   color: $color-muted;
@@ -446,6 +484,9 @@
 
 .listing-card__media {
   position: relative;
+  // Above .listing-card__link (z-index 1) so the save button here stays
+  // independently clickable instead of triggering the card-wide link.
+  z-index: 2;
 
   img,
   .listing-placeholder {
@@ -493,6 +534,60 @@
   letter-spacing: 0.04em;
   padding: 0.3rem 0.6rem;
   border-radius: 0.25rem;
+}
+
+.listing-card__save {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.25rem;
+  height: 2.25rem;
+  border: none;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.9);
+  color: $color-text;
+  cursor: pointer;
+  box-shadow: 0 0.1rem 0.4rem rgba(0, 0, 0, 0.2);
+
+  &:hover {
+    color: $color-remax-red;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-remax-blue;
+    outline-offset: 2px;
+  }
+
+  &[aria-pressed="true"] {
+    color: $color-remax-red;
+
+    .star-icon path {
+      fill: currentColor;
+    }
+  }
+
+  .star-icon {
+    width: 1.15rem;
+    height: 1.15rem;
+  }
+}
+
+// Detail-page variant: inline next to the price, not an absolute overlay.
+.listing-card__save--detail {
+  position: static;
+  width: auto;
+  height: auto;
+  border-radius: 2rem;
+  padding: 0.5rem 0.9rem;
+  gap: 0.4rem;
+  background: #fff;
+  border: 1px solid $color-border;
+  font-weight: 600;
+  font-size: 0.9rem;
+  box-shadow: none;
 }
 
 .listing-card__body {
@@ -669,6 +764,13 @@
   }
 }
 
+.listing-detail__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
 .listing-detail__price {
   color: $color-accent;
   font-weight: 700;
@@ -739,4 +841,142 @@
   &:hover {
     background: darken($color-remax-red, 8%);
   }
+}
+
+// Mortgage estimator (src/listing-detail.njk)
+.mortgage-calc {
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  padding: 1.5rem;
+  background: #faf8f3;
+
+  h2 {
+    margin: 0 0 1rem;
+    font-size: 1.15rem;
+  }
+}
+
+.mortgage-calc__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr));
+  gap: 1rem;
+}
+
+.mortgage-calc__field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: $color-muted;
+
+  input,
+  select {
+    padding: 0.5rem 0.6rem;
+    border: 1px solid $color-border;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: $color-text;
+    background: #fff;
+
+    &:focus-visible {
+      outline: 2px solid $color-remax-blue;
+      outline-offset: 1px;
+    }
+  }
+}
+
+.mortgage-calc__result {
+  margin-top: 1.25rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid $color-border;
+}
+
+.mortgage-calc__result-label {
+  margin: 0;
+  font-size: 0.85rem;
+  color: $color-muted;
+}
+
+.mortgage-calc__amount {
+  margin: 0.15rem 0 0.5rem;
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: $color-remax-blue;
+}
+
+.mortgage-calc__note {
+  margin: 0;
+  font-size: 0.8rem;
+  color: $color-muted;
+  line-height: 1.5;
+}
+
+// Contact form (src/_includes/components/contact-form.njk)
+.contact-form {
+  padding: 1.5rem 0 4rem;
+  max-width: 34rem;
+}
+
+.contact-form__row {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1.1rem;
+
+  label {
+    font-weight: 600;
+    font-size: 0.9rem;
+  }
+
+  input,
+  textarea {
+    padding: 0.6rem 0.75rem;
+    border: 1px solid $color-border;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    font-family: inherit;
+    color: $color-text;
+
+    &:focus-visible {
+      outline: 2px solid $color-remax-blue;
+      outline-offset: 1px;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+  }
+}
+
+.contact-form__optional {
+  font-weight: 400;
+  color: $color-muted;
+}
+
+.contact-form button[type="submit"] {
+  padding: 0.75rem 1.5rem;
+  border: none;
+  border-radius: 0.3rem;
+  background: $color-remax-red;
+  color: #fff;
+  font-weight: 700;
+  font-size: 1rem;
+  cursor: pointer;
+
+  &:hover {
+    background: darken($color-remax-red, 8%);
+  }
+
+  &:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+  }
+}
+
+.contact-form__status {
+  margin: 0.75rem 0 0;
+  font-size: 0.9rem;
+  color: $color-muted;
 }

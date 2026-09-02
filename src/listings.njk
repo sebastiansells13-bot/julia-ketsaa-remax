@@ -9,6 +9,10 @@ permalink: /listings/
   {% if listings.list.length %}
   <div class="listings-toolbar" id="listings-toolbar">
     <div class="listings-toolbar__field">
+      <label for="filter-search">Search</label>
+      <input type="search" id="filter-search" placeholder="Address, area, keyword...">
+    </div>
+    <div class="listings-toolbar__field">
       <label for="filter-status">Status</label>
       <select id="filter-status">
         <option value="all">All statuses</option>
@@ -49,20 +53,28 @@ permalink: /listings/
         <option value="sqft-desc">Sqft: Largest to Smallest</option>
       </select>
     </div>
+    <div class="listings-toolbar__field listings-toolbar__field--checkbox">
+      <label><input type="checkbox" id="filter-saved-only"> Saved only <span id="saved-count"></span></label>
+    </div>
   </div>
   {% endif %}
 </div>
 <section class="listings-grid wrapper" id="listings-grid">
   {% for listing in listings.list %}
-  <a class="listing-card" href="/listings/{{ listing.address | slugify }}/" data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}">
+  {% set slug = listing.address | slugify %}
+  <div class="listing-card" data-slug="{{ slug }}" data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}" data-search="{{ (listing.address + ' ' + listing.location + ' ' + listing.blurb) | lower }}">
+    <a class="listing-card__link" href="/listings/{{ slug }}/" aria-label="View details for {{ listing.address }}"></a>
     <div class="listing-card__media">
       {% if listing.image %}
-      <img src="{{ listing.image }}" alt="">
+      <img src="{{ listing.image }}" alt="{{ listing.address }}" loading="lazy" decoding="async">
       {% else %}
       {{ listingPlaceholder(loop.index0) }}
       {% endif %}
       <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}">{{ listing.status }}</span>
       {% if listing.isSample %}<span class="listing-card__sample">Sample</span>{% endif %}
+      <button type="button" class="listing-card__save" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
+        {% include "components/star-icon.njk" %}
+      </button>
     </div>
     <div class="listing-card__body">
       <p class="listing-card__price">{{ listing.price }}</p>
@@ -71,7 +83,7 @@ permalink: /listings/
       <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
       <p>{{ listing.blurb }}</p>
     </div>
-  </a>
+  </div>
   {% else %}
   <p>No active listings right now — <a href="/contact/">get in touch</a> and Julia can fill you in on what's coming up.</p>
   {% endfor %}

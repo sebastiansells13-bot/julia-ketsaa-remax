@@ -131,6 +131,48 @@ module.exports = function (eleventyConfig) {
     return JSON.stringify(schema, null, 2);
   });
 
+  // Renders a single listing as a schema.org RealEstateListing JSON-LD
+  // block. Only matters once real (indexable) listings exist — sample
+  // listings carry noindex, so crawlers skip these pages entirely anyway.
+  eleventyConfig.addFilter("listingSchema", (listing, absoluteSiteUrl, slug) => {
+    const priceNumber = parseFloat(String(listing.price || "").replace(/[^0-9.]/g, "")) || undefined;
+    const availabilityByStatus = {
+      "For Sale": "https://schema.org/InStock",
+      Pending: "https://schema.org/LimitedAvailability",
+      Sold: "https://schema.org/SoldOut",
+    };
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "RealEstateListing",
+      name: [listing.address, listing.location].filter(Boolean).join(", "),
+      description: listing.blurb,
+      url: `${absoluteSiteUrl}/listings/${slug}/`,
+      about: {
+        "@type": "SingleFamilyResidence",
+        name: listing.address,
+        address: {
+          "@type": "PostalAddress",
+          streetAddress: listing.address,
+          addressLocality: listing.location,
+        },
+        numberOfBedrooms: listing.beds,
+        numberOfBathroomsTotal: listing.baths,
+        floorSize: listing.sqft
+          ? { "@type": "QuantitativeValue", value: listing.sqft, unitCode: "FTK" }
+          : undefined,
+      },
+      offers: priceNumber
+        ? {
+            "@type": "Offer",
+            price: priceNumber,
+            priceCurrency: "USD",
+            availability: availabilityByStatus[listing.status],
+          }
+        : undefined,
+    };
+    return JSON.stringify(schema, null, 2);
+  });
+
   return {
     templateFormats: ["md", "njk", "html", "liquid"],
     // GitHub Pages project site (no custom domain yet) serves this at

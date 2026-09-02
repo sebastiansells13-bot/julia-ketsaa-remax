@@ -23,22 +23,27 @@ eleventyNavigation:
 </section>
 <section class="listings-grid wrapper">
   {% for listing in listings.list | head(3) %}
-  <a class="listing-card" href="/listings/{{ listing.address | slugify }}/">
+  {% set slug = listing.address | slugify %}
+  <div class="listing-card" data-slug="{{ slug }}">
+    <a class="listing-card__link" href="/listings/{{ slug }}/" aria-label="View details for {{ listing.address }}"></a>
     <div class="listing-card__media">
       {% if listing.image %}
-      <img src="{{ listing.image }}" alt="">
+      <img src="{{ listing.image }}" alt="{{ listing.address }}" loading="lazy" decoding="async">
       {% else %}
       {{ listingPlaceholder(loop.index0) }}
       {% endif %}
       <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}">{{ listing.status }}</span>
       {% if listing.isSample %}<span class="listing-card__sample">Sample</span>{% endif %}
+      <button type="button" class="listing-card__save" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
+        {% include "components/star-icon.njk" %}
+      </button>
     </div>
     <div class="listing-card__body">
       <p class="listing-card__price">{{ listing.price }}</p>
       <h3>{{ listing.address }}</h3>
       <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
     </div>
-  </a>
+  </div>
   {% else %}
   <p>New listings are on the way — <a href="/contact/">reach out</a> for what's currently available.</p>
   {% endfor %}
@@ -47,7 +52,7 @@ eleventyNavigation:
 <section class="services-grid wrapper">
   {% for service in services.list %}
   <div class="service-card">
-    {% if service.icon %}<img src="{{ service.icon }}" alt="" class="service-card__icon">{% endif %}
+    {% if service.icon %}<img src="{{ service.icon }}" alt="" class="service-card__icon" loading="lazy" decoding="async">{% endif %}
     <h3>{{ service.title }}</h3>
     <p>{{ service.description }}</p>
   </div>

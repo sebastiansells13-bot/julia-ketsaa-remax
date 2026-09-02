@@ -6,7 +6,7 @@ permalink: /about/
 <div class="wrapper agent-bio">
   <h1>About {{ business.name }}</h1>
   <div class="agent-bio__layout{% if not business.photo %} agent-bio__layout--no-photo{% endif %}">
-    {% if business.photo %}<img src="{{ business.photo }}" alt="{{ business.name }}" class="agent-bio__photo">{% endif %}
+    {% if business.photo %}<img src="{{ business.photo }}" alt="{{ business.name }}" class="agent-bio__photo" loading="lazy" decoding="async">{% endif %}
     <div>
       <p class="agent-bio__title">{{ business.title }}</p>
       <p>{{ business.bio | safe }}</p>
