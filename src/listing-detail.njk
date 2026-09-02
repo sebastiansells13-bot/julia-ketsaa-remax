@@ -12,7 +12,7 @@ eleventyComputed:
 ---
 {% from "macros/listing-placeholder.njk" import listingPlaceholder %}
 {% set slug = listing.address | slugify %}
-<div class="listing-detail wrapper">
+<div class="listing-detail wrapper" data-listing-slug="{{ slug }}">
   <p class="listing-detail__back"><a href="/listings/">← All listings</a></p>
 
   {% if listing.isSample %}
@@ -31,10 +31,15 @@ eleventyComputed:
   <div class="listing-detail__header">
     <div class="listing-detail__header-row">
       <p class="listing-detail__price">{{ listing.price }}</p>
-      <button type="button" class="listing-card__save listing-card__save--detail" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
-        {% include "components/star-icon.njk" %}
-        <span>Save</span>
-      </button>
+      <div class="listing-detail__header-actions">
+        <button type="button" class="listing-card__save listing-card__save--detail" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
+          {% include "components/star-icon.njk" %}
+          <span>Save</span>
+        </button>
+        <button type="button" class="listing-detail__share" data-share-listing data-title="{{ listing.address }}, {{ listing.location }}">
+          <span>Share</span>
+        </button>
+      </div>
     </div>
     <h1>{{ listing.address }}</h1>
     <p class="listing-detail__location">{{ listing.location }}</p>
@@ -61,6 +66,11 @@ eleventyComputed:
       {% endfor %}
     </ul>
   </div>
+  {% endif %}
+
+  {% if listing.address %}
+  {% set mapQuery = listing.address + ", " + listing.location %}
+  {% include "components/map-embed.njk" %}
   {% endif %}
 
   {% set mcHeading = "Estimate Your Payment" %}

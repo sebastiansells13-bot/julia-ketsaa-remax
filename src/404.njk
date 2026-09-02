@@ -1,0 +1,29 @@
+---
+layout: layouts/page.njk
+title: Page Not Found
+permalink: /404.html
+noindex: true
+eleventyExcludeFromCollections: true
+---
+<div class="wrapper not-found">
+  <h1>Page Not Found</h1>
+  <p>Sorry, that page doesn't exist — it may have moved, or the link might be out of date.</p>
+
+  <form class="not-found__search" action="/listings/" method="get">
+    <label for="not-found-search">Search listings</label>
+    <div class="not-found__search-row">
+      <input type="search" id="not-found-search" name="q" placeholder="Address, area, keyword...">
+      <button type="submit">Search</button>
+    </div>
+  </form>
+
+  <p class="not-found__links-label">Or try one of these:</p>
+  <ul class="not-found__links">
+    <li><a href="/">Home</a></li>
+    <li><a href="/listings/">Listings</a></li>
+    <li><a href="/mortgage-calculator/">Mortgage Calculator</a></li>
+    <li><a href="/about/">About</a></li>
+    <li><a href="/faq/">FAQ</a></li>
+    <li><a href="/contact/">Contact</a></li>
+  </ul>
+</div>

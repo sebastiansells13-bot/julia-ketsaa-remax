@@ -1,0 +1,16 @@
+{#
+  Caller sets `mapQuery` (a plain address string) before including this.
+  Uses Google's no-API-key embeddable map URL format
+  (maps.google.com/maps?...&output=embed) — no account or billing needed.
+#}
+<div class="map-embed-wrap">
+  <iframe
+    class="map-embed"
+    src="https://maps.google.com/maps?q={{ mapQuery | urlencode }}&z=14&output=embed"
+    title="Map showing {{ mapQuery }}"
+    loading="lazy"
+    referrerpolicy="no-referrer-when-downgrade"></iframe>
+  <p class="map-directions">
+    <a href="https://www.google.com/maps/dir/?api=1&destination={{ mapQuery | urlencode }}" target="_blank" rel="noopener">Get Directions →</a>
+  </p>
+</div>

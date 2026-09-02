@@ -25,6 +25,12 @@ permalink: /contact/
   <dd>{{ business.address }}</dd>
   {% endif %}
 </dl>
+{% if business.address %}
+<div class="wrapper">
+  {% set mapQuery = business.address %}
+  {% include "components/map-embed.njk" %}
+</div>
+{% endif %}
 <p class="wrapper agent-bio__license">{{ business.license }}<br>{{ business.disclaimer }}</p>
 
 <div class="wrapper">

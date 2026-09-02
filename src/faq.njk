@@ -1,0 +1,35 @@
+---
+layout: layouts/page.njk
+title: FAQ
+description: Answers to common questions about buying and selling a home.
+permalink: /faq/
+eleventyComputed:
+  faqs:
+    - question: "What is earnest money?"
+      answer: "Earnest money is a deposit a buyer puts down to show they're serious about a purchase, usually held in escrow and credited toward the down payment or closing costs at closing. If the deal falls through for a reason covered by the contract's contingencies, it's typically refundable — a lender or real estate attorney can walk you through the exact terms of any offer."
+    - question: "How long does closing usually take?"
+      answer: "It varies by financing and local process, but a typical closing often takes somewhere around 30 to 45 days from an accepted offer, faster for a cash purchase. Julia can give you a more specific timeline once you're under contract."
+    - question: "What's a comparative market analysis (CMA)?"
+      answer: "A CMA looks at recently sold, active, and pending listings similar to a property to estimate a realistic price range — it's the standard starting point for pricing a home to sell, and it's free to request."
+    - question: "Do I need a real estate agent to buy a home?"
+      answer: "It's not legally required, but an agent represents your interests through negotiation, inspections, and paperwork, and helps you avoid costly mistakes — most buyers find it well worth having someone in their corner."
+    - question: "What's the difference between pre-qualified and pre-approved?"
+      answer: "Pre-qualification is a quick, informal estimate of what you might be able to borrow based on unverified information. Pre-approval involves a lender actually verifying your income, credit, and finances, and carries more weight with sellers when you make an offer."
+    - question: "What closing costs should buyers expect?"
+      answer: "Buyer closing costs commonly include the lender's fees, appraisal, title insurance, and prepaid items like property taxes and homeowners insurance — often a few percent of the purchase price in total. Your lender will provide an itemized estimate once you're under contract."
+    - question: "How does agent compensation work?"
+      answer: "Compensation arrangements can vary by transaction and are spelled out in writing before you're represented — ask Julia to walk you through the current agreement options so you know exactly what to expect."
+    - question: "What should I do before listing my home?"
+      answer: "Small fixes, a deep clean, decluttering, and good photos consistently make the biggest difference. Julia can walk through your home with you and put together a prioritized list before it goes on the market."
+---
+<div class="wrapper faq-page">
+  <h1>Frequently Asked Questions</h1>
+  <p class="faq-page__intro">General answers to get you oriented — every situation is different, so reach out to <a href="/contact/">Julia</a> for guidance specific to yours.</p>
+  {% for item in faqs %}
+  <details class="faq-item">
+    <summary>{{ item.question }}</summary>
+    <p>{{ item.answer }}</p>
+  </details>
+  {% endfor %}
+</div>
+<script type="application/ld+json">{{ faqs | faqSchema(siteUrl) | safe }}</script>

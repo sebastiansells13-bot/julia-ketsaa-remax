@@ -33,16 +33,29 @@
   <script type="application/ld+json">{{ business | businessSchema(siteUrl) | safe }}</script>
 </head>
 <body>
+  <a class="skip-link" href="#main-content">Skip to content</a>
   {% include "components/header.njk" %}
-  <main>
+  <main id="main-content">
     {{ content | safe }}
   </main>
   {% include "components/footer.njk" %}
+  {#
+    Every listing (with a precomputed slug) as plain JSON, for client-side
+    scripts that need to look up listing details from a slug in
+    localStorage (recently-viewed, compare) without a page reload. Not
+    application/ld+json — this is data for our own scripts, not structured
+    data for crawlers.
+  #}
+  <script type="application/json" id="listings-data">{{ listings.list | listingsWithSlugs | dump | safe }}</script>
+  <script>window.SITE_BASE = "{{ sitePathPrefix }}";</script>
   <script src="/js/nav.js" defer></script>
   <script src="/js/newsletter.js" defer></script>
   <script src="/js/saved-listings.js" defer></script>
   <script src="/js/listings-filter.js" defer></script>
   <script src="/js/mortgage-calculator.js" defer></script>
   <script src="/js/contact-form.js" defer></script>
+  <script src="/js/recently-viewed.js" defer></script>
+  <script src="/js/compare.js" defer></script>
+  <script src="/js/share-listing.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,19 @@
+---
+layout: layouts/page.njk
+title: Compare Saved Listings
+description: Compare the listings you've saved, side by side.
+permalink: /compare/
+noindex: true
+eleventyExcludeFromCollections: true
+---
+<div class="wrapper compare-page">
+  <h1>Compare Saved Listings</h1>
+  <p class="compare-page__intro">Listings you've starred, side by side. <a href="/listings/">Browse all listings →</a></p>
+  <p id="compare-empty" hidden>You haven't saved any listings yet. Browse <a href="/listings/">listings</a> and tap the star on any card to add it here.</p>
+  <div class="table-scroll" id="compare-table-wrap" hidden>
+    <table class="compare-table" id="compare-table">
+      <thead></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</div>

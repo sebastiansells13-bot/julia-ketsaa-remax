@@ -1,0 +1,47 @@
+// Printable listing flyer. Hides site chrome/interactive widgets that don't
+// make sense on paper; keeps the property photo, facts, and Julia's contact
+// info so a printout works as a standalone handout (open houses, etc).
+@media print {
+  .site-header__toggle,
+  .site-header nav,
+  .newsletter,
+  .site-footer__bottom,
+  .listing-detail__back,
+  .listing-card__save,
+  .listing-detail__share,
+  .map-embed-wrap,
+  .mortgage-calc,
+  .listing-detail__cta,
+  .skip-link,
+  .sample-banner {
+    display: none !important;
+  }
+
+  .site-header {
+    border-bottom: 1px solid #000;
+  }
+
+  a {
+    color: #000;
+    text-decoration: none;
+  }
+
+  .listing-detail__media img,
+  .listing-detail__media .listing-placeholder {
+    max-height: 4in;
+  }
+
+  .site-footer {
+    background: none !important;
+    color: #000 !important;
+    border-top: 1px solid #000;
+
+    a {
+      color: #000 !important;
+    }
+  }
+
+  .equal-housing__icon {
+    color: #000 !important;
+  }
+}

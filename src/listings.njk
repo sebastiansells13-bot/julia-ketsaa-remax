@@ -6,6 +6,10 @@ permalink: /listings/
 {% from "macros/listing-placeholder.njk" import listingPlaceholder %}
 <div class="wrapper">
   <h1>Current Listings</h1>
+  <div class="recently-viewed" id="recently-viewed" hidden>
+    <h2>Recently Viewed</h2>
+    <ul></ul>
+  </div>
   {% if listings.list.length %}
   <div class="listings-toolbar" id="listings-toolbar">
     <div class="listings-toolbar__field">
@@ -55,6 +59,7 @@ permalink: /listings/
     </div>
     <div class="listings-toolbar__field listings-toolbar__field--checkbox">
       <label><input type="checkbox" id="filter-saved-only"> Saved only <span id="saved-count"></span></label>
+      <a href="/compare/" id="compare-link" hidden>Compare →</a>
     </div>
   </div>
   {% endif %}

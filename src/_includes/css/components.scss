@@ -476,6 +476,66 @@
     color: $color-muted;
     font-weight: 400;
   }
+
+  #compare-link {
+    margin-left: 1rem;
+    font-weight: 600;
+    text-decoration: none;
+
+    &[hidden] {
+      display: none;
+    }
+  }
+}
+
+// "Recently Viewed" strip (top of /listings/, rendered client-side)
+.recently-viewed {
+  padding-bottom: 0.5rem;
+
+  &[hidden] {
+    display: none;
+  }
+
+  h2 {
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+    color: $color-muted;
+    margin: 0 0 0.5rem;
+  }
+
+  ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+
+  a {
+    display: flex;
+    flex-direction: column;
+    gap: 0.1rem;
+    padding: 0.5rem 0.85rem;
+    border: 1px solid $color-border;
+    border-radius: 0.4rem;
+    text-decoration: none;
+    color: $color-text;
+    font-size: 0.85rem;
+
+    &:hover {
+      border-color: $color-remax-blue;
+    }
+  }
+}
+
+.recently-viewed__address {
+  font-weight: 600;
+}
+
+.recently-viewed__price {
+  color: $color-accent;
 }
 
 .listings-empty {
@@ -785,6 +845,35 @@
   gap: 1rem;
 }
 
+.listing-detail__header-actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.listing-detail__share {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: 2rem;
+  padding: 0.5rem 0.9rem;
+  background: #fff;
+  border: 1px solid $color-border;
+  color: $color-text;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-remax-blue;
+    color: $color-remax-blue;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-remax-blue;
+    outline-offset: 2px;
+  }
+}
+
 .listing-detail__price {
   color: $color-accent;
   font-weight: 700;
@@ -857,6 +946,29 @@
   }
 }
 
+// Embedded map (components/map-embed.njk) — used on Contact and each
+// listing's detail page.
+.map-embed-wrap {
+  margin: 0.5rem 0;
+}
+
+.map-embed {
+  display: block;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+}
+
+.map-directions {
+  margin: 0.5rem 0 0;
+
+  a {
+    font-weight: 600;
+    text-decoration: none;
+  }
+}
+
 // Mortgage estimator (src/listing-detail.njk)
 .mortgage-calc {
   border: 1px solid $color-border;
@@ -925,6 +1037,201 @@
   font-size: 0.8rem;
   color: $color-muted;
   line-height: 1.5;
+}
+
+// 404 page
+.not-found {
+  max-width: 32rem;
+  padding-bottom: 4rem;
+}
+
+.not-found__search {
+  margin: 1.5rem 0;
+
+  label {
+    display: block;
+    font-weight: 600;
+    margin-bottom: 0.4rem;
+  }
+}
+
+.not-found__search-row {
+  display: flex;
+  gap: 0.5rem;
+
+  input {
+    flex: 1;
+    padding: 0.55rem 0.75rem;
+    border: 1px solid $color-border;
+    border-radius: 0.3rem;
+    font-size: 1rem;
+    font-family: inherit;
+
+    &:focus-visible {
+      outline: 2px solid $color-remax-blue;
+      outline-offset: 1px;
+    }
+  }
+
+  button {
+    padding: 0.55rem 1.1rem;
+    border: none;
+    border-radius: 0.3rem;
+    background: $color-remax-red;
+    color: #fff;
+    font-weight: 700;
+    cursor: pointer;
+
+    &:hover {
+      background: darken($color-remax-red, 8%);
+    }
+  }
+}
+
+.not-found__links-label {
+  color: $color-muted;
+  margin-bottom: 0.5rem;
+}
+
+.not-found__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+
+  a {
+    display: block;
+    padding: 0.5rem 0.9rem;
+    border: 1px solid $color-border;
+    border-radius: 2rem;
+    text-decoration: none;
+    color: $color-text;
+    font-weight: 600;
+    font-size: 0.9rem;
+
+    &:hover {
+      border-color: $color-remax-blue;
+      color: $color-remax-blue;
+    }
+  }
+}
+
+.how-i-help__faq-link {
+  color: $color-muted;
+  padding-bottom: 3rem;
+}
+
+// Standalone /faq/ page
+.faq-page {
+  max-width: 42rem;
+  padding-bottom: 4rem;
+}
+
+.faq-page__intro {
+  color: $color-muted;
+  margin-bottom: 1.5rem;
+}
+
+.faq-item {
+  border-bottom: 1px solid $color-border;
+  padding: 1rem 0;
+
+  summary {
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+
+    &::-webkit-details-marker {
+      display: none;
+    }
+
+    &::before {
+      content: "+ ";
+      color: $color-remax-red;
+    }
+  }
+
+  &[open] summary::before {
+    content: "− ";
+  }
+
+  p {
+    margin: 0.75rem 0 0;
+    color: $color-text;
+    line-height: 1.6;
+  }
+}
+
+// Standalone /compare/ page
+.compare-page__intro {
+  color: $color-muted;
+  margin-bottom: 1.5rem;
+}
+
+#compare-empty {
+  color: $color-muted;
+  padding-bottom: 3rem;
+}
+
+// Wide content (the comparison table) scrolls within itself rather than
+// letting the page scroll horizontally.
+.table-scroll {
+  overflow-x: auto;
+  padding-bottom: 3rem;
+}
+
+.compare-table {
+  border-collapse: collapse;
+  width: 100%;
+  min-width: 32rem;
+
+  th,
+  td {
+    text-align: left;
+    padding: 0.65rem 1rem;
+    border-bottom: 1px solid $color-border;
+    white-space: nowrap;
+  }
+
+  thead th {
+    background: #faf8f3;
+    vertical-align: top;
+
+    a {
+      display: block;
+      font-weight: 700;
+      text-decoration: none;
+      color: $color-text;
+      margin-bottom: 0.3rem;
+
+      &:hover {
+        color: $color-remax-blue;
+      }
+    }
+  }
+
+  tbody th {
+    color: $color-muted;
+    font-weight: 600;
+    white-space: nowrap;
+  }
+}
+
+.compare-table__remove {
+  border: 1px solid $color-border;
+  background: #fff;
+  color: $color-muted;
+  font-size: 0.75rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 0.25rem;
+  cursor: pointer;
+
+  &:hover {
+    color: $color-remax-red;
+    border-color: $color-remax-red;
+  }
 }
 
 // Standalone /mortgage-calculator/ page

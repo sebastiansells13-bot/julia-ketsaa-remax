@@ -14,7 +14,13 @@
   const sortSelect = document.getElementById("sort-listings");
   const savedOnlyCheckbox = document.getElementById("filter-saved-only");
   const savedCount = document.getElementById("saved-count");
+  const compareLink = document.getElementById("compare-link");
   const emptyMessage = document.getElementById("listings-empty");
+
+  // Support a `?q=` URL param (used by the 404 page's search box) to land
+  // on this page with a search already applied.
+  const initialQuery = new URLSearchParams(location.search).get("q");
+  if (initialQuery) searchInput.value = initialQuery;
 
   const cards = Array.from(grid.querySelectorAll(".listing-card"));
   const originalOrder = cards.slice();
@@ -34,9 +40,10 @@
   }
 
   function updateSavedCount() {
-    if (!savedCount || !window.SavedListings) return;
+    if (!window.SavedListings) return;
     const count = cards.filter(isSaved).length;
-    savedCount.textContent = count ? "(" + count + ")" : "";
+    if (savedCount) savedCount.textContent = count ? "(" + count + ")" : "";
+    if (compareLink) compareLink.hidden = count < 2;
   }
 
   function apply() {

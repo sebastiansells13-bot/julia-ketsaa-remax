@@ -29,6 +29,26 @@ const assetPaths = {
 // can't rely on html-base-plugin's automatic root-relative rewriting.
 // Update this alongside `pathPrefix` below once Julia has a real domain.
 const siteUrl = "https://sebastiansells13-bot.github.io/julia-ketsaa-remax";
+// Same value as the `pathPrefix` returned below (no trailing slash) —
+// exposed as global data so base.njk can hand it to client-side scripts as
+// `window.SITE_BASE`. JS-constructed URLs (recently-viewed, compare) build
+// links from data read out of localStorage at runtime, so they can't rely
+// on html-base-plugin's build-time rewriting the way server-rendered hrefs
+// do — they need this to prefix their own links correctly.
+const sitePathPrefix = "/julia-ketsaa-remax";
+
+// Shared with the "slugify" template filter below — pulled out to a plain
+// function so listingsWithSlugs (also below) can reuse the exact same
+// logic when precomputing slugs for the client-side JSON data island,
+// instead of a second implementation drifting out of sync in JS.
+function slugify(str) {
+  if (!str) return "";
+  return str
+    .toLowerCase()
+    .replace(/['’]/g, "")
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-|-$/g, "");
+}
 
 module.exports = function (eleventyConfig) {
   eleventyConfig.addPlugin(pluginRss);
@@ -51,6 +71,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.setDataDeepMerge(true);
   eleventyConfig.addGlobalData("assetPaths", assetPaths);
   eleventyConfig.addGlobalData("siteUrl", siteUrl);
+  eleventyConfig.addGlobalData("sitePathPrefix", sitePathPrefix);
 
   eleventyConfig.addLayoutAlias("page", "layouts/page.njk");
   eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
@@ -69,14 +90,7 @@ module.exports = function (eleventyConfig) {
     return array.slice(0, n);
   });
 
-  eleventyConfig.addFilter("slugify", (str) => {
-    if (!str) return "";
-    return str
-      .toLowerCase()
-      .replace(/['’]/g, "")
-      .replace(/[^a-z0-9]+/g, "-")
-      .replace(/^-|-$/g, "");
-  });
+  eleventyConfig.addFilter("slugify", slugify);
 
   // During `npm start`, serve source images directly instead of copying
   // them into `dev/` on every rebuild. Production media is optimized by
@@ -173,6 +187,33 @@ module.exports = function (eleventyConfig) {
     return JSON.stringify(schema, null, 2);
   });
 
+  // Listings, each with a precomputed `slug` — dumped as a JSON data island
+  // (see base.njk) so client-side scripts (recently-viewed, compare) can
+  // look up full listing details for a slug read out of localStorage
+  // without re-deriving the slug themselves.
+  eleventyConfig.addFilter("listingsWithSlugs", (list) =>
+    (list || []).map((item) => ({ ...item, slug: slugify(item.address) }))
+  );
+
+  // Renders a list of {question, answer} pairs as a schema.org FAQPage
+  // JSON-LD block (src/faq.njk).
+  eleventyConfig.addFilter("faqSchema", (faqs, absoluteSiteUrl) => {
+    const schema = {
+      "@context": "https://schema.org",
+      "@type": "FAQPage",
+      url: `${absoluteSiteUrl}/faq/`,
+      mainEntity: (faqs || []).map((faq) => ({
+        "@type": "Question",
+        name: faq.question,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: faq.answer,
+        },
+      })),
+    };
+    return JSON.stringify(schema, null, 2);
+  });
+
   return {
     templateFormats: ["md", "njk", "html", "liquid"],
     // GitHub Pages project site (no custom domain yet) serves this at
@@ -181,7 +222,7 @@ module.exports = function (eleventyConfig) {
     // plugin above) rewrites them automatically based on this value. Once
     // Julia has a real domain pointed at this repo (via CNAME), change this
     // to "/" and update the sitemap hostname above to match.
-    pathPrefix: "/julia-ketsaa-remax/",
+    pathPrefix: `${sitePathPrefix}/`,
     markdownTemplateEngine: "njk",
     htmlTemplateEngine: "njk",
     dataTemplateEngine: "njk",
