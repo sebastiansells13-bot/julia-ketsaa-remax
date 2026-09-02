@@ -34,18 +34,54 @@ Two disclosures required on real-estate marketing appear in the site footer
 Don't remove either without checking with Julia's broker first — both are
 standard, typically required elements of real-estate marketing materials.
 
+## What's on the site
+
+**Listings** (`/listings/`) — search, status/beds/baths filters, sort, a
+"Saved only" toggle, and a live-updating count/compare link. Each card links
+to a full detail page with a photo gallery + lightbox, an optional video
+tour embed, breadcrumbs, an embedded map + directions link, a mortgage
+calculator pre-filled with that listing's price, and Save/Share buttons.
+
+**Tools reachable from anywhere** — a standalone
+[mortgage calculator](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/mortgage-calculator/)
+(nav), a [saved-listings compare table](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/compare/)
+(shows once 2+ listings are saved), a "recently viewed" strip on the
+listings page, and a printable one-page flyer for any listing (browser
+print/Ctrl+P — chrome and interactive widgets are hidden via
+`src/_includes/css/print.scss`).
+
+**Lead capture** — the general [Contact](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/contact/)
+form and the seller-focused [What's My Home Worth?](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/home-value/)
+form, plus the footer newsletter signup. All three are fully built and
+validated but **not connected to a real backend yet** — see "What isn't
+connected yet" below.
+
+**Other pages** — [FAQ](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/faq/)
+(generic buying/selling questions, `FAQPage` schema), [Privacy Notice](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/privacy/)
+(plain-language, accurate to what the site actually does), a rebuilt 404
+page (quick links + a listings search box), and a blog with a few generic
+buyer/seller-tips posts.
+
+**SEO** — canonical links, Open Graph/Twitter cards, a `RealEstateAgent`
+JSON-LD block sitewide, a `RealEstateListing` block per listing, a
+`BreadcrumbList` block per listing, and `FAQPage` on the FAQ page.
+
+**Accessibility** — a skip-to-content link, a labeled nav landmark, `alt`
+text on real content images, and `loading="lazy"` on below-the-fold images.
+
 ## Listings: 4 samples, clearly marked — testimonials still empty
 
 `src/_data/listings.json` ships with 4 example properties so the listings
-feature (click a card → full detail page with photo, stats, description,
-features) has something to show and can be reviewed before real listings
+feature has something to show and can be reviewed before real listings
 exist. Every one of them:
 
 - Has `isSample: true`, which renders a visible **"Sample"** badge on the
   card and a banner on its detail page ("This is a sample listing for
   demonstration — not a real property for sale.")
 - Uses an illustrated placeholder instead of a real photo (`image` is left
-  blank), so it can never be mistaken for an actual photographed house
+  blank), so it can never be mistaken for an actual photographed house.
+  Real photos go in `image` (cover) and optionally `images` (additional
+  gallery photos) — see CMS-GUIDE.md.
 - Gets `<meta name="robots" content="noindex, nofollow">` and is excluded
   from the sitemap, so none of it turns up in Google
 
@@ -60,15 +96,19 @@ Julia's real name for reviews, since a fake client quote is a different
 order of misleading than a labeled sample listing. Add real ones any time
 through the CMS.
 
-## Newsletter signup
+## What isn't connected yet
 
-The footer includes a working, validated email signup form. It is **not**
-connected to a live email service yet — that requires an account (Mailchimp,
-ConvertKit, Formspree, etc.) only Julia can create. Until it's connected, the
-form honestly tells visitors signups aren't live yet instead of silently
-discarding their email address. See the comment at the top of
-`src/_includes/js/newsletter.js` for the one-line change needed to go live
-once an account exists.
+Three forms are fully built and validated, but each shows an honest
+on-page message instead of submitting until it's pointed at a real backend:
+
+- **Newsletter** (footer) — see the comment atop `src/_includes/js/newsletter.js`
+- **Contact form** and **Home Value form** — both share `src/_includes/js/lead-form.js`;
+  point a form's `data-endpoint` attribute (in `contact-form.njk` or
+  `home-value.njk`) at a real service (Formspree, Netlify Forms, etc.) to
+  go live
+
+`src/privacy.njk` describes this accurately today — update it when any of
+the above gets connected, or if analytics gets added.
 
 ## CMS
 
@@ -79,10 +119,15 @@ access) can log in at https://app.pagescms.org, connect this repo, and edit:
 
 - **Agent & Business Info** — name, title, phone numbers, email, address,
   license text, bio, disclaimer, agent photo, social links
-- **Listings** — add/edit/remove property listings
+- **Listings** — add/edit/remove property listings, including the photo
+  gallery and video tour URL
 - **Testimonials** — add/edit/remove client quotes
 - **How I Can Help** — the services list
 - **Blog Posts** — market updates, tips, announcements
+
+**Not CMS-editable** (template/code content — ask the developer to change
+these): the FAQ questions/answers, the mortgage calculator's defaults, and
+the wording on the Home Value and Privacy pages.
 
 Every CMS save commits directly to this repo and triggers a new deploy
 automatically. See [CMS-GUIDE.md](CMS-GUIDE.md) for a walkthrough.

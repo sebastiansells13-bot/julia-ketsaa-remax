@@ -14,15 +14,25 @@ You can update your site's content without touching any code.
   description, date, tags, an optional cover image, and the body text.
 - **Listings** — the properties shown on the Home and Listings pages: address,
   price, beds/baths/sqft, year built, lot size, status (For Sale / Pending /
-  Sold), a photo, a full description, and a features list. The site starts
-  with 4 example listings marked "This is a sample listing" — when you add a
-  real one, leave that box unchecked and upload a real photo; leave it
-  checked (or the photo blank) and it'll show a "Sample" badge instead.
+  Sold), a cover photo, additional photos (shown as a gallery on the
+  listing's own page — click a photo to view it full-screen), an optional
+  video tour link (paste any YouTube or Vimeo link), a full description,
+  and a features list. The site starts with 4 example listings marked "This
+  is a sample listing" — when you add a real one, leave that box unchecked
+  and upload a real photo; leave it checked (or the photo blank) and it'll
+  show a "Sample" badge instead.
 - **How I Can Help** — the three service cards shown on the Home and How I Help
   pages.
 - **Testimonials** — client quotes shown on the homepage.
 - **Agent & Business Info** — your name, brokerage, tagline, contact details,
   license text, and bio shown across the site.
+
+## What you *can't* edit here
+
+The FAQ page, the mortgage calculator's default numbers, and the wording on
+the "What's My Home Worth?" and Privacy pages aren't in this CMS — they're
+part of the site's code. If you'd like something changed there, contact
+your developer.
 
 ## 3. Making a change
 

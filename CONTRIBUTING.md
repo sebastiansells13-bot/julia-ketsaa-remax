@@ -23,7 +23,8 @@ Conventions for developers (human or AI) working in this repo.
 ## Adding a new client site from this template
 
 1. Use this repo as a GitHub template (or `degit`/clone + reset git history)
-2. Update `package.json` name, `.eleventy.js` sitemap hostname, and `CNAME`
+2. Update `package.json` name, the `sitePathPrefix`/`siteUrl` constants and sitemap
+   hostname in `eleventy.config.cjs`, and `CNAME`
 3. Fill in `src/_data/business.json` from the client's intake worksheet
 4. Replace placeholder images/favicons under `src/_includes/`
 5. Update `AGENTS.md` and `CMS-GUIDE.md` for anything client-specific
