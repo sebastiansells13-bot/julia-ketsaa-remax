@@ -1622,3 +1622,11 @@
   font-size: 0.9rem;
   color: $color-muted;
 }
+
+// Google Places autocomplete dropdown (see src/_includes/js/address-autocomplete.js,
+// used on the Home Value form's address field). Google appends this to
+// <body> itself, outside any of this site's own containers, so it's styled
+// here rather than scoped to .contact-form.
+.pac-container {
+  font-family: $font-body;
+}

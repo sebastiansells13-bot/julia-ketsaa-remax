@@ -37,6 +37,16 @@ const siteUrl = "https://sebastiansells13-bot.github.io/julia-ketsaa-remax";
 // do — they need this to prefix their own links correctly.
 const sitePathPrefix = "/julia-ketsaa-remax";
 
+// Powers the "What's My Home Worth?" address autocomplete
+// (src/_includes/js/address-autocomplete.js) via the Google Maps
+// JavaScript API's Places library. Read from the environment rather than
+// hardcoded so the key never has to be committed to this public repo — set
+// it as a GOOGLE_MAPS_API_KEY repository secret for CI builds (see
+// .github/workflows/build-deploy.yml) or export it locally before
+// `npm start`. Left empty, the address field just behaves as a plain text
+// input — no key, no script load, no broken page.
+const googleMapsApiKey = process.env.GOOGLE_MAPS_API_KEY || "";
+
 // Shared with the "slugify" template filter below — pulled out to a plain
 // function so listingsWithSlugs (also below) can reuse the exact same
 // logic when precomputing slugs for the client-side JSON data island,
@@ -72,6 +82,7 @@ module.exports = function (eleventyConfig) {
   eleventyConfig.addGlobalData("assetPaths", assetPaths);
   eleventyConfig.addGlobalData("siteUrl", siteUrl);
   eleventyConfig.addGlobalData("sitePathPrefix", sitePathPrefix);
+  eleventyConfig.addGlobalData("googleMapsApiKey", googleMapsApiKey);
 
   eleventyConfig.addLayoutAlias("page", "layouts/page.njk");
   eleventyConfig.addLayoutAlias("post", "layouts/post.njk");
