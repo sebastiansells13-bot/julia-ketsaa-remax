@@ -13,8 +13,9 @@ You can update your site's content without touching any code.
 - **Blog Posts** — add, edit, or remove posts. Each post has a title, short
   description, date, tags, an optional cover image, and the body text.
 - **Listings** — the properties shown on the Home and Listings pages: address,
-  price, beds/baths/sqft, year built, lot size, status (For Sale / Pending /
-  Sold), whether it's "Just Listed" (shows it under that tab plus a small
+  price, property type (Single Family / Condo / Townhome / Land /
+  Manufactured), beds/baths/sqft, year built, lot size, status (For Sale /
+  Pending / Sold), whether it's "Just Listed" (shows it under that tab plus a small
   "New" tag), an Open House date/time (e.g. "Sat, Sep 13 · 1–3 PM" — shows
   it under the "Open Houses" tab and as a banner on its own page; leave
   blank if there isn't one scheduled), Map Latitude/Longitude (gives the

@@ -1178,20 +1178,115 @@
 
 .listing-detail__header {
   h1 {
-    margin: 0.2rem 0;
+    margin: 0.15rem 0;
   }
 }
 
 .listing-detail__header-row {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   justify-content: space-between;
   gap: 1rem;
+}
+
+.listing-detail__label {
+  margin: 0;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: $color-muted;
+}
+
+.listing-detail__price-block {
+  text-align: right;
+  flex-shrink: 0;
 }
 
 .listing-detail__header-actions {
   display: flex;
   gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+// Jump links to the full Schedule a Tour / Ask Julia forms further down
+// the page — mirrors the prominent action buttons real MLS listing pages
+// (e.g. Julia's own RE/MAX Classic Realty broker site) show right at the
+// top, without duplicating those forms twice on the page.
+.listing-detail__quick-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.listing-detail__quick-action {
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+  flex: 1;
+  min-width: 10rem;
+  padding: 0.7rem 1.25rem;
+  border-radius: 0.3rem;
+  border: 1px solid $color-remax-blue;
+  color: $color-remax-blue;
+  font-weight: 700;
+
+  &:hover {
+    background: rgba(0, 61, 165, 0.06);
+  }
+
+  &--primary {
+    background: $color-remax-blue;
+    color: #fff;
+
+    &:hover {
+      background: darken($color-remax-blue, 8%);
+    }
+  }
+}
+
+// "Your Agent" mini-card (components/listing-agent-card.njk).
+.listing-agent-card {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  background: #faf8f3;
+}
+
+.listing-agent-card__photo {
+  width: 3.5rem;
+  height: 3.5rem;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+}
+
+.listing-agent-card__label {
+  margin: 0;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: $color-muted;
+}
+
+.listing-agent-card__name {
+  margin: 0.1rem 0 0;
+  font-weight: 700;
+}
+
+.listing-agent-card__title {
+  margin: 0.1rem 0 0.3rem;
+  font-size: 0.85rem;
+  color: $color-muted;
+}
+
+.listing-agent-card__phone {
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .listing-detail__share {
@@ -1230,20 +1325,21 @@
   margin: 0;
 }
 
-.listing-detail__stats {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem 2rem;
-  padding: 1rem 0;
-  border-top: 1px solid $color-border;
-  border-bottom: 1px solid $color-border;
-
-  div {
-    min-width: 5rem;
-  }
+// Labeled spec-sheet-style attribute grid — deliberately more formal than
+// a typical card, closer to the "Property Attributes" table on an MLS-style
+// listing page (see the RE/MAX Classic Realty broker site this was modeled
+// after).
+.listing-detail__attributes {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(8rem, 1fr));
+  gap: 1rem 1.5rem;
+  padding: 1rem;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  background: #faf8f3;
 
   dt {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     text-transform: uppercase;
     letter-spacing: 0.03em;
     color: $color-muted;
@@ -1256,8 +1352,18 @@
   }
 }
 
+.listing-detail__description-wrap h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
+}
+
 .listing-detail__description {
   line-height: 1.6;
+}
+
+.listing-detail__similar h2 {
+  font-size: 1.15rem;
+  margin-bottom: 0.5rem;
 }
 
 .listing-detail__features {

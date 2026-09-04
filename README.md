@@ -40,11 +40,8 @@ standard, typically required elements of real-estate marketing materials.
 "Just Listed"/"Open Houses"/"All Listings" tab bar, an interactive map
 showing every geocoded listing (see "All-listings map" below), a "Saved
 only" toggle, and a live-updating count/compare link. Each card links to a
-full detail page with a photo gallery + lightbox, an optional video tour
-embed (YouTube or Vimeo), optional "View on Zillow"/"View on Redfin"
-links, breadcrumbs, a "Schedule a Tour" form, an embedded map + directions
-link, a mortgage calculator pre-filled with that listing's price, an "Ask
-Julia About This Property" inquiry form, and Save/Share buttons.
+full detail page — see "Listing detail page layout" below for what's on
+it.
 
 **Tools reachable from anywhere** — a standalone
 [mortgage calculator](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/mortgage-calculator/)
@@ -148,8 +145,8 @@ access) can log in at https://app.pagescms.org, connect this repo, and edit:
 - **Agent & Business Info** — name, title, phone numbers, email, address,
   license text and number, bio, disclaimer, agent photo, social links
 - **Listings** — add/edit/remove property listings, including the photo
-  gallery, video tour URL, Just Listed flag, Open House date/time, and
-  map coordinates for its pin on the Listings page map
+  gallery, video tour URL, property type, Just Listed flag, Open House
+  date/time, and map coordinates for its pin on the Listings page map
 - **Testimonials** — add/edit/remove client quotes
 - **How I Can Help** — the services list
 - **Blog Posts** — market updates, tips, announcements
@@ -220,6 +217,47 @@ tab/saved-only filters — `listings-filter.js` fires a `listings:filtered`
 event after every filter pass, and `listings-map.js` shows/hides pins to
 match, so the map and the list are never showing a different set of
 listings from each other.
+
+## Listing detail page layout
+
+A listing's own page (`src/listing-detail.njk`) is modeled on the layout
+of a real MLS-syndicated listing page — specifically Julia's own RE/MAX
+Classic Realty broker site (BoldTrail) — adapted to what a solo agent can
+realistically keep accurate by hand through the CMS, without a live MLS
+feed:
+
+- Photo gallery, then a labeled **Address**/**Price** header with
+  Save/Share buttons
+- Two quick-action buttons ("Ask a Question", "Request a Showing") that
+  jump down to the full inquiry/tour forms already on the page, so a
+  visitor sees what they can do without scrolling first
+- A "Your Agent" mini-card (name, title, phone, photo if `business.photo`
+  is set) — reuses `business.json`, nothing listing-specific to maintain
+- A labeled property-attributes grid: Property Type (new optional field —
+  Single Family/Condo/Townhome/Land/Manufactured), Status, Price, Beds,
+  Baths, Sqft, Year Built, Lot Size
+- "Property Description" (now an explicit heading, not just a bare
+  paragraph), Features, Video Tour, Zillow/Redfin links, Schedule a Tour,
+  map, mortgage calculator, a "Curious what your home is worth?" callout,
+  the "Ask Julia" inquiry form, and — new — a **Similar Properties**
+  section (the other current listings, via the `similarListings` filter)
+
+**Deliberately not replicated** from that reference page — each for a
+concrete reason, not an oversight:
+
+- **Price history and a "vs. area average" market-stats comparison** —
+  these need real historical MLS transaction and market data. Fabricating
+  numbers here would be exactly the kind of invented market stat this
+  project's own rules (see `AGENTS.md`) already forbid for testimonials.
+- **A granular MLS attribute taxonomy** (MLS#, county, zip, HOA fee,
+  sewer/heating/roof/construction specifics, a fixed amenities checklist,
+  etc.) — dozens of fields Julia would have to hand-enter and keep
+  accurate without a real feed behind them; the existing free-text
+  Features list already covers this at a scale a solo agent can sustain.
+- **Gating full photos behind a forced account signup** — that reference
+  site does this ("Resubscribe to see more photos!"); this site's photos
+  stay fully visible to every visitor. Contact/valuation forms here are
+  opt-in, not a login wall.
 
 ## How the language toggle works
 
