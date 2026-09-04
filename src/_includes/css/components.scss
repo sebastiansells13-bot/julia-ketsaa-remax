@@ -1362,7 +1362,10 @@
   padding-bottom: 3rem;
 }
 
-.how-i-help__cta {
+// Highlighted CTA banner — a bordered, cream-colored callout with a button,
+// shared by any page that wants to end on a "here's the next step" note
+// (How I Can Help, Why Live in Las Cruces).
+.cta-banner {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -1385,7 +1388,7 @@
   }
 }
 
-.how-i-help__cta-button {
+.cta-banner__button {
   flex-shrink: 0;
   display: inline-block;
   text-decoration: none;
@@ -1459,6 +1462,13 @@
     color: $color-text;
     line-height: 1.6;
   }
+}
+
+// Standalone /why-las-cruces/ page — reuses .services-grid/.service-card
+// (see the "How I Can Help" section above) for its reason cards.
+.why-las-cruces__intro {
+  color: $color-muted;
+  max-width: 42rem;
 }
 
 // Standalone /compare/ page

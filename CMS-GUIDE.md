@@ -32,10 +32,10 @@ You can update your site's content without touching any code.
 ## What you *can't* edit here
 
 The FAQ page, the mortgage calculator's default numbers, the wording on
-the "What's My Home Worth?" and Privacy pages, and the "Schedule a Tour"
-and "Ask Julia About This Property" forms on each listing page aren't in
-this CMS — they're part of the site's code. If you'd like something
-changed there, contact your developer.
+the "What's My Home Worth?", Privacy, and "Why Live in Las Cruces" pages,
+and the "Schedule a Tour" and "Ask Julia About This Property" forms on
+each listing page aren't in this CMS — they're part of the site's code.
+If you'd like something changed there, contact your developer.
 
 ## 3. Making a change
 
