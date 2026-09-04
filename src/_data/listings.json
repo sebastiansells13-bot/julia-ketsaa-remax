@@ -23,7 +23,8 @@
         "Open-concept kitchen and living area",
         "Covered back patio",
         "Xeriscaped front and back yards"
-      ]
+      ],
+      "propertyType": "Single Family"
     },
     {
       "isSample": true,
@@ -47,7 +48,8 @@
         "Tile flooring throughout main living areas",
         "Walk-in closet in primary bedroom",
         "Close to schools and parks"
-      ]
+      ],
+      "propertyType": "Single Family"
     },
     {
       "isSample": true,
@@ -72,7 +74,8 @@
         "Formal dining room",
         "Primary suite with walk-in shower",
         "Community pool access"
-      ]
+      ],
+      "propertyType": "Single Family"
     },
     {
       "isSample": true,
@@ -96,7 +99,8 @@
         "Attached garage",
         "Covered front porch",
         "Minutes from Downtown Las Cruces"
-      ]
+      ],
+      "propertyType": "Single Family"
     }
   ]
 }

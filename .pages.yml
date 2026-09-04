@@ -126,6 +126,13 @@ content:
             type: number
             description: "Optional — the second number from \"What's here?\" on Google Maps. Leave blank along with Map Latitude if you don't want a pin for this listing."
 
+          - name: propertyType
+            label: Property Type
+            type: select
+            default: Single Family
+            options:
+              values: [Single Family, Condo, Townhome, Land, Manufactured]
+
           - name: status
             label: Status
             type: select

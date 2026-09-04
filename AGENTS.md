@@ -86,6 +86,14 @@ Keep it up to date as the site diverges from the template.
   from `applyAll()`) to re-translate open popups. Adding a new script that filters or
   translates listings should plug into these same two events rather than re-deriving
   visibility or language state on its own.
+- **Listing detail layout**: `src/listing-detail.njk` is modeled on a real MLS-style
+  listing page (see README.md's "Listing detail page layout" for the reasoning and
+  what was deliberately left out). `similarListings` (`eleventy.config.cjs`) picks up
+  to 3 other listings for the "Similar Properties" section — it's a plain `.filter`
+  + `.slice`, not a real similarity ranking; don't over-engineer it into one without a
+  real signal (price/beds/location) to rank on. The "Your Agent" mini-card
+  (`components/listing-agent-card.njk`) reuses `business.*` — don't hardcode agent
+  details there or anywhere else that could instead reference the data file.
 - **Deployment**: pushes to `main` build the site and deploy to GitHub Pages;
   pull requests run the build to catch errors but do not deploy.
 
@@ -139,6 +147,16 @@ Keep it up to date as the site diverges from the template.
   descriptions, services, testimonials, FAQ answers) — there's no translation pipeline
   for content that changes as often as those do; it stays in whatever language Julia
   wrote it in, same as any real i18n setup with a single-language content source
+- Don't add a fabricated price-history timeline or a "vs. area average" market-stats
+  comparison to `listing-detail.njk` — real MLS-style listing pages show these, but
+  doing it here without real historical/market data would be exactly the kind of
+  invented market stat this file already forbids for testimonials (see above)
+- Don't gate this site's listing photos behind a forced signup/login, even though the
+  broker-site listing page this layout is modeled on does — every form here is opt-in
+- Don't add a full MLS attribute taxonomy (MLS#, county, zip, HOA fee, sewer/heating/
+  roof specifics, a fixed amenities checklist) to a listing either — dozens of fields
+  Julia would have to hand-enter with no real feed behind them; the free-text
+  `features` list is the sustainable equivalent for a solo agent without an MLS feed
 - Don't let `README.md`, `AGENTS.md`, or `CMS-GUIDE.md` drift from reality — this repo
   has a history of going several feature commits without a docs update; when you add or
   change a page/feature, update the relevant doc in the same batch of work, not later

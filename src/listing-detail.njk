@@ -15,6 +15,7 @@ eleventyComputed:
 {% set gallery = listing | galleryImages %}
 {% set videoEmbedUrl = listing.videoUrl | embedVideoUrl %}
 {% set crumbs = [{name: "Home", url: "/"}, {name: "Listings", url: "/listings/"}, {name: listing.address, url: "/listings/" + slug + "/"}] %}
+{% set similar = listings.list | similarListings(listing.address, 3) %}
 <div class="listing-detail wrapper" data-listing-slug="{{ slug }}">
   <nav class="breadcrumbs" aria-label="Breadcrumb">
     <a href="/" data-i18n="nav.home">Home</a> <span aria-hidden="true">/</span>
@@ -52,22 +53,38 @@ eleventyComputed:
 
   <div class="listing-detail__header">
     <div class="listing-detail__header-row">
-      <p class="listing-detail__price">{{ listing.price }}</p>
-      <div class="listing-detail__header-actions">
-        <button type="button" class="listing-card__save listing-card__save--detail" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
-          {% include "components/star-icon.njk" %}
-          <span data-i18n="listingdetail.save">Save</span>
-        </button>
-        <button type="button" class="listing-detail__share" data-share-listing data-title="{{ listing.address }}, {{ listing.location }}">
-          <span data-i18n="listingdetail.share">Share</span>
-        </button>
+      <div>
+        <p class="listing-detail__label" data-i18n="listingdetail.addressLabel">Address</p>
+        <h1>{{ listing.address }}</h1>
+        <p class="listing-detail__location">{{ listing.location }}</p>
+      </div>
+      <div class="listing-detail__price-block">
+        <p class="listing-detail__label" data-i18n="listingdetail.priceLabel">Price</p>
+        <p class="listing-detail__price">{{ listing.price }}</p>
       </div>
     </div>
-    <h1>{{ listing.address }}</h1>
-    <p class="listing-detail__location">{{ listing.location }}</p>
+    <div class="listing-detail__header-actions">
+      <button type="button" class="listing-card__save listing-card__save--detail" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
+        {% include "components/star-icon.njk" %}
+        <span data-i18n="listingdetail.save">Save</span>
+      </button>
+      <button type="button" class="listing-detail__share" data-share-listing data-title="{{ listing.address }}, {{ listing.location }}">
+        <span data-i18n="listingdetail.share">Share</span>
+      </button>
+    </div>
   </div>
 
-  <dl class="listing-detail__stats">
+  <div class="listing-detail__quick-actions">
+    <a href="#ask-about-listing" class="listing-detail__quick-action" data-i18n="listingdetail.askQuestion">Ask a Question</a>
+    <a href="#schedule-tour" class="listing-detail__quick-action listing-detail__quick-action--primary" data-i18n="listingdetail.requestShowing">Request a Showing</a>
+  </div>
+
+  {% include "components/listing-agent-card.njk" %}
+
+  <dl class="listing-detail__attributes">
+    {% if listing.propertyType %}<div><dt data-i18n="listingdetail.propertyType">Property Type</dt><dd data-i18n="propertytype.{{ listing.propertyType | slugify }}">{{ listing.propertyType }}</dd></div>{% endif %}
+    <div><dt data-i18n="listings.statusLabel">Status</dt><dd data-i18n="status.{{ listing.status | slugify }}">{{ listing.status }}</dd></div>
+    <div><dt data-i18n="listingdetail.priceLabel">Price</dt><dd>{{ listing.price }}</dd></div>
     <div><dt data-i18n="listingdetail.beds">Beds</dt><dd>{{ listing.beds }}</dd></div>
     <div><dt data-i18n="listingdetail.baths">Baths</dt><dd>{{ listing.baths }}</dd></div>
     <div><dt data-i18n="listingdetail.sqft">Sqft</dt><dd>{{ listing.sqft }}</dd></div>
@@ -76,7 +93,10 @@ eleventyComputed:
   </dl>
 
   {% if listing.description %}
-  <p class="listing-detail__description">{{ listing.description | safe }}</p>
+  <div class="listing-detail__description-wrap">
+    <h2 data-i18n="listingdetail.descriptionHeading">Property Description</h2>
+    <p class="listing-detail__description">{{ listing.description | safe }}</p>
+  </div>
   {% endif %}
 
   {% if listing.features and listing.features.length %}
@@ -124,7 +144,43 @@ eleventyComputed:
   {% set mcStartingPrice = listing.price %}
   {% include "components/mortgage-calc.njk" %}
 
+  <div class="cta-banner">
+    <div>
+      <h2 data-i18n="listingdetail.homeworthCtaHeading">Curious what your home is worth?</h2>
+      <p data-i18n="listingdetail.homeworthCtaText">Get a free, no-obligation estimate any time.</p>
+    </div>
+    <a href="/home-value/" class="cta-banner__button" data-i18n="howihelp.homeworthButton">What's My Home Worth? →</a>
+  </div>
+
   {% include "components/listing-inquiry-form.njk" %}
+
+  {% if similar.length %}
+  <div class="listing-detail__similar">
+    <h2 data-i18n="listingdetail.similarProperties">Similar Properties</h2>
+    <div class="listings-grid">
+      {% for other in similar %}
+      {% set otherSlug = other.address | slugify %}
+      <div class="listing-card" data-slug="{{ otherSlug }}">
+        <a class="listing-card__link" href="/listings/{{ otherSlug }}/" aria-label="View details for {{ other.address }}"></a>
+        <div class="listing-card__media">
+          {% if other.image %}
+          <img src="{{ other.image }}" alt="{{ other.address }}" loading="lazy" decoding="async">
+          {% else %}
+          {{ listingPlaceholder(loop.index0) }}
+          {% endif %}
+          <span class="listing-card__status listing-card__status--{{ other.status | slugify }}" data-i18n="status.{{ other.status | slugify }}">{{ other.status }}</span>
+          {% if other.isSample %}<span class="listing-card__sample" data-i18n="listings.sampleBadge">Sample</span>{% endif %}
+        </div>
+        <div class="listing-card__body">
+          <p class="listing-card__price">{{ other.price }}</p>
+          <h3>{{ other.address }}</h3>
+          <p class="listing-card__stats">{{ other.beds }} bed · {{ other.baths }} bath · {{ other.sqft }} sqft</p>
+        </div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  {% endif %}
 </div>
 
 <div class="lightbox" id="lightbox" hidden>

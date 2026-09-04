@@ -210,6 +210,12 @@ module.exports = function (eleventyConfig) {
     (list || []).map((item) => ({ ...item, slug: slugify(item.address) }))
   );
 
+  // Up to `limit` other listings (excludes the one being viewed) — used for
+  // the "Similar Properties" section on a listing's own detail page.
+  eleventyConfig.addFilter("similarListings", (list, currentAddress, limit) =>
+    (list || []).filter((item) => item.address !== currentAddress).slice(0, limit || 3)
+  );
+
   // Renders a list of {question, answer} pairs as a schema.org FAQPage
   // JSON-LD block (src/faq.njk).
   eleventyConfig.addFilter("faqSchema", (faqs, absoluteSiteUrl) => {

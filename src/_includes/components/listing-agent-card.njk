@@ -1,0 +1,14 @@
+{#
+  Compact agent-contact card shown on a listing's own detail page —
+  reuses business.* global data, nothing listing-specific. Renders fine
+  with business.photo empty (see about.njk for the same fallback).
+#}
+<div class="listing-agent-card">
+  {% if business.photo %}<img src="{{ business.photo }}" alt="{{ business.name }}" class="listing-agent-card__photo" loading="lazy" decoding="async">{% endif %}
+  <div>
+    <p class="listing-agent-card__label" data-i18n="listingdetail.yourAgent">Your Agent</p>
+    <p class="listing-agent-card__name">{{ business.name }}</p>
+    <p class="listing-agent-card__title">{{ business.title }}</p>
+    {% if business.phoneCell %}<a href="tel:{{ business.phoneCell }}" class="listing-agent-card__phone">{{ business.phoneCell }}</a>{% endif %}
+  </div>
+</div>
