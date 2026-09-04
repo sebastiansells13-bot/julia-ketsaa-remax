@@ -39,8 +39,9 @@ standard, typically required elements of real-estate marketing materials.
 **Listings** (`/listings/`) — search, status/beds/baths filters, sort, a
 "Saved only" toggle, and a live-updating count/compare link. Each card links
 to a full detail page with a photo gallery + lightbox, an optional video
-tour embed, breadcrumbs, an embedded map + directions link, a mortgage
-calculator pre-filled with that listing's price, and Save/Share buttons.
+tour embed (YouTube or Vimeo), optional "View on Zillow"/"View on Redfin"
+links, breadcrumbs, an embedded map + directions link, a mortgage calculator
+pre-filled with that listing's price, and Save/Share buttons.
 
 **Tools reachable from anywhere** — a standalone
 [mortgage calculator](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/mortgage-calculator/)

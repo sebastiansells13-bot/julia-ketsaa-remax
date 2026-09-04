@@ -16,11 +16,13 @@ You can update your site's content without touching any code.
   price, beds/baths/sqft, year built, lot size, status (For Sale / Pending /
   Sold), a cover photo, additional photos (shown as a gallery on the
   listing's own page — click a photo to view it full-screen), an optional
-  video tour link (paste any YouTube or Vimeo link), a full description,
-  and a features list. The site starts with 4 example listings marked "This
-  is a sample listing" — when you add a real one, leave that box unchecked
-  and upload a real photo; leave it checked (or the photo blank) and it'll
-  show a "Sample" badge instead.
+  video tour link (paste any YouTube or Vimeo link), optional Zillow and
+  Redfin links (shown as buttons on the listing's page — leave blank if the
+  property isn't posted there), a full description, and a features list. The
+  site starts with 4 example listings marked "This is a sample listing" —
+  when you add a real one, leave that box unchecked and upload a real photo;
+  leave it checked (or the photo blank) and it'll show a "Sample" badge
+  instead.
 - **How I Can Help** — the three service cards shown on the Home and How I Help
   pages.
 - **Testimonials** — client quotes shown on the homepage.
