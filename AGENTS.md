@@ -48,9 +48,13 @@ Keep it up to date as the site diverges from the template.
   this wrong silently double- or zero-prefixes the link; it's bitten this project before.
 - **Lead-capture forms**: any form collecting visitor contact info uses the shared
   `src/_includes/js/lead-form.js` handler via `data-lead-form` + `data-endpoint` +
-  `data-not-connected-message`/`data-success-message` + a `[data-lead-form-status]`
-  element — see `contact-form.njk` or `home-value.njk` for the pattern. Don't duplicate
-  its validate/submit/honesty logic in a new one-off script.
+  `data-not-connected-key`/`data-success-key` (i18n.json keys, looked up through
+  `window.t()` so the message respects the language toggle — `data-message-vars` for
+  a `{name}`-style substitution) + a `[data-lead-form-status]` element — see
+  `contact-form.njk` or `home-value.njk` for the pattern. Don't duplicate its
+  validate/submit/honesty logic in a new one-off script, and don't hardcode an English
+  message string into a form's markup — add a dictionary key instead (see README.md's
+  "How the language toggle works").
 - **Print styles**: `src/_includes/css/print.scss` hides chrome/interactive widgets on
   `listing-detail.njk` for a clean printable flyer. If you rename or add a class there
   (a new interactive block, a new nav item, etc.), update the hide-list in that file too.
@@ -108,12 +112,22 @@ Keep it up to date as the site diverges from the template.
   `.listing-detail` itself uses the site's full `$max-width` (72rem), not a narrower
   reading-width column — matches the wide, low-whitespace layout of the reference MLS
   page this was modeled on. The photo, attributes grid, and Similar Properties grid all
-  benefit from that width; the two lead-capture forms, the agent card, and the
-  quick-action buttons cap their own width instead (`.contact-form`'s existing 34rem,
+  benefit from that width; the lead-capture form, the agent card, and the quick-action
+  buttons cap their own width instead (`.contact-form`'s existing 34rem,
   `.listing-agent-card`'s 26rem, `.listing-detail__quick-action`'s 16rem flex-basis) so
   they don't get stretched into oversized single-column controls. Don't remove those
   per-element caps to "simplify" the CSS — that's what caused the original whitespace
   complaint's opposite failure mode.
+- **Combined inquiry/tour form**: `components/listing-inquiry-form.njk` carries both the
+  general "Ask Julia" fields and the "Schedule a Tour" fields (Tour Type/Preferred
+  Date/Preferred Time) in one `<form>`, kept short by default behind an "I'd also like
+  to schedule a tour" checkbox — these used to be two separate forms/sections
+  (`listing-inquiry-form.njk` + a since-deleted `tour-form.njk`), merged into one to make
+  the page shorter. `src/_includes/js/listing-inquiry-form.js` toggles the tour fields'
+  `hidden` state on that checkbox, and also lets any `[data-reveal-tour]` link (the
+  page's "Request a Showing" quick-action button) check the box and reveal the fields on
+  click. Don't split this back into two forms without also reverting the quick-action
+  buttons, which both point at the merged form's single `#ask-about-listing` anchor now.
 - **Deployment**: pushes to `main` build the site and deploy to GitHub Pages;
   pull requests run the build to catch errors but do not deploy.
 
@@ -158,9 +172,9 @@ Keep it up to date as the site diverges from the template.
   get `noindex`ed — see `src/listing-detail.njk`). Don't strip the `isSample` flag,
   the placeholder fallback, or the noindex logic — a real listing is added by setting
   `isSample: false` and a real `image`, not by editing a sample in place to look real
-- Don't claim the newsletter, contact, Home Value, Schedule a Tour, or listing
-  inquiry forms are "connected" or remove their `data-endpoint`/`data-not-connected-message`
-  checks (`newsletter.js` and the shared `lead-form.js`) until a real backend is wired up
+- Don't claim the newsletter, contact, Home Value, or listing inquiry forms are
+  "connected" or remove their `data-endpoint`/`data-not-connected-key` checks
+  (`newsletter.js` and the shared `lead-form.js`) until a real backend is wired up
 - Don't add the official RE/MAX logo graphic without it being supplied directly by
   RE/MAX/the broker — see README.md
 - Don't extend the language toggle to CMS-authored content (blog posts, listing

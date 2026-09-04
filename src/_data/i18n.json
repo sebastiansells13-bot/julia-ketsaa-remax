@@ -53,9 +53,6 @@
 
   "mortgagecalc.perMonth": { "en": " / mo", "es": " / mes" },
 
-  "tour.notConnected": { "en": "Thanks for your interest! This form isn't connected yet — please call or text Julia directly to schedule a tour of {address}.", "es": "¡Gracias por su interés! Este formulario aún no está conectado — llame o envíe un mensaje de texto a Julia directamente para programar una visita a {address}." },
-  "tour.success": { "en": "Tour request sent — Julia will confirm a time with you soon.", "es": "Solicitud de visita enviada — Julia le confirmará un horario pronto." },
-
   "contactform.notConnected": { "en": "Thanks for reaching out! This form isn't connected yet — please call or text Julia directly in the meantime, or email her using the address above.", "es": "¡Gracias por comunicarse! Este formulario aún no está conectado — mientras tanto, llame o envíe un mensaje de texto a Julia directamente, o envíele un correo a la dirección de arriba." },
   "contactform.success": { "en": "Message sent — Julia will be in touch soon.", "es": "Mensaje enviado — Julia se pondrá en contacto pronto." },
 
@@ -251,7 +248,6 @@
   "listingdetail.contactJulia": { "en": "Contact Julia", "es": "Contacte a Julia" },
   "listingdetail.sampleBannerPost": { "en": "for current listings.", "es": "para ver las propiedades actuales." },
 
-  "tour.heading": { "en": "Schedule a Tour", "es": "Programar una Visita" },
   "tour.type": { "en": "Tour Type", "es": "Tipo de Visita" },
   "tour.inPerson": { "en": "In-Person", "es": "En Persona" },
   "tour.virtual": { "en": "Virtual", "es": "Virtual" },
@@ -260,7 +256,8 @@
   "tour.morning": { "en": "Morning", "es": "Mañana" },
   "tour.afternoon": { "en": "Afternoon", "es": "Tarde" },
   "tour.evening": { "en": "Evening", "es": "Noche" },
-  "tour.button": { "en": "Schedule a Tour", "es": "Programar una Visita" },
+
+  "inquiry.wantsTour": { "en": "I'd also like to schedule a tour", "es": "También me gustaría programar una visita" },
 
   "howihelp.heading": { "en": "How I Can Help", "es": "Cómo Puedo Ayudar" },
   "howihelp.ctaHeading": { "en": "Thinking about selling?", "es": "¿Está pensando en vender?" },

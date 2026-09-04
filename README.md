@@ -53,10 +53,12 @@ print/Ctrl+P — chrome and interactive widgets are hidden via
 
 **Lead capture** — the general [Contact](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/contact/)
 form, the seller-focused [What's My Home Worth?](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/home-value/)
-form, the footer newsletter signup, and per-listing "Schedule a Tour" and
-"Ask Julia About This Property" forms. All five are fully built and
-validated but **not connected to a real backend yet** — see "What isn't
-connected yet" below.
+form, the footer newsletter signup, and each listing's "Ask Julia About
+This Property" form (which also carries an "I'd also like to schedule a
+tour" checkbox that reveals tour-specific fields — a combined form,
+kept as one section instead of two, to keep the listing page shorter).
+All four are fully built and validated but **not connected to a real
+backend yet** — see "What isn't connected yet" below.
 
 **Other pages** — [FAQ](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/faq/)
 (generic buying/selling questions, `FAQPage` schema), [Why Live in Las Cruces](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/why-las-cruces/)
@@ -125,11 +127,11 @@ Five forms are fully built and validated, but each shows an honest
 on-page message instead of submitting until it's pointed at a real backend:
 
 - **Newsletter** (footer) — see the comment atop `src/_includes/js/newsletter.js`
-- **Contact form**, **Home Value form**, and each listing's **Schedule a
-  Tour** and **Ask Julia About This Property** forms — all four share
-  `src/_includes/js/lead-form.js`; point a form's `data-endpoint` attribute
-  (in `contact-form.njk`, `home-value.njk`, `tour-form.njk`, or
-  `listing-inquiry-form.njk`) at a real service (Formspree, Netlify Forms,
+- **Contact form**, **Home Value form**, and each listing's combined **Ask
+  Julia About This Property** form (general question or, with its checkbox,
+  a tour request) — all three share `src/_includes/js/lead-form.js`; point
+  a form's `data-endpoint` attribute (in `contact-form.njk`, `home-value.njk`,
+  or `listing-inquiry-form.njk`) at a real service (Formspree, Netlify Forms,
   etc.) to go live
 
 `src/privacy.njk` describes this accurately today — update it when any of
@@ -228,19 +230,25 @@ feed:
 
 - Photo gallery, then a labeled **Address**/**Price** header with
   Save/Share buttons
-- Two quick-action buttons ("Ask a Question", "Request a Showing") that
-  jump down to the full inquiry/tour forms already on the page, so a
-  visitor sees what they can do without scrolling first
+- Two quick-action buttons, "Ask a Question" and "Request a Showing", that
+  both jump down to the same combined inquiry form (see below) so a
+  visitor sees what they can do without scrolling first — "Request a
+  Showing" also pre-checks that form's "schedule a tour" box
 - A "Your Agent" mini-card (name, title, phone, photo if `business.photo`
   is set) — reuses `business.json`, nothing listing-specific to maintain
 - A labeled property-attributes grid: Property Type (new optional field —
   Single Family/Condo/Townhome/Land/Manufactured), Status, Price, Beds,
   Baths, Sqft, Year Built, Lot Size
 - "Property Description" (now an explicit heading, not just a bare
-  paragraph), Features, Video Tour, Zillow/Redfin links, Schedule a Tour,
-  map, mortgage calculator, a "Curious what your home is worth?" callout,
-  the "Ask Julia" inquiry form, and — new — a **Similar Properties**
-  section (the other current listings, via the `similarListings` filter)
+  paragraph), Features, Video Tour, Zillow/Redfin links, the combined **Ask
+  Julia About This Property** form (`components/listing-inquiry-form.njk`
+  — general question fields plus an "I'd also like to schedule a tour"
+  checkbox that reveals Tour Type/Preferred Date/Preferred Time; this used
+  to be two separate forms/sections, merged into one to keep the page
+  shorter — see `src/_includes/js/listing-inquiry-form.js` for the reveal
+  and quick-action wiring), map, mortgage calculator, a "Curious what your
+  home is worth?" callout, and — new — a **Similar Properties** section
+  (the other current listings, via the `similarListings` filter)
 
 **Deliberately not replicated** from that reference page — each for a
 concrete reason, not an oversight:

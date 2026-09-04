@@ -48,10 +48,11 @@ You can update your site's content without touching any code.
 
 The wording on every other page — the FAQ, the mortgage calculator's
 default numbers, "What's My Home Worth?", Privacy, "Why Live in Las
-Cruces", Fair Housing, and Accessibility — and the "Schedule a Tour" and
-"Ask Julia About This Property" forms on each listing page aren't in this
-CMS, and neither are their Spanish translations behind the EN/ES toggle —
-all of that is part of the site's code. If you'd like something changed
+Cruces", Fair Housing, and Accessibility — and the "Ask Julia About This
+Property" form on each listing page (which also has an "I'd also like to
+schedule a tour" checkbox) aren't in this CMS, and neither are their
+Spanish translations behind the EN/ES toggle — all of that is part of the
+site's code. If you'd like something changed
 there, contact your developer.
 
 ## 3. Making a change

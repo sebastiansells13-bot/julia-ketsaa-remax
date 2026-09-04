@@ -1391,10 +1391,10 @@
   }
 }
 
-// "Schedule a Tour" and "Ask Julia About This Property" both reuse the
-// .contact-form field styles (see the shared block above) — these just
-// cover the section heading and the tour-form's type radio group.
-.listing-detail__tour,
+// Combined "Ask Julia About This Property" form (components/listing-inquiry-form.njk,
+// which also carries the "Schedule a Tour" fields — see that file's comment
+// for why the two were merged) — reuses the shared .contact-form field
+// styles above; this just covers the section heading.
 .listing-detail__inquiry {
   h2 {
     font-size: 1.15rem;
@@ -1410,6 +1410,30 @@
   .contact-form {
     padding: 0;
   }
+}
+
+.contact-form__row--checkbox {
+  flex-direction: row;
+  align-items: center;
+
+  label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    cursor: pointer;
+  }
+}
+
+// The tour-specific fields revealed by the "I'd also like to schedule a
+// tour" checkbox (src/_includes/js/listing-inquiry-form.js toggles
+// [hidden]) — a left-accent panel to set them visually apart from the
+// general-inquiry fields around them, echoing .open-house-banner's blue.
+.listing-inquiry-form__tour-fields {
+  padding: 0.85rem 1rem 0.1rem;
+  margin: 0 0 1.1rem;
+  border-left: 3px solid $color-remax-blue;
+  background: #eaf1fb;
 }
 
 .tour-form__type {
