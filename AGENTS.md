@@ -105,6 +105,15 @@ Keep it up to date as the site diverges from the template.
   real signal (price/beds/location) to rank on. The "Your Agent" mini-card
   (`components/listing-agent-card.njk`) reuses `business.*` — don't hardcode agent
   details there or anywhere else that could instead reference the data file.
+  `.listing-detail` itself uses the site's full `$max-width` (72rem), not a narrower
+  reading-width column — matches the wide, low-whitespace layout of the reference MLS
+  page this was modeled on. The photo, attributes grid, and Similar Properties grid all
+  benefit from that width; the two lead-capture forms, the agent card, and the
+  quick-action buttons cap their own width instead (`.contact-form`'s existing 34rem,
+  `.listing-agent-card`'s 26rem, `.listing-detail__quick-action`'s 16rem flex-basis) so
+  they don't get stretched into oversized single-column controls. Don't remove those
+  per-element caps to "simplify" the CSS — that's what caused the original whitespace
+  complaint's opposite failure mode.
 - **Deployment**: pushes to `main` build the site and deploy to GitHub Pages;
   pull requests run the build to catch errors but do not deploy.
 
