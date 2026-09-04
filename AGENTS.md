@@ -76,6 +76,16 @@ Keep it up to date as the site diverges from the template.
   the "Just Listed"/"Open Houses" tabs on `/listings/` (`src/_includes/js/listings-filter.js`)
   and the "New" tag / open-house banner on its cards and detail page. Both are manual
   flags, same spirit as `isSample` — nothing expires or clears itself automatically.
+- **All-listings map**: `src/_includes/js/listings-map.js` (Leaflet + OpenStreetMap
+  tiles, no API key) renders a pin for every listing with `lat`/`lng` set, on
+  `/listings/` only — its `<script>`/`<link>` tags are gated behind
+  `{% if page.url == "/listings/" %}` in `base.njk` so no other page pays for the
+  ~150KB library. It listens for the `listings:filtered` CustomEvent
+  (`listings-filter.js` dispatches it at the end of every `apply()`) to keep pins in
+  sync with the page's own filters, and for `lang:changed` (`i18n.js` dispatches it
+  from `applyAll()`) to re-translate open popups. Adding a new script that filters or
+  translates listings should plug into these same two events rather than re-deriving
+  visibility or language state on its own.
 - **Deployment**: pushes to `main` build the site and deploy to GitHub Pages;
   pull requests run the build to catch errors but do not deploy.
 

@@ -105,6 +105,16 @@
 
     if (emptyMessage) emptyMessage.hidden = ordered.length > 0;
     updateSavedCount();
+
+    // Lets listings-map.js (if present on this page) hide/show pins to
+    // match — the two views should never disagree about what's visible.
+    window.dispatchEvent(
+      new CustomEvent("listings:filtered", {
+        detail: ordered.map(function (card) {
+          return card.dataset.slug;
+        }),
+      })
+    );
   }
 
   tabButtons.forEach(function (button) {

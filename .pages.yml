@@ -116,6 +116,16 @@ content:
             type: string
             description: "e.g. 0.21 acres"
 
+          - name: lat
+            label: Map Latitude
+            type: number
+            description: "Optional — powers this listing's pin on the Listings page map. Right-click the spot on Google Maps and copy the first number from \"What's here?\". Leave blank and it just won't get a pin."
+
+          - name: lng
+            label: Map Longitude
+            type: number
+            description: "Optional — the second number from \"What's here?\" on Google Maps. Leave blank along with Map Latitude if you don't want a pin for this listing."
+
           - name: status
             label: Status
             type: select
