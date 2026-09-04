@@ -37,9 +37,9 @@
 
     try {
       await navigator.clipboard.writeText(location.href);
-      flash("Link copied!", true);
+      flash(window.t ? window.t("share.linkCopied") : "Link copied!", true);
     } catch (err) {
-      flash("Copy failed — copy from the address bar", true);
+      flash(window.t ? window.t("share.copyFailed") : "Copy failed — copy from the address bar", true);
     }
   });
 })();

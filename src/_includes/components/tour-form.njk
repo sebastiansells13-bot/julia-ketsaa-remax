@@ -12,8 +12,9 @@
     id="tour-form"
     data-lead-form
     data-endpoint="TOUR_REQUEST_ENDPOINT_NOT_CONFIGURED"
-    data-not-connected-message="Thanks for your interest! This form isn't connected yet — please call or text Julia directly to schedule a tour of {{ listing.address }}."
-    data-success-message="Tour request sent — Julia will confirm a time with you soon."
+    data-not-connected-key="tour.notConnected"
+    data-success-key="tour.success"
+    data-message-vars="{{ {"address": listing.address} | dump }}"
     method="post"
   >
     <input type="hidden" name="listing" value="{{ listing.address }}, {{ listing.location }}">

@@ -37,6 +37,33 @@
   "form.message": { "en": "Message", "es": "Mensaje" },
   "form.anythingElse": { "en": "Anything else?", "es": "¿Algo más?" },
   "form.submit": { "en": "Submit", "es": "Enviar" },
+  "form.sending": { "en": "Sending...", "es": "Enviando..." },
+  "form.notConnectedGeneric": { "en": "This form isn't connected yet.", "es": "Este formulario aún no está conectado." },
+  "form.sentGeneric": { "en": "Sent — thanks!", "es": "Enviado — ¡gracias!" },
+  "form.somethingWrong": { "en": "Something went wrong. Please try again in a moment.", "es": "Algo salió mal. Por favor, inténtelo de nuevo en un momento." },
+
+  "newsletter.notConnected": { "en": "Thanks for the interest! Email signups aren't connected yet — check back soon, or call/text Julia directly in the meantime.", "es": "¡Gracias por su interés! Las suscripciones por correo aún no están conectadas — vuelva pronto, o llame/envíe un mensaje de texto a Julia directamente mientras tanto." },
+  "newsletter.subscribed": { "en": "You're subscribed — thanks!", "es": "Está suscrito — ¡gracias!" },
+
+  "saved.removeAria": { "en": "Remove {label} from your saved list", "es": "Quitar {label} de su lista guardada" },
+  "saved.saveAria": { "en": "Save {label} to your saved list", "es": "Guardar {label} en su lista guardada" },
+
+  "share.linkCopied": { "en": "Link copied!", "es": "¡Enlace copiado!" },
+  "share.copyFailed": { "en": "Copy failed — copy from the address bar", "es": "No se pudo copiar — copie desde la barra de direcciones" },
+
+  "mortgagecalc.perMonth": { "en": " / mo", "es": " / mes" },
+
+  "tour.notConnected": { "en": "Thanks for your interest! This form isn't connected yet — please call or text Julia directly to schedule a tour of {address}.", "es": "¡Gracias por su interés! Este formulario aún no está conectado — llame o envíe un mensaje de texto a Julia directamente para programar una visita a {address}." },
+  "tour.success": { "en": "Tour request sent — Julia will confirm a time with you soon.", "es": "Solicitud de visita enviada — Julia le confirmará un horario pronto." },
+
+  "contactform.notConnected": { "en": "Thanks for reaching out! This form isn't connected yet — please call or text Julia directly in the meantime, or email her using the address above.", "es": "¡Gracias por comunicarse! Este formulario aún no está conectado — mientras tanto, llame o envíe un mensaje de texto a Julia directamente, o envíele un correo a la dirección de arriba." },
+  "contactform.success": { "en": "Message sent — Julia will be in touch soon.", "es": "Mensaje enviado — Julia se pondrá en contacto pronto." },
+
+  "homevalue.notConnected": { "en": "Thanks! This form isn't connected yet — please call, text, or email Julia directly and she'll get started on your estimate.", "es": "¡Gracias! Este formulario aún no está conectado — llame, envíe un mensaje de texto o un correo a Julia directamente y ella comenzará con su estimado." },
+  "homevalue.success": { "en": "Request sent — Julia will follow up with your estimate soon.", "es": "Solicitud enviada — Julia le hará llegar su estimado pronto." },
+
+  "inquiry.notConnected": { "en": "Thanks for reaching out! This form isn't connected yet — please call, text, or email Julia directly in the meantime using the info above.", "es": "¡Gracias por comunicarse! Este formulario aún no está conectado — mientras tanto, llame, envíe un mensaje de texto o un correo a Julia directamente usando la información de arriba." },
+  "inquiry.success": { "en": "Message sent — Julia will be in touch soon about {address}.", "es": "Mensaje enviado — Julia se pondrá en contacto pronto sobre {address}." },
   "contact.sendMessageButton": { "en": "Send Message", "es": "Enviar Mensaje" },
 
   "mortgagecalc.heading": { "en": "Estimate Your Payment", "es": "Calcule Su Pago" },
@@ -80,7 +107,30 @@
   "faq.intro": { "en": "General answers to get you oriented — every situation is different, so reach out to Julia for guidance specific to yours.", "es": "Respuestas generales para orientarle — cada situación es diferente, así que comuníquese con Julia para obtener orientación específica para la suya." },
   "faq.introPre": { "en": "General answers to get you oriented — every situation is different, so reach out to", "es": "Respuestas generales para orientarle — cada situación es diferente, así que comuníquese con" },
   "faq.introPost": { "en": "for guidance specific to yours.", "es": "para obtener orientación específica para la suya." },
-  "faq.contentNote": { "en": "Answers below are in English — call, text, or email Julia (see Contact) and she's glad to go through any of this with you in Spanish.", "es": "Las respuestas a continuación están en inglés — llame, envíe un mensaje de texto o un correo electrónico a Julia (vea Contacto) y con gusto lo repasará con usted en español." },
+
+  "faq.q1": { "en": "What is earnest money?", "es": "¿Qué es el depósito de garantía (earnest money)?" },
+  "faq.a1": { "en": "Earnest money is a deposit a buyer puts down to show they're serious about a purchase, usually held in escrow and credited toward the down payment or closing costs at closing. If the deal falls through for a reason covered by the contract's contingencies, it's typically refundable — a lender or real estate attorney can walk you through the exact terms of any offer.", "es": "El depósito de garantía es una cantidad que el comprador aporta para demostrar que va en serio con la compra, generalmente retenida en garantía (escrow) y aplicada al pago inicial o los costos de cierre. Si la operación no se concreta por una razón cubierta por las contingencias del contrato, normalmente es reembolsable — un prestamista o abogado de bienes raíces puede explicarle los términos exactos de cualquier oferta." },
+
+  "faq.q2": { "en": "How long does closing usually take?", "es": "¿Cuánto tiempo suele tardar el cierre?" },
+  "faq.a2": { "en": "It varies by financing and local process, but a typical closing often takes somewhere around 30 to 45 days from an accepted offer, faster for a cash purchase. Julia can give you a more specific timeline once you're under contract.", "es": "Varía según el financiamiento y el proceso local, pero un cierre típico suele tardar entre 30 y 45 días desde que se acepta una oferta, más rápido si es una compra en efectivo. Julia puede darle un cronograma más específico una vez que esté bajo contrato." },
+
+  "faq.q3": { "en": "What's a comparative market analysis (CMA)?", "es": "¿Qué es un análisis comparativo de mercado (CMA)?" },
+  "faq.a3": { "en": "A CMA looks at recently sold, active, and pending listings similar to a property to estimate a realistic price range — it's the standard starting point for pricing a home to sell, and it's free to request.", "es": "Un CMA analiza propiedades similares recién vendidas, activas y pendientes para estimar un rango de precio realista — es el punto de partida estándar para fijar el precio de una casa a la venta, y es gratis solicitarlo." },
+
+  "faq.q4": { "en": "Do I need a real estate agent to buy a home?", "es": "¿Necesito un agente de bienes raíces para comprar una casa?" },
+  "faq.a4": { "en": "It's not legally required, but an agent represents your interests through negotiation, inspections, and paperwork, and helps you avoid costly mistakes — most buyers find it well worth having someone in their corner.", "es": "No es un requisito legal, pero un agente representa sus intereses durante la negociación, las inspecciones y el papeleo, y le ayuda a evitar errores costosos — la mayoría de los compradores encuentra que vale la pena tener a alguien de su lado." },
+
+  "faq.q5": { "en": "What's the difference between pre-qualified and pre-approved?", "es": "¿Cuál es la diferencia entre precalificado y preaprobado?" },
+  "faq.a5": { "en": "Pre-qualification is a quick, informal estimate of what you might be able to borrow based on unverified information. Pre-approval involves a lender actually verifying your income, credit, and finances, and carries more weight with sellers when you make an offer.", "es": "La precalificación es un estimado rápido e informal de lo que podría pedir prestado, basado en información no verificada. La preaprobación implica que un prestamista realmente verifique sus ingresos, crédito y finanzas, y tiene más peso ante los vendedores cuando hace una oferta." },
+
+  "faq.q6": { "en": "What closing costs should buyers expect?", "es": "¿Qué costos de cierre deben esperar los compradores?" },
+  "faq.a6": { "en": "Buyer closing costs commonly include the lender's fees, appraisal, title insurance, and prepaid items like property taxes and homeowners insurance — often a few percent of the purchase price in total. Your lender will provide an itemized estimate once you're under contract.", "es": "Los costos de cierre del comprador comúnmente incluyen las tarifas del prestamista, el avalúo, el seguro de título y elementos prepagados como impuestos a la propiedad y seguro de vivienda — a menudo unos pocos puntos porcentuales del precio de compra en total. Su prestamista le dará un estimado detallado una vez que esté bajo contrato." },
+
+  "faq.q7": { "en": "How does agent compensation work?", "es": "¿Cómo funciona la compensación del agente?" },
+  "faq.a7": { "en": "Compensation arrangements can vary by transaction and are spelled out in writing before you're represented — ask Julia to walk you through the current agreement options so you know exactly what to expect.", "es": "Los acuerdos de compensación pueden variar según la transacción y se detallan por escrito antes de que usted sea representado — pídale a Julia que le explique las opciones de acuerdo actuales para que sepa exactamente qué esperar." },
+
+  "faq.q8": { "en": "What should I do before listing my home?", "es": "¿Qué debo hacer antes de poner mi casa a la venta?" },
+  "faq.a8": { "en": "Small fixes, a deep clean, decluttering, and good photos consistently make the biggest difference. Julia can walk through your home with you and put together a prioritized list before it goes on the market.", "es": "Pequeñas reparaciones, una limpieza profunda, ordenar los espacios y buenas fotos son, constantemente, lo que más marca la diferencia. Julia puede recorrer su casa con usted y preparar una lista de prioridades antes de ponerla en el mercado." },
   "common.julia": { "en": "Julia", "es": "Julia" },
 
   "notfound.heading": { "en": "Page Not Found", "es": "Página No Encontrada" },
@@ -219,6 +269,38 @@
   "howihelp.faqLinkMid": { "en": "FAQ", "es": "Preguntas Frecuentes" },
   "howihelp.faqLinkPost": { "en": "or get in touch directly.", "es": "o comuníquese directamente." },
   "howihelp.homeworthButton": { "en": "What's My Home Worth? →", "es": "¿Cuánto Vale Mi Casa? →" },
+
+  "compare.heading": { "en": "Compare Saved Listings", "es": "Comparar Propiedades Guardadas" },
+  "compare.introPre": { "en": "Listings you've starred, side by side.", "es": "Propiedades que ha marcado, lado a lado." },
+  "compare.browseAll": { "en": "Browse all listings →", "es": "Ver todas las propiedades →" },
+  "compare.emptyPre": { "en": "You haven't saved any listings yet. Browse", "es": "Aún no ha guardado ninguna propiedad. Explore" },
+  "compare.emptyLink": { "en": "listings", "es": "las propiedades" },
+  "compare.emptyPost": { "en": "and tap the star on any card to add it here.", "es": "y toque la estrella en cualquier tarjeta para agregarla aquí." },
+  "compare.location": { "en": "Location", "es": "Ubicación" },
+  "compare.remove": { "en": "Remove", "es": "Quitar" },
+
+  "privacy.heading": { "en": "Privacy Notice", "es": "Aviso de Privacidad" },
+  "privacy.introPre": { "en": "This is a plain-language summary, not a legal document. Questions?", "es": "Este es un resumen en lenguaje sencillo, no un documento legal. ¿Preguntas?" },
+  "privacy.storageHeading": { "en": "What this site stores in your browser", "es": "Qué almacena este sitio en su navegador" },
+  "privacy.storageBody": { "en": "Saved listings, your recently-viewed listings, and your English/Spanish language choice are stored using your browser's local storage. That data stays on your device — it's never sent to Julia, to us, or to anyone else. Clearing your browser's site data removes it.", "es": "Las propiedades guardadas, las vistas recientemente, y su elección de idioma (inglés/español) se almacenan usando el almacenamiento local de su navegador. Esos datos permanecen en su dispositivo — nunca se envían a Julia, a nosotros, ni a nadie más. Borrar los datos del sitio en su navegador los elimina." },
+  "privacy.formsHeading": { "en": "Forms on this site", "es": "Formularios en este sitio" },
+  "privacy.formsBodyPre": { "en": "The newsletter signup, Contact form, \"What's My Home Worth?\" form, and each listing's \"Schedule a Tour\" and \"Ask Julia About This Property\" forms are built and validated, but as of this writing they are", "es": "El registro al boletín, el formulario de Contacto, el formulario \"¿Cuánto Vale Mi Casa?\", y los formularios \"Programar una Visita\" y \"Pregúntele a Julia Sobre Esta Propiedad\" de cada propiedad están construidos y validados, pero al momento de escribir esto" },
+  "privacy.formsBodyStrong": { "en": "not yet connected to an email or lead-management service", "es": "aún no están conectados a un servicio de correo electrónico o gestión de clientes potenciales" },
+  "privacy.formsBodyPost": { "en": "— submitting one shows an on-page message saying so rather than sending your information anywhere. This notice will be updated once a real service is connected, and that section will describe what's collected and how it's used.", "es": "— al enviar uno, se muestra un mensaje en la página indicándolo, en lugar de enviar su información a algún lugar. Este aviso se actualizará una vez que se conecte un servicio real, y esa sección describirá qué se recopila y cómo se usa." },
+  "privacy.mapsHeading": { "en": "Maps and location services", "es": "Mapas y servicios de ubicación" },
+  "privacy.mapsBodyPre": { "en": "Listing pages and the Contact page embed a Google Map, and the Listings page shows a map of every current listing built with", "es": "Las páginas de propiedades y la página de Contacto incorporan un mapa de Google, y la página de Propiedades muestra un mapa de todas las propiedades actuales construido con" },
+  "privacy.mapsBodyMid": { "en": "and free", "es": "y mapas gratuitos de" },
+  "privacy.osm": { "en": "OpenStreetMap", "es": "OpenStreetMap" },
+  "privacy.mapsBodyMid2": { "en": " map tiles. Loading either connects to Google or the OpenStreetMap Foundation, which may set their own cookies or collect usage data under", "es": ", cuya carga se conecta a Google o a la Fundación OpenStreetMap y puede establecer sus propias cookies o recopilar datos de uso según" },
+  "privacy.googlePrivacy": { "en": "Google's", "es": "la política de privacidad de Google" },
+  "privacy.mapsBodyMid3": { "en": "or", "es": "o según" },
+  "privacy.osmPrivacy": { "en": "OpenStreetMap's", "es": "la de OpenStreetMap" },
+  "privacy.mapsBodyPost": { "en": "own privacy policy — this site doesn't control that.", "es": "— este sitio no controla eso." },
+  "privacy.autocompleteBody": { "en": "The \"What's My Home Worth?\" form's address field may also offer address suggestions as you type, using Google's Places service — this only runs when the site has a Google Maps API key configured; if it doesn't, the field is a plain text box and nothing is sent to Google.", "es": "El campo de dirección del formulario \"¿Cuánto Vale Mi Casa?\" también puede ofrecer sugerencias de dirección mientras escribe, usando el servicio Places de Google — esto solo funciona cuando el sitio tiene configurada una clave de API de Google Maps; si no, el campo es una simple casilla de texto y no se envía nada a Google." },
+  "privacy.analyticsHeading": { "en": "Analytics", "es": "Análisis" },
+  "privacy.analyticsBody": { "en": "This site does not currently use any analytics or tracking service. If that changes, this page will be updated to say what's in use.", "es": "Este sitio actualmente no usa ningún servicio de análisis o seguimiento. Si eso cambia, esta página se actualizará para indicar qué se está usando." },
+  "privacy.cookiesHeading": { "en": "Cookies", "es": "Cookies" },
+  "privacy.cookiesBody": { "en": "This site does not set its own cookies. The embedded maps above may set cookies belonging to Google or the OpenStreetMap Foundation.", "es": "Este sitio no establece sus propias cookies. Los mapas incorporados arriba pueden establecer cookies pertenecientes a Google o a la Fundación OpenStreetMap." },
 
   "mccalc.heading": { "en": "Mortgage Calculator", "es": "Calculadora de Hipoteca" },
   "mccalc.introPre": { "en": "Get a rough estimate of your monthly payment before you start touring homes. Browsing a specific property? Its own", "es": "Obtenga un estimado aproximado de su pago mensual antes de empezar a visitar casas. ¿Está viendo una propiedad específica? Su propia" },

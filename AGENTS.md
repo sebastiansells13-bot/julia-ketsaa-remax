@@ -61,17 +61,28 @@ Keep it up to date as the site diverges from the template.
   `window.GOOGLE_MAPS_API_KEY`, set in `base.njk` from the `googleMapsApiKey` global data
   (an env var, `GOOGLE_MAPS_API_KEY` — never hardcode a real key into `eleventy.config.cjs`
   or a template). No key, no script load — the field just stays a plain input.
-- **Language toggle**: `src/_includes/js/i18n.js` + `src/_data/i18n.json` power the
-  EN/ES buttons in the header. Any element with `data-i18n="key"` gets its `textContent`
-  replaced on toggle (`data-i18n-placeholder="key"` for an input's `placeholder`); the
-  choice persists per visitor via `localStorage`. It only covers this site's own
-  template chrome and static marketing pages — never CMS-authored content (blog posts,
-  listing descriptions, services, testimonials, FAQ answers), which stays in whatever
-  language Julia wrote it in. See README.md's "How the language toggle works" before
-  adding a new translated string — in particular, never put `data-i18n` on an element
-  that also has non-text children (an `<input>`, a nested `<span>`); it overwrites
-  `textContent` and silently deletes them. Reuse an existing key (`nav.home`, `form.email`,
-  `common.julia`, etc.) before adding a new one for the same word.
+- **Language toggle**: `src/_includes/js/i18n-runtime.js` (loads first; exposes
+  `window.t(key, vars)` / `window.i18nLang()` from the `#i18n-data` dictionary island) and
+  `src/_includes/js/i18n.js` (loads second; applies `[data-i18n]`/`[data-i18n-placeholder]`/
+  `[data-i18n-lang]` to the DOM) power the EN/ES buttons in the header, backed by the flat
+  dictionary at `src/_data/i18n.json`. Any script that builds its own markup or messages at
+  runtime (`lead-form.js`, `newsletter.js`, `saved-listings.js`, `share-listing.js`,
+  `mortgage-calculator.js`, `compare.js`, `listings-map.js`) calls `window.t(...)` rather than
+  re-reading the dictionary itself, and listens for the `lang:changed` event (dispatched by
+  `i18n.js` on every switch) to re-render if it has something already on screen. The choice
+  persists per visitor via `localStorage`. It covers this site's own template chrome and
+  every static page (including the full FAQ Q&A and Privacy, both template content Julia
+  doesn't edit live) — never CMS-authored content that changes as often as listings/blog
+  posts do (blog posts, listing descriptions, services, testimonials). A few `business.json`
+  fields she *can* edit live (`tagline`, `bio`, `disclaimer`) get an optional `*Es` sibling
+  field instead of a dictionary entry, rendered via `{{ bilingual(en, es) }}`
+  (`macros/bilingual.njk`) — see README.md before adding another one. See README.md's "How
+  the language toggle works" before adding any new translated string — in particular, never
+  put `data-i18n` on an element that also has non-text children (an `<input>`, a nested
+  `<span>`), and never put a fixed separator character between two translated tags in a
+  template (put it inside whichever language's string needs it — see the comment in
+  `src/privacy.njk`'s "Maps and location services" paragraph). Reuse an existing key
+  (`nav.home`, `form.email`, `common.julia`, etc.) before adding a new one for the same word.
 - **Listing tabs**: `justListed` (boolean) and `openHouse` (string) on a listing power
   the "Just Listed"/"Open Houses" tabs on `/listings/` (`src/_includes/js/listings-filter.js`)
   and the "New" tag / open-house banner on its cards and detail page. Both are manual

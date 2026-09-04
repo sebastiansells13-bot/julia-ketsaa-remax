@@ -276,6 +276,11 @@ content:
         type: string
         required: true
 
+      - name: taglineEs
+        label: Tagline (Spanish)
+        type: string
+        description: "Shown on the homepage instead of Tagline above when a visitor switches the site to Spanish. Leave blank to keep showing the English Tagline in Spanish mode too."
+
       - name: phoneCell
         label: Cell Phone
         type: string
@@ -324,6 +329,11 @@ content:
         type: string
         description: "Standard RE/MAX franchise disclaimer — leave as \"Each RE/MAX® office is independently owned and operated.\" unless your broker tells you otherwise."
 
+      - name: disclaimerEs
+        label: Brokerage Disclaimer (Spanish)
+        type: string
+        description: "Shown instead of Brokerage Disclaimer above in Spanish mode. Leave blank to keep showing the English text."
+
       - name: photo
         label: Agent Photo
         type: image
@@ -333,6 +343,11 @@ content:
       - name: bio
         label: Bio
         type: rich-text
+
+      - name: bioEs
+        label: Bio (Spanish)
+        type: rich-text
+        description: "Shown instead of Bio above when a visitor switches the site to Spanish. Leave blank to keep showing the English Bio in Spanish mode too — update this whenever you update Bio to keep both in sync."
 
       - name: social
         label: Social Links

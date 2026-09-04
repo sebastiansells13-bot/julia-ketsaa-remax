@@ -36,17 +36,23 @@ You can update your site's content without touching any code.
   pages.
 - **Testimonials** — client quotes shown on the homepage.
 - **Agent & Business Info** — your name, brokerage, tagline, contact details,
-  license text and number, and bio shown across the site.
+  license text and number, and bio shown across the site. Tagline, bio, and
+  the brokerage disclaimer each have an optional Spanish version too
+  (**Tagline (Spanish)**, **Bio (Spanish)**, **Brokerage Disclaimer
+  (Spanish)**) — fill one in and it's shown automatically when a visitor
+  switches the site to Spanish; leave it blank and the English version
+  keeps showing in both languages. If you update the English Bio, please
+  update Bio (Spanish) at the same time so the two don't drift apart.
 
 ## What you *can't* edit here
 
-The FAQ page, the mortgage calculator's default numbers, the wording on
-the "What's My Home Worth?", Privacy, "Why Live in Las Cruces", Fair
-Housing, and Accessibility pages, the "Schedule a Tour" and "Ask Julia
-About This Property" forms on each listing page, and the Spanish
-translations behind the EN/ES toggle in the header aren't in this CMS —
-they're part of the site's code. If you'd like something changed there,
-contact your developer.
+The wording on every other page — the FAQ, the mortgage calculator's
+default numbers, "What's My Home Worth?", Privacy, "Why Live in Las
+Cruces", Fair Housing, and Accessibility — and the "Schedule a Tour" and
+"Ask Julia About This Property" forms on each listing page aren't in this
+CMS, and neither are their Spanish translations behind the EN/ES toggle —
+all of that is part of the site's code. If you'd like something changed
+there, contact your developer.
 
 ## 3. Making a change
 

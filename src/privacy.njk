@@ -5,21 +5,35 @@ description: How this site handles your information.
 permalink: /privacy/
 ---
 <div class="wrapper privacy-page">
-  <h1>Privacy Notice</h1>
-  <p class="privacy-page__updated">This is a plain-language summary, not a legal document. Questions? <a href="/contact/">Contact Julia</a>.</p>
+  <h1 data-i18n="privacy.heading">Privacy Notice</h1>
+  <p class="privacy-page__updated"><span data-i18n="privacy.introPre">This is a plain-language summary, not a legal document. Questions?</span> <a href="/contact/" data-i18n="listingdetail.contactJulia">Contact Julia</a>.</p>
 
-  <h2>What this site stores in your browser</h2>
-  <p>Saved listings and your recently-viewed listings are stored using your browser's local storage. That data stays on your device — it's never sent to Julia, to us, or to anyone else. Clearing your browser's site data removes it.</p>
+  <h2 data-i18n="privacy.storageHeading">What this site stores in your browser</h2>
+  <p data-i18n="privacy.storageBody">Saved listings, your recently-viewed listings, and your English/Spanish language choice are stored using your browser's local storage. That data stays on your device — it's never sent to Julia, to us, or to anyone else. Clearing your browser's site data removes it.</p>
 
-  <h2>Forms on this site</h2>
-  <p>The newsletter signup, the contact form, and the "What's My Home Worth?" form are built and validated, but as of this writing they are <strong>not yet connected to an email or lead-management service</strong> — submitting one shows an on-page message saying so rather than sending your information anywhere. This notice will be updated once a real service is connected, and that section will describe what's collected and how it's used.</p>
+  <h2 data-i18n="privacy.formsHeading">Forms on this site</h2>
+  <p><span data-i18n="privacy.formsBodyPre">The newsletter signup, Contact form, "What's My Home Worth?" form, and each listing's "Schedule a Tour" and "Ask Julia About This Property" forms are built and validated, but as of this writing they are</span> <strong data-i18n="privacy.formsBodyStrong">not yet connected to an email or lead-management service</strong> <span data-i18n="privacy.formsBodyPost">— submitting one shows an on-page message saying so rather than sending your information anywhere. This notice will be updated once a real service is connected, and that section will describe what's collected and how it's used.</span></p>
 
-  <h2>Embedded maps</h2>
-  <p>Listing pages and the Contact page embed a Google Map. Loading that embed connects to Google, which may set its own cookies or collect usage data under <a href="https://policies.google.com/privacy" target="_blank" rel="noopener">Google's own privacy policy</a> — this site doesn't control that.</p>
+  <h2 data-i18n="privacy.mapsHeading">Maps and location services</h2>
+  {#
+    Note the missing space between the OpenStreetMap link and the span
+    right after it — that's deliberate, not a typo. The English text for
+    that span starts with its own leading space (" map tiles...") because
+    English continues the sentence with a new word there, but the Spanish
+    translation continues with a comma ("...OpenStreetMap, cuya carga..."),
+    so a literal space in the template would leave a stray gap before the
+    comma in Spanish. Whichever language needs a separator at a given
+    template-tag boundary should carry it in its own translated string —
+    a fixed character between tags in the template is only ever correct
+    for one language. See README.md's "How the language toggle works" for
+    the general rule this is an example of.
+  #}
+  <p><span data-i18n="privacy.mapsBodyPre">Listing pages and the Contact page embed a Google Map, and the Listings page shows a map of every current listing built with</span> <a href="https://leafletjs.com/" target="_blank" rel="noopener">Leaflet</a> <span data-i18n="privacy.mapsBodyMid">and free</span> <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener" data-i18n="privacy.osm">OpenStreetMap</a><span data-i18n="privacy.mapsBodyMid2"> map tiles. Loading either connects to Google or the OpenStreetMap Foundation, which may set their own cookies or collect usage data under</span> <a href="https://policies.google.com/privacy" target="_blank" rel="noopener" data-i18n="privacy.googlePrivacy">Google's</a> <span data-i18n="privacy.mapsBodyMid3">or</span> <a href="https://wiki.osmfoundation.org/wiki/Privacy_Policy" target="_blank" rel="noopener" data-i18n="privacy.osmPrivacy">OpenStreetMap's</a> <span data-i18n="privacy.mapsBodyPost">own privacy policy — this site doesn't control that.</span></p>
+  <p data-i18n="privacy.autocompleteBody">The "What's My Home Worth?" form's address field may also offer address suggestions as you type, using Google's Places service — this only runs when the site has a Google Maps API key configured; if it doesn't, the field is a plain text box and nothing is sent to Google.</p>
 
-  <h2>Analytics</h2>
-  <p>This site does not currently use any analytics or tracking service. If that changes, this page will be updated to say what's in use.</p>
+  <h2 data-i18n="privacy.analyticsHeading">Analytics</h2>
+  <p data-i18n="privacy.analyticsBody">This site does not currently use any analytics or tracking service. If that changes, this page will be updated to say what's in use.</p>
 
-  <h2>Cookies</h2>
-  <p>This site does not set its own cookies. The embedded map above may set cookies belonging to Google.</p>
+  <h2 data-i18n="privacy.cookiesHeading">Cookies</h2>
+  <p data-i18n="privacy.cookiesBody">This site does not set its own cookies. The embedded maps above may set cookies belonging to Google or the OpenStreetMap Foundation.</p>
 </div>

@@ -6,7 +6,7 @@
 // simply gets no pin — no guessed or fake placement.
 (function () {
   const mapEl = document.getElementById("listings-map");
-  if (!mapEl || typeof L === "undefined") return;
+  if (!mapEl || typeof L === "undefined" || typeof window.t !== "function") return;
 
   const dataEl = document.getElementById("listings-data");
   if (!dataEl) return;
@@ -27,31 +27,6 @@
     return;
   }
 
-  // Small, self-contained translation lookup (same #i18n-data island and
-  // localStorage key as i18n.js) — this file builds its own markup at
-  // runtime, so it can't rely on that script's [data-i18n] pass.
-  let i18nDict = {};
-  const i18nDataEl = document.getElementById("i18n-data");
-  if (i18nDataEl) {
-    try {
-      i18nDict = JSON.parse(i18nDataEl.textContent);
-    } catch (err) {
-      i18nDict = {};
-    }
-  }
-  function currentLang() {
-    try {
-      return localStorage.getItem("lang") === "es" ? "es" : "en";
-    } catch (err) {
-      return "en";
-    }
-  }
-  function t(key, lang) {
-    const entry = i18nDict[key];
-    if (!entry) return key;
-    return entry[lang] || entry.en || key;
-  }
-
   const map = L.map(mapEl, { scrollWheelZoom: false });
   L.tileLayer("https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png", {
     maxZoom: 19,
@@ -61,19 +36,19 @@
   const markers = {};
   const bounds = [];
 
-  function popupHtml(listing, lang) {
+  function popupHtml(listing) {
     const href = (window.SITE_BASE || "") + "/listings/" + listing.slug + "/";
     const statusKey = "status." + listing.status.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
     return (
       "<strong>" + listing.address + "</strong><br>" +
-      listing.price + " · " + t(statusKey, lang) + "<br>" +
-      '<a href="' + href + '">' + t("listingdetail.viewListing", lang) + "</a>"
+      listing.price + " · " + window.t(statusKey) + "<br>" +
+      '<a href="' + href + '">' + window.t("listingdetail.viewListing") + "</a>"
     );
   }
 
   geocoded.forEach(function (listing) {
     const marker = L.marker([listing.lat, listing.lng]);
-    marker.bindPopup(popupHtml(listing, currentLang()));
+    marker.bindPopup(popupHtml(listing));
     marker.addTo(map);
     markers[listing.slug] = marker;
     bounds.push([listing.lat, listing.lng]);
@@ -102,11 +77,10 @@
   // Re-render popup text (address/price are unaffected — only the status
   // word and the link label are ever translated) when the language toggle
   // switches, so a popup opened after that shows the right language.
-  window.addEventListener("lang:changed", function (event) {
-    const lang = event.detail === "es" ? "es" : "en";
+  window.addEventListener("lang:changed", function () {
     geocoded.forEach(function (listing) {
       const marker = markers[listing.slug];
-      if (marker) marker.setPopupContent(popupHtml(listing, lang));
+      if (marker) marker.setPopupContent(popupHtml(listing));
     });
   });
 })();

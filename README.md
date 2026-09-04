@@ -262,23 +262,52 @@ concrete reason, not an oversight:
 ## How the language toggle works
 
 The EN/ES buttons in the header (`src/_includes/components/header.njk`) are
-powered by `src/_includes/js/i18n.js` and a flat dictionary at
-`src/_data/i18n.json` (`{ "key": { "en": "...", "es": "..." } }`). Any
-element with `data-i18n="key"` gets its text swapped on toggle; an input's
-`placeholder` uses `data-i18n-placeholder="key"` instead. The choice is
-remembered per visitor via `localStorage` and reapplied on every page load.
+powered by two scripts sharing one dictionary, `src/_data/i18n.json`
+(`{ "key": { "en": "...", "es": "..." } }`), loaded into every page as a
+`#i18n-data` JSON island:
 
-**What it translates:** the site's own template chrome — nav, footer, every
-form's labels/buttons, and static marketing pages (Home, About, Contact,
-Home Value, FAQ's heading/intro, 404, Why Live in Las Cruces, Mortgage
-Calculator, Fair Housing, Accessibility).
+- **`i18n-runtime.js`** loads first, before every other script, and just
+  exposes `window.t(key, vars)` and `window.i18nLang()`. Any script that
+  builds its own markup or messages at runtime — form status messages
+  (`lead-form.js`, `newsletter.js`), the Compare table (`compare.js`), the
+  Listings map's popups (`listings-map.js`), the mortgage calculator's
+  "/mo" suffix, a save button's aria-label — calls `window.t(...)` rather
+  than keeping its own copy of the dictionary-reading logic.
+- **`i18n.js`** loads second and does the static-page work: any element
+  with `data-i18n="key"` gets its text swapped on toggle; an input's
+  `placeholder` uses `data-i18n-placeholder="key"` instead.
 
-**What it deliberately does NOT translate:** anything Julia writes herself
-through the CMS — blog posts, listing descriptions, the services list,
-testimonials, and the FAQ answers themselves. Those stay in whatever
-language she wrote them in, exactly like any real i18n setup with a
-single-language content source; there's no ongoing translation pipeline for
-content that changes as often as listings and blog posts do.
+Either way, the choice is remembered per visitor via `localStorage` and
+reapplied on every page load; a `lang:changed` event fires on every switch
+so a runtime script (a Leaflet popup that's already open, a rendered
+Compare table) can re-render in the new language without a page reload.
+
+**What it translates:** essentially everything Claude/a developer writes
+into this site's own templates — nav, footer, every form's labels/buttons/
+status messages (including each one's honest "not connected yet" message),
+and every static page: Home, About, Contact, Home Value, FAQ (including all
+question/answer text — the FAQ is template content, not something Julia
+edits live, so keeping it bilingual doesn't create an ongoing translation
+burden), 404, Why Live in Las Cruces, Mortgage Calculator, Compare, Privacy,
+Fair Housing, Accessibility.
+
+A handful of strings come from `business.json` instead of the dictionary —
+the homepage tagline, the About-page bio, and the RE/MAX franchise
+disclaimer — because Julia can change any of those through the CMS at any
+time. Rather than auto-translating (and risking a Spanish version silently
+drifting out of sync with an edited English one), each has an optional
+`*Es` sibling field (`taglineEs`, `bioEs`, `disclaimerEs`) she can fill in
+through the CMS; `macros/bilingual.njk` renders both as `data-i18n-lang`
+siblings and lets the toggle pick one, falling back to showing the English
+version in both languages if no Spanish one has been provided yet.
+
+**What it deliberately does NOT translate:** everything else Julia writes
+herself through the CMS — blog posts, listing descriptions, the services
+list, testimonials. Those stay in whatever language she wrote them in,
+exactly like any real i18n setup with a single-language content source;
+there's no ongoing translation pipeline for content that changes as often
+as listings and blog posts do. The listing stats line ("3 bed · 2 bath ·
+1850 sqft") also stays as-is — a minor, deliberately-skipped gap.
 
 **Known limitation:** this is a client-side toggle, not separate `/es/`
 pages — there's nothing here for a Spanish-language Google search to index.
@@ -287,13 +316,29 @@ Spanish content to actually rank in Spanish-language search, that needs
 real translated pages at their own URLs, which is a bigger project than
 this toggle.
 
-**Adding a new translated string:** add a `key` to `src/_data/i18n.json`
-with both `en` and `es` values, then add `data-i18n="key"` to the element in
-its template — but never put `data-i18n` directly on an element that also
-has non-text children (an `<input>`, a nested `<span>`), since applying a
-translation overwrites `textContent` and would silently delete them; wrap
-just the text in its own `<span data-i18n="...">` instead (see any existing
-form label for the pattern).
+**Adding a new translated string:**
+- Static template text: add a `key` to `src/_data/i18n.json` with both
+  `en` and `es` values, then add `data-i18n="key"` to the element in its
+  template — but never put `data-i18n` directly on an element that also
+  has non-text children (an `<input>`, a nested `<span>`), since applying a
+  translation overwrites `textContent` and would silently delete them;
+  wrap just the text in its own `<span data-i18n="...">` instead (see any
+  existing form label for the pattern). When splitting a sentence across
+  several spans/links for this reason, put any language-specific spacing
+  or punctuation *inside* the translated string, not as literal characters
+  between the tags in the template — English and Spanish don't always
+  break the same way, and a fixed space or period in the template will be
+  wrong for whichever language didn't need it there (see the comment in
+  `src/privacy.njk`'s "Maps and location services" paragraph for a worked
+  example of this biting once already).
+- A runtime script's own message: add the key to `i18n.json`, then call
+  `window.t("that.key")` (or `window.t("that.key", {name: "value"})` for a
+  `{name}`-style placeholder) — don't touch the DOM directly with a
+  hardcoded English string.
+- Content from `business.json` (bio-like fields only): add a `*Es` field
+  next to it, wire it through `{{ bilingual(en, es) }}` (see
+  `macros/bilingual.njk`), and document the new field in `.pages.yml` and
+  `CMS-GUIDE.md`.
 
 ## Local development
 

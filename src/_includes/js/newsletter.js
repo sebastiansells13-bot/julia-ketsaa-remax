@@ -27,15 +27,16 @@
     if (!form.reportValidity()) return;
 
     if (!isConfigured) {
-      status.textContent =
-        "Thanks for the interest! Email signups aren't connected yet — check back soon, or call/text Julia directly in the meantime.";
+      status.textContent = window.t
+        ? window.t("newsletter.notConnected")
+        : "Thanks for the interest! Email signups aren't connected yet — check back soon, or call/text Julia directly in the meantime.";
       form.reset();
       return;
     }
 
     // Live path, once an endpoint is configured above.
     button.disabled = true;
-    status.textContent = "Submitting...";
+    status.textContent = window.t ? window.t("form.sending") : "Submitting...";
 
     fetch(endpoint, {
       method: "POST",
@@ -44,11 +45,11 @@
     })
       .then((response) => {
         if (!response.ok) throw new Error("Request failed");
-        status.textContent = "You're subscribed — thanks!";
+        status.textContent = window.t ? window.t("newsletter.subscribed") : "You're subscribed — thanks!";
         form.reset();
       })
       .catch(() => {
-        status.textContent = "Something went wrong. Please try again in a moment.";
+        status.textContent = window.t ? window.t("form.somethingWrong") : "Something went wrong. Please try again in a moment.";
       })
       .finally(() => {
         button.disabled = false;

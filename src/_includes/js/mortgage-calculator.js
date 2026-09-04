@@ -39,7 +39,8 @@
     }
 
     if (!isFinite(monthlyPayment) || monthlyPayment < 0) monthlyPayment = 0;
-    result.textContent = formatCurrency(monthlyPayment) + " / mo";
+    const perMonth = window.t ? window.t("mortgagecalc.perMonth") : " / mo";
+    result.textContent = formatCurrency(monthlyPayment) + perMonth;
   }
 
   [priceInput, downInput, rateInput, termSelect].forEach(function (el) {
@@ -48,4 +49,6 @@
   });
 
   compute();
+  // Re-render with the translated "/mo" suffix on a language switch.
+  window.addEventListener("lang:changed", compute);
 })();
