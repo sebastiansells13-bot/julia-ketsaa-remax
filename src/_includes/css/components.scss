@@ -952,7 +952,14 @@
 }
 
 .listing-detail {
-  max-width: 42rem;
+  // Was 42rem — a real MLS-style listing page (see README.md's "Listing
+  // detail page layout") uses close to the full page width for its photo
+  // and facts, not a narrow centered column. Match the site's own global
+  // $max-width instead; the couple of genuinely text-heavy/form pieces
+  // below (the two lead-capture forms, the agent card, the quick-action
+  // buttons) cap their own width so they don't get stretched into
+  // oversized single-column inputs just because the page around them did.
+  max-width: $max-width;
   padding-top: 1.5rem;
   padding-bottom: 4rem;
 
@@ -1223,8 +1230,7 @@
   display: inline-block;
   text-decoration: none;
   text-align: center;
-  flex: 1;
-  min-width: 10rem;
+  flex: 0 1 16rem;
   padding: 0.7rem 1.25rem;
   border-radius: 0.3rem;
   border: 1px solid $color-remax-blue;
@@ -1245,11 +1251,14 @@
   }
 }
 
-// "Your Agent" mini-card (components/listing-agent-card.njk).
+// "Your Agent" mini-card (components/listing-agent-card.njk). Capped
+// width so it reads as a compact card rather than a mostly-empty banner
+// now that .listing-detail itself is full-width.
 .listing-agent-card {
   display: flex;
   align-items: center;
   gap: 1rem;
+  max-width: 26rem;
   padding: 1rem;
   border: 1px solid $color-border;
   border-radius: 0.5rem;
@@ -1395,9 +1404,11 @@
   // The standalone .contact-form's own top/bottom padding is meant to give
   // it breathing room as a page's main content; here it's one section among
   // several, already spaced out by .listing-detail's own `> * + *` rule.
+  // Its own max-width (34rem) is kept, though — .listing-detail is
+  // full-width now, and an unconstrained single-column form stretched
+  // that wide would mean giant, awkward input boxes.
   .contact-form {
     padding: 0;
-    max-width: none;
   }
 }
 
