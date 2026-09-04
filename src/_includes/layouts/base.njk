@@ -48,6 +48,7 @@
   #}
   <script type="application/json" id="listings-data">{{ listings.list | listingsWithSlugs | dump | safe }}</script>
   <script>window.SITE_BASE = "{{ sitePathPrefix }}";</script>
+  <script>window.GOOGLE_MAPS_API_KEY = {{ googleMapsApiKey | dump | safe }};</script>
   <script src="/js/nav.js" defer></script>
   <script src="/js/newsletter.js" defer></script>
   <script src="/js/saved-listings.js" defer></script>
@@ -58,5 +59,6 @@
   <script src="/js/compare.js" defer></script>
   <script src="/js/share-listing.js" defer></script>
   <script src="/js/gallery.js" defer></script>
+  <script src="/js/address-autocomplete.js" defer></script>
 </body>
 </html>

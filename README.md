@@ -146,6 +146,35 @@ photo until Julia sends a real headshot. Add it via the CMS, or drop a file
 in `src/_includes/img/agent/` and set the `photo` field in
 `src/_data/business.json` to match.
 
+## Address autocomplete (optional)
+
+The Home Value form's Property Address field can offer Google-style
+address suggestions as Julia's client types, via the Google Maps
+JavaScript API's Places library (`src/_includes/js/address-autocomplete.js`).
+It's off by default — no key, no script load, and the field just behaves
+as a plain text input; nothing breaks either way.
+
+To turn it on:
+
+1. In [Google Cloud Console](https://console.cloud.google.com/), create a
+   project (or use an existing one) and enable the **Places API**.
+2. Create an API key under **APIs & Services → Credentials**, then
+   restrict it (**Application restrictions → Websites**) to this site's
+   domain(s) — e.g. `sebastiansells13-bot.github.io/julia-ketsaa-remax/*`,
+   plus `localhost/*` if you want to test locally.
+3. Add it as a GitHub repository secret named `GOOGLE_MAPS_API_KEY`
+   (**Settings → Secrets and variables → Actions → New repository
+   secret**) — `.github/workflows/build-deploy.yml` passes it to the build.
+4. To test locally: `GOOGLE_MAPS_API_KEY=your-key npm start`
+
+Google's free monthly credit comfortably covers a low-traffic site like
+this one, but a billing profile has to be on file with Google regardless.
+
+This is the only address field wired up this way — the Listings and 404
+search boxes filter Julia's own small local listing list by plain
+substring match, not a real address lookup, so a Google-picked formatted
+address wouldn't reliably match any of them.
+
 ## Local development
 
 ```bash

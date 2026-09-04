@@ -51,6 +51,13 @@ Keep it up to date as the site diverges from the template.
 - **Print styles**: `src/_includes/css/print.scss` hides chrome/interactive widgets on
   `listing-detail.njk` for a clean printable flyer. If you rename or add a class there
   (a new interactive block, a new nav item, etc.), update the hide-list in that file too.
+- **Address autocomplete**: `src/_includes/js/address-autocomplete.js` wires Google's
+  Places Autocomplete onto any `[data-address-autocomplete]` input (currently just the
+  Home Value form's address field — see README.md's "Address autocomplete" section for
+  why the Listings/404 search boxes don't get it). Reads the key from
+  `window.GOOGLE_MAPS_API_KEY`, set in `base.njk` from the `googleMapsApiKey` global data
+  (an env var, `GOOGLE_MAPS_API_KEY` — never hardcode a real key into `eleventy.config.cjs`
+  or a template). No key, no script load — the field just stays a plain input.
 - **Deployment**: pushes to `main` build the site and deploy to GitHub Pages;
   pull requests run the build to catch errors but do not deploy.
 

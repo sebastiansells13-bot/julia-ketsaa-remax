@@ -34,6 +34,12 @@ jobs:
 
       - name: Build site
         run: npm run build:ci
+        env:
+          # Optional — powers the Home Value form's address autocomplete
+          # (src/_includes/js/address-autocomplete.js). Left unset, that
+          # field just behaves as a plain text input. See README.md for how
+          # to get a key.
+          GOOGLE_MAPS_API_KEY: ${{ secrets.GOOGLE_MAPS_API_KEY }}
 
       - name: Upload GitHub Pages artifact
         if: github.event_name != 'pull_request'
