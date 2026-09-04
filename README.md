@@ -40,8 +40,9 @@ standard, typically required elements of real-estate marketing materials.
 "Saved only" toggle, and a live-updating count/compare link. Each card links
 to a full detail page with a photo gallery + lightbox, an optional video
 tour embed (YouTube or Vimeo), optional "View on Zillow"/"View on Redfin"
-links, breadcrumbs, an embedded map + directions link, a mortgage calculator
-pre-filled with that listing's price, and Save/Share buttons.
+links, breadcrumbs, a "Schedule a Tour" form, an embedded map + directions
+link, a mortgage calculator pre-filled with that listing's price, an "Ask
+Julia About This Property" inquiry form, and Save/Share buttons.
 
 **Tools reachable from anywhere** — a standalone
 [mortgage calculator](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/mortgage-calculator/)
@@ -52,8 +53,9 @@ print/Ctrl+P — chrome and interactive widgets are hidden via
 `src/_includes/css/print.scss`).
 
 **Lead capture** — the general [Contact](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/contact/)
-form and the seller-focused [What's My Home Worth?](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/home-value/)
-form, plus the footer newsletter signup. All three are fully built and
+form, the seller-focused [What's My Home Worth?](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/home-value/)
+form, the footer newsletter signup, and per-listing "Schedule a Tour" and
+"Ask Julia About This Property" forms. All five are fully built and
 validated but **not connected to a real backend yet** — see "What isn't
 connected yet" below.
 
@@ -99,14 +101,16 @@ through the CMS.
 
 ## What isn't connected yet
 
-Three forms are fully built and validated, but each shows an honest
+Five forms are fully built and validated, but each shows an honest
 on-page message instead of submitting until it's pointed at a real backend:
 
 - **Newsletter** (footer) — see the comment atop `src/_includes/js/newsletter.js`
-- **Contact form** and **Home Value form** — both share `src/_includes/js/lead-form.js`;
-  point a form's `data-endpoint` attribute (in `contact-form.njk` or
-  `home-value.njk`) at a real service (Formspree, Netlify Forms, etc.) to
-  go live
+- **Contact form**, **Home Value form**, and each listing's **Schedule a
+  Tour** and **Ask Julia About This Property** forms — all four share
+  `src/_includes/js/lead-form.js`; point a form's `data-endpoint` attribute
+  (in `contact-form.njk`, `home-value.njk`, `tour-form.njk`, or
+  `listing-inquiry-form.njk`) at a real service (Formspree, Netlify Forms,
+  etc.) to go live
 
 `src/privacy.njk` describes this accurately today — update it when any of
 the above gets connected, or if analytics gets added.

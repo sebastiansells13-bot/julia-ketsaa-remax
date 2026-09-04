@@ -1,0 +1,58 @@
+{#
+  "Schedule a Tour" lead-capture form for a listing detail page. Caller
+  must have `listing` in scope (true on listing-detail.njk, which aliases
+  the paginated item to `listing`). Submits via the shared
+  src/_includes/js/lead-form.js handler — see AGENTS.md's "Lead-capture
+  forms" note before duplicating any of its validate/submit/honesty logic.
+#}
+<div class="listing-detail__tour" id="schedule-tour">
+  <h2>Schedule a Tour</h2>
+  <form
+    class="contact-form"
+    id="tour-form"
+    data-lead-form
+    data-endpoint="TOUR_REQUEST_ENDPOINT_NOT_CONFIGURED"
+    data-not-connected-message="Thanks for your interest! This form isn't connected yet — please call or text Julia directly to schedule a tour of {{ listing.address }}."
+    data-success-message="Tour request sent — Julia will confirm a time with you soon."
+    method="post"
+  >
+    <input type="hidden" name="listing" value="{{ listing.address }}, {{ listing.location }}">
+    <fieldset class="contact-form__row tour-form__type">
+      <legend>Tour Type</legend>
+      <div class="tour-form__type-options">
+        <label class="tour-form__radio"><input type="radio" name="tourType" value="In-Person" checked> In-Person</label>
+        <label class="tour-form__radio"><input type="radio" name="tourType" value="Virtual"> Virtual</label>
+      </div>
+    </fieldset>
+    <div class="contact-form__row">
+      <label for="tour-date">Preferred Date</label>
+      <input type="date" id="tour-date" name="preferredDate" required>
+    </div>
+    <div class="contact-form__row">
+      <label for="tour-time">Preferred Time</label>
+      <select id="tour-time" name="preferredTime">
+        <option value="Morning">Morning</option>
+        <option value="Afternoon">Afternoon</option>
+        <option value="Evening">Evening</option>
+      </select>
+    </div>
+    <div class="contact-form__row">
+      <label for="tour-name">Name</label>
+      <input type="text" id="tour-name" name="name" autocomplete="name" required>
+    </div>
+    <div class="contact-form__row">
+      <label for="tour-email">Email</label>
+      <input type="email" id="tour-email" name="email" autocomplete="email" required>
+    </div>
+    <div class="contact-form__row">
+      <label for="tour-phone">Phone <span class="contact-form__optional">(optional)</span></label>
+      <input type="tel" id="tour-phone" name="phone" autocomplete="tel">
+    </div>
+    <div class="contact-form__row">
+      <label for="tour-message">Anything else? <span class="contact-form__optional">(optional)</span></label>
+      <textarea id="tour-message" name="message" rows="3"></textarea>
+    </div>
+    <button type="submit">Schedule a Tour</button>
+    <p class="contact-form__status" data-lead-form-status role="status" aria-live="polite"></p>
+  </form>
+</div>

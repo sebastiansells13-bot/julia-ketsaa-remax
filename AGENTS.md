@@ -95,9 +95,9 @@ Keep it up to date as the site diverges from the template.
   get `noindex`ed — see `src/listing-detail.njk`). Don't strip the `isSample` flag,
   the placeholder fallback, or the noindex logic — a real listing is added by setting
   `isSample: false` and a real `image`, not by editing a sample in place to look real
-- Don't claim the newsletter, contact, or Home Value forms are "connected" or remove
-  their `data-endpoint`/`data-not-connected-message` checks (`newsletter.js` and the
-  shared `lead-form.js`) until a real backend is wired up
+- Don't claim the newsletter, contact, Home Value, Schedule a Tour, or listing
+  inquiry forms are "connected" or remove their `data-endpoint`/`data-not-connected-message`
+  checks (`newsletter.js` and the shared `lead-form.js`) until a real backend is wired up
 - Don't add the official RE/MAX logo graphic without it being supplied directly by
   RE/MAX/the broker — see README.md
 - Don't let `README.md`, `AGENTS.md`, or `CMS-GUIDE.md` drift from reality — this repo
