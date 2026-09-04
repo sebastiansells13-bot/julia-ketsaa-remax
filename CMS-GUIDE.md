@@ -17,7 +17,10 @@ You can update your site's content without touching any code.
   Sold), whether it's "Just Listed" (shows it under that tab plus a small
   "New" tag), an Open House date/time (e.g. "Sat, Sep 13 · 1–3 PM" — shows
   it under the "Open Houses" tab and as a banner on its own page; leave
-  blank if there isn't one scheduled), a cover photo, additional photos
+  blank if there isn't one scheduled), Map Latitude/Longitude (gives the
+  listing a pin on the Listings page map — right-click the spot on Google
+  Maps, choose "What's here?", and copy the two numbers shown; leave both
+  blank and it just won't get a pin), a cover photo, additional photos
   (shown as a gallery on the listing's own page — click a photo to view it
   full-screen), an optional video tour link (paste any YouTube or Vimeo
   link), optional Zillow and Redfin links (shown as buttons on the

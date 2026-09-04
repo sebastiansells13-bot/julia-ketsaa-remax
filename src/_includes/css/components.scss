@@ -472,6 +472,32 @@
   z-index: 1;
 }
 
+// All-listings map (src/_includes/js/listings-map.js) — Leaflet needs an
+// explicit height on its container or it renders at 0px.
+.listings-map {
+  height: 22rem;
+  margin: 1.5rem 0;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background: #f4f2ec;
+
+  &[hidden] {
+    display: none;
+  }
+
+  // Leaflet's own popup chrome, restyled to match the site rather than
+  // its default look.
+  .leaflet-popup-content-wrapper {
+    border-radius: 0.4rem;
+  }
+
+  .leaflet-popup-content a {
+    color: $color-remax-red;
+    font-weight: 600;
+  }
+}
+
 .listings-tabs {
   display: flex;
   flex-wrap: wrap;

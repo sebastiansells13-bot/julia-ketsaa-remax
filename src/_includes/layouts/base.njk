@@ -13,6 +13,11 @@
   {% if noindex or listing.isSample %}<meta name="robots" content="noindex, nofollow">{% endif %}
   <link rel="stylesheet" href="{{ assetPaths.stylesheet }}">
   {% if collections %}<link rel="alternate" href="/feed.xml" type="application/atom+xml" title="{{ business.name }}">{% endif %}
+  {#
+    Leaflet (the all-listings map on /listings/, src/_includes/js/listings-map.js)
+    only loads here, not sitewide — no other page needs a ~150KB map library.
+  #}
+  {% if page.url == "/listings/" %}<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css">{% endif %}
 
   <link rel="icon" href="/favicons/favicon.svg" type="image/svg+xml">
   <link rel="icon" href="/favicons/favicon-32x32.png" sizes="32x32" type="image/png">
@@ -62,5 +67,9 @@
   <script src="/js/gallery.js" defer></script>
   <script src="/js/address-autocomplete.js" defer></script>
   <script src="/js/i18n.js" defer></script>
+  {% if page.url == "/listings/" %}
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
+  <script src="/js/listings-map.js" defer></script>
+  {% endif %}
 </body>
 </html>

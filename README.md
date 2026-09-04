@@ -37,13 +37,14 @@ standard, typically required elements of real-estate marketing materials.
 ## What's on the site
 
 **Listings** (`/listings/`) — search, status/beds/baths filters, sort, a
-"Just Listed"/"Open Houses"/"All Listings" tab bar, a "Saved only" toggle,
-and a live-updating count/compare link. Each card links to a full detail
-page with a photo gallery + lightbox, an optional video tour embed
-(YouTube or Vimeo), optional "View on Zillow"/"View on Redfin" links,
-breadcrumbs, a "Schedule a Tour" form, an embedded map + directions link, a
-mortgage calculator pre-filled with that listing's price, an "Ask Julia
-About This Property" inquiry form, and Save/Share buttons.
+"Just Listed"/"Open Houses"/"All Listings" tab bar, an interactive map
+showing every geocoded listing (see "All-listings map" below), a "Saved
+only" toggle, and a live-updating count/compare link. Each card links to a
+full detail page with a photo gallery + lightbox, an optional video tour
+embed (YouTube or Vimeo), optional "View on Zillow"/"View on Redfin"
+links, breadcrumbs, a "Schedule a Tour" form, an embedded map + directions
+link, a mortgage calculator pre-filled with that listing's price, an "Ask
+Julia About This Property" inquiry form, and Save/Share buttons.
 
 **Tools reachable from anywhere** — a standalone
 [mortgage calculator](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/mortgage-calculator/)
@@ -147,7 +148,8 @@ access) can log in at https://app.pagescms.org, connect this repo, and edit:
 - **Agent & Business Info** — name, title, phone numbers, email, address,
   license text and number, bio, disclaimer, agent photo, social links
 - **Listings** — add/edit/remove property listings, including the photo
-  gallery, video tour URL, Just Listed flag, and Open House date/time
+  gallery, video tour URL, Just Listed flag, Open House date/time, and
+  map coordinates for its pin on the Listings page map
 - **Testimonials** — add/edit/remove client quotes
 - **How I Can Help** — the services list
 - **Blog Posts** — market updates, tips, announcements
@@ -195,6 +197,29 @@ This is the only address field wired up this way — the Listings and 404
 search boxes filter Julia's own small local listing list by plain
 substring match, not a real address lookup, so a Google-picked formatted
 address wouldn't reliably match any of them.
+
+## All-listings map
+
+The Listings page (`/listings/`) shows an interactive map with a pin for
+every listing that has `lat`/`lng` set, alongside the card grid — click a
+pin's popup link to go straight to that listing's page. It's built on
+[Leaflet](https://leafletjs.com/) + free OpenStreetMap tiles
+(`src/_includes/js/listings-map.js`), loaded only on this one page (not
+sitewide) since no other page needs a map library. This needs **no API
+key and no billing account** — unlike the address autocomplete above, it
+just works, the same free approach Julia's own RE/MAX Classic Realty
+broker site (BoldTrail) uses for its map search.
+
+**Adding a pin to a listing:** set the **Map Latitude**/**Map Longitude**
+fields in the CMS (right-click the property's location on Google Maps →
+"What's here?" → copy the two numbers). Leave both blank and that listing
+just doesn't get a pin — no guessed or approximate placement.
+
+The map's pins stay in sync with the page's own search/status/beds/baths/
+tab/saved-only filters — `listings-filter.js` fires a `listings:filtered`
+event after every filter pass, and `listings-map.js` shows/hides pins to
+match, so the map and the list are never showing a different set of
+listings from each other.
 
 ## How the language toggle works
 

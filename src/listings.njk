@@ -69,6 +69,11 @@ permalink: /listings/
   </div>
   {% endif %}
 </div>
+{% if listings.list.length %}
+<div class="wrapper">
+  <div id="listings-map" class="listings-map"></div>
+</div>
+{% endif %}
 <section class="listings-grid wrapper" id="listings-grid">
   {% for listing in listings.list %}
   {% set slug = listing.address | slugify %}

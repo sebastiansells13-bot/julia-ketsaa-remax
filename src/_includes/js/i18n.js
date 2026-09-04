@@ -69,6 +69,10 @@
     document.querySelectorAll("[data-lang-toggle]").forEach(function (btn) {
       btn.setAttribute("aria-pressed", String(btn.dataset.langToggle === lang));
     });
+    // Lets a script that builds its own markup at runtime (e.g.
+    // listings-map.js's Leaflet popups) react to a language switch instead
+    // of only ever reading the dictionary once at page load.
+    window.dispatchEvent(new CustomEvent("lang:changed", { detail: lang }));
   }
 
   function setLanguage(lang) {

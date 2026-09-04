@@ -179,6 +179,7 @@
   "listingdetail.viewOnRedfin": { "en": "View on Redfin", "es": "Ver en Redfin" },
   "listingdetail.openHousePrefix": { "en": "🏠 Open House:", "es": "🏠 Casa Abierta:" },
   "listingdetail.askJulia": { "en": "Ask Julia About This Property", "es": "Pregúntele a Julia Sobre Esta Propiedad" },
+  "listingdetail.viewListing": { "en": "View Listing →", "es": "Ver Propiedad →" },
   "listingdetail.save": { "en": "Save", "es": "Guardar" },
   "listingdetail.share": { "en": "Share", "es": "Compartir" },
   "listingdetail.sampleBannerPre": { "en": "This is a sample listing for demonstration — not a real property for sale.", "es": "Esta es una propiedad de muestra con fines de demostración — no es una propiedad real en venta." },
