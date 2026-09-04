@@ -1140,18 +1140,49 @@
   }
 }
 
-.listing-detail__cta a {
-  display: inline-block;
-  text-decoration: none;
-  color: #fff;
-  background: $color-remax-red;
-  font-weight: 700;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.3rem;
-
-  &:hover {
-    background: darken($color-remax-red, 8%);
+// "Schedule a Tour" and "Ask Julia About This Property" both reuse the
+// .contact-form field styles (see the shared block above) — these just
+// cover the section heading and the tour-form's type radio group.
+.listing-detail__tour,
+.listing-detail__inquiry {
+  h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
   }
+
+  // The standalone .contact-form's own top/bottom padding is meant to give
+  // it breathing room as a page's main content; here it's one section among
+  // several, already spaced out by .listing-detail's own `> * + *` rule.
+  .contact-form {
+    padding: 0;
+    max-width: none;
+  }
+}
+
+.tour-form__type {
+  border: 0;
+  padding: 0;
+  margin: 0 0 1.1rem;
+
+  legend {
+    font-weight: 600;
+    font-size: 0.9rem;
+    padding: 0;
+    margin-bottom: 0.35rem;
+  }
+}
+
+.tour-form__type-options {
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+}
+
+.tour-form__radio {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem;
+  font-weight: 400;
 }
 
 // Embedded map (components/map-embed.njk) — used on Contact and each

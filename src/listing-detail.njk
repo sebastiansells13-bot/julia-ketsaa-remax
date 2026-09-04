@@ -109,6 +109,8 @@ eleventyComputed:
   </div>
   {% endif %}
 
+  {% include "components/tour-form.njk" %}
+
   {% if listing.address %}
   {% set mapQuery = listing.address + ", " + listing.location %}
   {% include "components/map-embed.njk" %}
@@ -118,7 +120,7 @@ eleventyComputed:
   {% set mcStartingPrice = listing.price %}
   {% include "components/mortgage-calc.njk" %}
 
-  <p class="listing-detail__cta"><a href="/contact/">Ask Julia about this property →</a></p>
+  {% include "components/listing-inquiry-form.njk" %}
 </div>
 
 <div class="lightbox" id="lightbox" hidden>

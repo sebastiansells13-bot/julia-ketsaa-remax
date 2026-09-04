@@ -1,0 +1,41 @@
+{#
+  "Get More Information"-style inquiry form for a listing detail page —
+  replaces a plain "Ask Julia about this property" link with an inline
+  lead-capture form. Caller must have `listing` in scope (true on
+  listing-detail.njk, which aliases the paginated item to `listing`).
+  Submits via the shared src/_includes/js/lead-form.js handler — see
+  AGENTS.md's "Lead-capture forms" note before duplicating any of its
+  validate/submit/honesty logic.
+#}
+<div class="listing-detail__inquiry" id="ask-about-listing">
+  <h2>Ask Julia About This Property</h2>
+  <form
+    class="contact-form"
+    id="listing-inquiry-form"
+    data-lead-form
+    data-endpoint="LISTING_INQUIRY_ENDPOINT_NOT_CONFIGURED"
+    data-not-connected-message="Thanks for reaching out! This form isn't connected yet — please call, text, or email Julia directly in the meantime using the info above."
+    data-success-message="Message sent — Julia will be in touch soon about {{ listing.address }}."
+    method="post"
+  >
+    <input type="hidden" name="listing" value="{{ listing.address }}, {{ listing.location }}">
+    <div class="contact-form__row">
+      <label for="inquiry-name">Name</label>
+      <input type="text" id="inquiry-name" name="name" autocomplete="name" required>
+    </div>
+    <div class="contact-form__row">
+      <label for="inquiry-email">Email</label>
+      <input type="email" id="inquiry-email" name="email" autocomplete="email" required>
+    </div>
+    <div class="contact-form__row">
+      <label for="inquiry-phone">Phone <span class="contact-form__optional">(optional)</span></label>
+      <input type="tel" id="inquiry-phone" name="phone" autocomplete="tel">
+    </div>
+    <div class="contact-form__row">
+      <label for="inquiry-message">Message</label>
+      <textarea id="inquiry-message" name="message" rows="4">I'm interested in {{ listing.address }}. Please send me more information.</textarea>
+    </div>
+    <button type="submit">Submit</button>
+    <p class="contact-form__status" data-lead-form-status role="status" aria-live="polite"></p>
+  </form>
+</div>
