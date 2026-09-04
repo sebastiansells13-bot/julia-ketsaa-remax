@@ -2,8 +2,8 @@
   <div class="wrapper">
     <div class="newsletter__inner">
       <div>
-        <h2>Stay in the loop</h2>
-        <p>New listings and Las Cruces market updates — no spam, unsubscribe anytime.</p>
+        <h2 data-i18n="newsletter.heading">Stay in the loop</h2>
+        <p data-i18n="newsletter.subtext">New listings and Las Cruces market updates — no spam, unsubscribe anytime.</p>
       </div>
       {% include "components/newsletter-form.njk" %}
     </div>
@@ -15,7 +15,7 @@
     <div class="site-footer__legal">
       <div class="equal-housing">
         {% include "components/equal-housing-icon.njk" %}
-        <span>Equal Housing Opportunity</span>
+        <span data-i18n="equalhousing.label">Equal Housing Opportunity</span>
       </div>
       <p class="site-footer__disclaimer">{{ business.disclaimer }}</p>
     </div>
@@ -24,14 +24,19 @@
       <span>&copy; {% year %} {{ business.name or metadata.title }}, {{ business.title }}</span>
       <span>
         {% if business.email %}<a href="mailto:{{ business.email }}">{{ business.email }}</a>{% endif %}
-        {% if business.phoneCell %} · Cell {{ business.phoneCell }}{% endif %}
-        {% if business.phoneOffice %} · Office {{ business.phoneOffice }}{% endif %}
+        {% if business.phoneCell %} · <span data-i18n="contact.cell">Cell</span> {{ business.phoneCell }}{% endif %}
+        {% if business.phoneOffice %} · <span data-i18n="contact.office">Office</span> {{ business.phoneOffice }}{% endif %}
       </span>
     </div>
+    {% if business.phoneOffice %}
+    <p class="site-footer__a11y-note"><span data-i18n="footer.a11yNotePre">Need help navigating this website or searching for real estate? Call our office at</span> <a href="tel:{{ business.phoneOffice }}">{{ business.phoneOffice }}</a>.</p>
+    {% endif %}
     <nav class="site-footer__links" aria-label="More pages">
-      <a href="/home-value/">What's My Home Worth?</a>
-      <a href="/faq/">FAQ</a>
-      <a href="/privacy/">Privacy</a>
+      <a href="/home-value/" data-i18n="footer.homevalue">What's My Home Worth?</a>
+      <a href="/faq/" data-i18n="footer.faq">FAQ</a>
+      <a href="/fair-housing/" data-i18n="footer.fairhousing">Fair Housing</a>
+      <a href="/accessibility/" data-i18n="footer.accessibility">Accessibility</a>
+      <a href="/privacy/" data-i18n="footer.privacy">Privacy</a>
     </nav>
   </div>
 </footer>

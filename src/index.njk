@@ -17,8 +17,8 @@ eleventyNavigation:
 
 <section class="wrapper">
   <div class="section-heading">
-    <h2>Featured Listings</h2>
-    <a href="/listings/">View all listings →</a>
+    <h2 data-i18n="home.featuredListings">Featured Listings</h2>
+    <a href="/listings/" data-i18n="home.viewAllListings">View all listings →</a>
   </div>
 </section>
 <section class="listings-grid wrapper">
@@ -32,20 +32,21 @@ eleventyNavigation:
       {% else %}
       {{ listingPlaceholder(loop.index0) }}
       {% endif %}
-      <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}">{{ listing.status }}</span>
-      {% if listing.isSample %}<span class="listing-card__sample">Sample</span>{% endif %}
+      <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}" data-i18n="status.{{ listing.status | slugify }}">{{ listing.status }}</span>
+      {% if listing.isSample %}<span class="listing-card__sample" data-i18n="listings.sampleBadge">Sample</span>{% endif %}
       <button type="button" class="listing-card__save" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
         {% include "components/star-icon.njk" %}
       </button>
     </div>
     <div class="listing-card__body">
-      <p class="listing-card__price">{{ listing.price }}</p>
+      <p class="listing-card__price">{{ listing.price }}{% if listing.justListed %} <span class="listing-card__new-tag" data-i18n="listings.newTag">New</span>{% endif %}</p>
       <h3>{{ listing.address }}</h3>
       <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
+      {% if listing.openHouse %}<p class="listing-card__openhouse"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ listing.openHouse }}</p>{% endif %}
     </div>
   </div>
   {% else %}
-  <p>New listings are on the way — <a href="/contact/">reach out</a> for what's currently available.</p>
+  <p><span data-i18n="home.newListingsPre">New listings are on the way —</span> <a href="/contact/" data-i18n="home.reachOut">reach out</a> <span data-i18n="home.newListingsPost">for what's currently available.</span></p>
   {% endfor %}
 </section>
 
@@ -61,7 +62,7 @@ eleventyNavigation:
 
 {% if testimonials.list.length %}
 <section class="testimonials wrapper">
-  <h2>What Clients Say</h2>
+  <h2 data-i18n="home.whatClientsSay">What Clients Say</h2>
   <div class="testimonials-grid">
     {% for t in testimonials.list %}
     <blockquote class="testimonial">

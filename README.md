@@ -37,12 +37,13 @@ standard, typically required elements of real-estate marketing materials.
 ## What's on the site
 
 **Listings** (`/listings/`) — search, status/beds/baths filters, sort, a
-"Saved only" toggle, and a live-updating count/compare link. Each card links
-to a full detail page with a photo gallery + lightbox, an optional video
-tour embed (YouTube or Vimeo), optional "View on Zillow"/"View on Redfin"
-links, breadcrumbs, a "Schedule a Tour" form, an embedded map + directions
-link, a mortgage calculator pre-filled with that listing's price, an "Ask
-Julia About This Property" inquiry form, and Save/Share buttons.
+"Just Listed"/"Open Houses"/"All Listings" tab bar, a "Saved only" toggle,
+and a live-updating count/compare link. Each card links to a full detail
+page with a photo gallery + lightbox, an optional video tour embed
+(YouTube or Vimeo), optional "View on Zillow"/"View on Redfin" links,
+breadcrumbs, a "Schedule a Tour" form, an embedded map + directions link, a
+mortgage calculator pre-filled with that listing's price, an "Ask Julia
+About This Property" inquiry form, and Save/Share buttons.
 
 **Tools reachable from anywhere** — a standalone
 [mortgage calculator](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/mortgage-calculator/)
@@ -62,6 +63,8 @@ connected yet" below.
 **Other pages** — [FAQ](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/faq/)
 (generic buying/selling questions, `FAQPage` schema), [Why Live in Las Cruces](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/why-las-cruces/)
 (a local-appeal page — climate, affordability, outdoor life, food, and more),
+[Fair Housing Statement](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/fair-housing/),
+[Accessibility Statement](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/accessibility/),
 [Privacy Notice](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/privacy/)
 (plain-language, accurate to what the site actually does), a rebuilt 404
 page (quick links + a listings search box), and a blog with a few generic
@@ -72,7 +75,16 @@ JSON-LD block sitewide, a `RealEstateListing` block per listing, a
 `BreadcrumbList` block per listing, and `FAQPage` on the FAQ page.
 
 **Accessibility** — a skip-to-content link, a labeled nav landmark, `alt`
-text on real content images, and `loading="lazy"` on below-the-fold images.
+text on real content images, `loading="lazy"` on below-the-fold images,
+and a dedicated [Accessibility Statement](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/accessibility/)
+with a footer note pointing visitors to the office phone number for help.
+
+**English/Spanish toggle** — an EN/ES switch in the header (persisted per
+visitor via `localStorage`) translates this site's own chrome: nav, footer,
+every form's labels/buttons, and the static marketing pages (Home, About,
+Contact, Home Value, FAQ intro, 404, Why Live in Las Cruces, Mortgage
+Calculator, Fair Housing, Accessibility). See "How the language toggle
+works" below for exactly what is and isn't covered, and why.
 
 ## Listings: 4 samples, clearly marked — testimonials still empty
 
@@ -89,6 +101,14 @@ exist. Every one of them:
   gallery photos) — see CMS-GUIDE.md.
 - Gets `<meta name="robots" content="noindex, nofollow">` and is excluded
   from the sitemap, so none of it turns up in Google
+
+Two of the four samples also demonstrate the optional `justListed` (boolean)
+and `openHouse` (free-text date/time) fields — set `justListed: true` on a
+listing to show it under the "Just Listed" tab and a small "New" tag on its
+card, and fill in `openHouse` (e.g. `"Sat, Sep 13 · 1–3 PM"`) to show it
+under "Open Houses" with a banner on its own page. Both are manual flags,
+same as `isSample` — nothing dates itself out automatically, so uncheck
+"Just Listed" yourself once a listing isn't new anymore.
 
 **To add a real listing:** in the CMS, add a new entry, leave "This is a
 sample listing" **unchecked**, and upload a real photo — the placeholder
@@ -125,16 +145,17 @@ this repo, no separate hosting or database. Julia (or anyone given repo
 access) can log in at https://app.pagescms.org, connect this repo, and edit:
 
 - **Agent & Business Info** — name, title, phone numbers, email, address,
-  license text, bio, disclaimer, agent photo, social links
+  license text and number, bio, disclaimer, agent photo, social links
 - **Listings** — add/edit/remove property listings, including the photo
-  gallery and video tour URL
+  gallery, video tour URL, Just Listed flag, and Open House date/time
 - **Testimonials** — add/edit/remove client quotes
 - **How I Can Help** — the services list
 - **Blog Posts** — market updates, tips, announcements
 
 **Not CMS-editable** (template/code content — ask the developer to change
-these): the FAQ questions/answers, the mortgage calculator's defaults, and
-the wording on the Home Value and Privacy pages.
+these): the FAQ questions/answers, the mortgage calculator's defaults, the
+wording on the Home Value, Privacy, Fair Housing, and Accessibility pages,
+and the Spanish translations behind the language toggle (see below).
 
 Every CMS save commits directly to this repo and triggers a new deploy
 automatically. See [CMS-GUIDE.md](CMS-GUIDE.md) for a walkthrough.
@@ -174,6 +195,42 @@ This is the only address field wired up this way — the Listings and 404
 search boxes filter Julia's own small local listing list by plain
 substring match, not a real address lookup, so a Google-picked formatted
 address wouldn't reliably match any of them.
+
+## How the language toggle works
+
+The EN/ES buttons in the header (`src/_includes/components/header.njk`) are
+powered by `src/_includes/js/i18n.js` and a flat dictionary at
+`src/_data/i18n.json` (`{ "key": { "en": "...", "es": "..." } }`). Any
+element with `data-i18n="key"` gets its text swapped on toggle; an input's
+`placeholder` uses `data-i18n-placeholder="key"` instead. The choice is
+remembered per visitor via `localStorage` and reapplied on every page load.
+
+**What it translates:** the site's own template chrome — nav, footer, every
+form's labels/buttons, and static marketing pages (Home, About, Contact,
+Home Value, FAQ's heading/intro, 404, Why Live in Las Cruces, Mortgage
+Calculator, Fair Housing, Accessibility).
+
+**What it deliberately does NOT translate:** anything Julia writes herself
+through the CMS — blog posts, listing descriptions, the services list,
+testimonials, and the FAQ answers themselves. Those stay in whatever
+language she wrote them in, exactly like any real i18n setup with a
+single-language content source; there's no ongoing translation pipeline for
+content that changes as often as listings and blog posts do.
+
+**Known limitation:** this is a client-side toggle, not separate `/es/`
+pages — there's nothing here for a Spanish-language Google search to index.
+It's a visitor-facing convenience, not an SEO strategy. If Julia later wants
+Spanish content to actually rank in Spanish-language search, that needs
+real translated pages at their own URLs, which is a bigger project than
+this toggle.
+
+**Adding a new translated string:** add a `key` to `src/_data/i18n.json`
+with both `en` and `es` values, then add `data-i18n="key"` to the element in
+its template — but never put `data-i18n` directly on an element that also
+has non-text children (an `<input>`, a nested `<span>`), since applying a
+translation overwrites `textContent` and would silently delete them; wrap
+just the text in its own `<span data-i18n="...">` instead (see any existing
+form label for the pattern).
 
 ## Local development
 

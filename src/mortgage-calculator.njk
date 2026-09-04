@@ -5,8 +5,8 @@ description: Estimate your monthly mortgage payment for buying in Las Cruces, NM
 permalink: /mortgage-calculator/
 ---
 <div class="wrapper mortgage-calc-page">
-  <h1>Mortgage Calculator</h1>
-  <p>Get a rough estimate of your monthly payment before you start touring homes. Browsing a specific property? Its own <a href="/listings/">listing page</a> has this same calculator pre-filled with that home's price.</p>
+  <h1 data-i18n="mccalc.heading">Mortgage Calculator</h1>
+  <p><span data-i18n="mccalc.introPre">Get a rough estimate of your monthly payment before you start touring homes. Browsing a specific property? Its own</span> <a href="/listings/" data-i18n="mccalc.listingPageLink">listing page</a> <span data-i18n="mccalc.introPost">has this same calculator pre-filled with that home's price.</span></p>
   {% set mcStartingPrice = 350000 %}
   {% include "components/mortgage-calc.njk" %}
 </div>

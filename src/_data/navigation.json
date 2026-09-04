@@ -1,10 +1,10 @@
 [
-  { "text": "Home", "url": "/" },
-  { "text": "Listings", "url": "/listings/" },
-  { "text": "Calculator", "url": "/mortgage-calculator/" },
-  { "text": "About", "url": "/about/" },
-  { "text": "How I Help", "url": "/how-i-help/" },
-  { "text": "Why Las Cruces", "url": "/why-las-cruces/" },
-  { "text": "Blog", "url": "/blog/" },
-  { "text": "Contact", "url": "/contact/" }
+  { "text": "Home", "url": "/", "i18nKey": "nav.home" },
+  { "text": "Listings", "url": "/listings/", "i18nKey": "nav.listings" },
+  { "text": "Calculator", "url": "/mortgage-calculator/", "i18nKey": "nav.calculator" },
+  { "text": "About", "url": "/about/", "i18nKey": "nav.about" },
+  { "text": "How I Help", "url": "/how-i-help/", "i18nKey": "nav.howihelp" },
+  { "text": "Why Las Cruces", "url": "/why-las-cruces/", "i18nKey": "nav.whylascruces" },
+  { "text": "Blog", "url": "/blog/", "i18nKey": "nav.blog" },
+  { "text": "Contact", "url": "/contact/", "i18nKey": "nav.contact" }
 ]

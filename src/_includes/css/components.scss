@@ -40,6 +40,12 @@
     margin-top: 0.15rem;
   }
 
+  nav {
+    display: flex;
+    align-items: center;
+    gap: 1.25rem;
+  }
+
   nav ul {
     list-style: none;
     display: flex;
@@ -57,6 +63,35 @@
     &:hover,
     &.is-active {
       color: $color-remax-red;
+    }
+  }
+
+  .lang-toggle {
+    display: flex;
+    flex-shrink: 0;
+    border: 1px solid $color-border;
+    border-radius: 2rem;
+    overflow: hidden;
+  }
+
+  .lang-toggle__btn {
+    border: none;
+    background: #fff;
+    color: $color-muted;
+    font-weight: 700;
+    font-size: 0.75rem;
+    letter-spacing: 0.02em;
+    padding: 0.3rem 0.65rem;
+    cursor: pointer;
+
+    &[aria-pressed="true"] {
+      background: $color-remax-blue;
+      color: #fff;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-remax-blue;
+      outline-offset: 2px;
     }
   }
 
@@ -255,6 +290,16 @@
   gap: 0.75rem 1.5rem;
 }
 
+.site-footer__a11y-note {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #b8b2a2;
+
+  a {
+    color: #fff;
+  }
+}
+
 .site-footer__links {
   display: flex;
   flex-wrap: wrap;
@@ -425,6 +470,39 @@
   position: absolute;
   inset: 0;
   z-index: 1;
+}
+
+.listings-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  padding-top: 1.5rem;
+}
+
+.listings-tabs__tab {
+  padding: 0.5rem 1rem;
+  border: 1px solid $color-border;
+  border-radius: 2rem;
+  background: #fff;
+  color: $color-text;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+
+  &:hover {
+    border-color: $color-remax-blue;
+  }
+
+  &.is-active {
+    background: $color-remax-blue;
+    border-color: $color-remax-blue;
+    color: #fff;
+  }
+
+  &:focus-visible {
+    outline: 2px solid $color-remax-blue;
+    outline-offset: 2px;
+  }
 }
 
 .listings-toolbar {
@@ -683,6 +761,38 @@
   font-weight: 700;
   font-size: 1.25rem;
   margin: 0;
+}
+
+.listing-card__new-tag {
+  display: inline-block;
+  vertical-align: middle;
+  background: $color-remax-blue;
+  color: #fff;
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  padding: 0.15rem 0.45rem;
+  border-radius: 0.25rem;
+}
+
+.listing-card__openhouse {
+  color: $color-remax-blue;
+  font-weight: 600;
+  font-size: 0.85rem;
+  margin: 0.15rem 0;
+}
+
+// Open house banner on a listing's own page (src/listing-detail.njk) —
+// same shape as .sample-banner, different (informational, not cautionary) color.
+.open-house-banner {
+  background: #eaf1fb;
+  border: 1px solid $color-remax-blue;
+  color: $color-text;
+  padding: 0.75rem 1rem;
+  border-radius: 0.4rem;
+  font-size: 0.9rem;
+  font-weight: 600;
 }
 
 .listing-card__location,

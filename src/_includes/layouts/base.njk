@@ -33,7 +33,7 @@
   <script type="application/ld+json">{{ business | businessSchema(siteUrl) | safe }}</script>
 </head>
 <body>
-  <a class="skip-link" href="#main-content">Skip to content</a>
+  <a class="skip-link" href="#main-content" data-i18n="skip.toContent">Skip to content</a>
   {% include "components/header.njk" %}
   <main id="main-content">
     {{ content | safe }}
@@ -47,6 +47,7 @@
     data for crawlers.
   #}
   <script type="application/json" id="listings-data">{{ listings.list | listingsWithSlugs | dump | safe }}</script>
+  <script type="application/json" id="i18n-data">{{ i18n | dump | safe }}</script>
   <script>window.SITE_BASE = "{{ sitePathPrefix }}";</script>
   <script>window.GOOGLE_MAPS_API_KEY = {{ googleMapsApiKey | dump | safe }};</script>
   <script src="/js/nav.js" defer></script>
@@ -60,5 +61,6 @@
   <script src="/js/share-listing.js" defer></script>
   <script src="/js/gallery.js" defer></script>
   <script src="/js/address-autocomplete.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
 </body>
 </html>

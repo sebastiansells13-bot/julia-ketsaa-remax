@@ -123,6 +123,17 @@ content:
             options:
               values: [For Sale, Pending, Sold]
 
+          - name: justListed
+            label: Just Listed
+            type: boolean
+            default: false
+            description: Shows this listing under the "Just Listed" tab on the Listings page. Uncheck it after a few weeks so the tab stays current.
+
+          - name: openHouse
+            label: Open House
+            type: string
+            description: "Date and time, e.g. \"Sat, Sep 13 · 1–3 PM\". Leave blank if there isn't one scheduled — shows this listing under the \"Open Houses\" tab and as a banner on its own page."
+
           - name: image
             label: Cover Photo
             type: image
@@ -285,6 +296,11 @@ content:
       - name: license
         label: License Text
         type: string
+
+      - name: licenseNumber
+        label: License Number
+        type: string
+        description: "Your official real estate license number, e.g. REC-2022-0066. Shown alongside the License Text above."
 
       - name: disclaimer
         label: Brokerage Disclaimer

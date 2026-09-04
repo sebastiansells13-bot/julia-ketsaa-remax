@@ -7,6 +7,10 @@
   const grid = document.getElementById("listings-grid");
   if (!toolbar || !grid) return;
 
+  const tabsBar = document.getElementById("listings-tabs");
+  const tabButtons = tabsBar ? Array.from(tabsBar.querySelectorAll("[data-tab]")) : [];
+  let activeTab = "all";
+
   const searchInput = document.getElementById("filter-search");
   const statusSelect = document.getElementById("filter-status");
   const bedsSelect = document.getElementById("filter-beds");
@@ -60,7 +64,11 @@
       const matchesBeds = numValue(card, "beds") >= minBeds;
       const matchesBaths = numValue(card, "baths") >= minBaths;
       const matchesSaved = !savedOnly || isSaved(card);
-      return matchesSearch && matchesStatus && matchesBeds && matchesBaths && matchesSaved;
+      const matchesTab =
+        activeTab === "all" ||
+        (activeTab === "just-listed" && card.dataset.justListed === "true") ||
+        (activeTab === "open-houses" && card.dataset.openHouse === "true");
+      return matchesSearch && matchesStatus && matchesBeds && matchesBaths && matchesSaved && matchesTab;
     });
 
     let ordered;
@@ -98,6 +106,18 @@
     if (emptyMessage) emptyMessage.hidden = ordered.length > 0;
     updateSavedCount();
   }
+
+  tabButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      activeTab = button.dataset.tab;
+      tabButtons.forEach(function (btn) {
+        const isActive = btn === button;
+        btn.classList.toggle("is-active", isActive);
+        btn.setAttribute("aria-selected", String(isActive));
+      });
+      apply();
+    });
+  });
 
   searchInput.addEventListener("input", apply);
   statusSelect.addEventListener("change", apply);

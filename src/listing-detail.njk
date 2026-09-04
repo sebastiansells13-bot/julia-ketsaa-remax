@@ -17,13 +17,17 @@ eleventyComputed:
 {% set crumbs = [{name: "Home", url: "/"}, {name: "Listings", url: "/listings/"}, {name: listing.address, url: "/listings/" + slug + "/"}] %}
 <div class="listing-detail wrapper" data-listing-slug="{{ slug }}">
   <nav class="breadcrumbs" aria-label="Breadcrumb">
-    <a href="/">Home</a> <span aria-hidden="true">/</span>
-    <a href="/listings/">Listings</a> <span aria-hidden="true">/</span>
+    <a href="/" data-i18n="nav.home">Home</a> <span aria-hidden="true">/</span>
+    <a href="/listings/" data-i18n="nav.listings">Listings</a> <span aria-hidden="true">/</span>
     <span aria-current="page">{{ listing.address }}</span>
   </nav>
 
   {% if listing.isSample %}
-  <p class="sample-banner">This is a sample listing for demonstration — not a real property for sale. <a href="/contact/">Contact Julia</a> for current listings.</p>
+  <p class="sample-banner"><span data-i18n="listingdetail.sampleBannerPre">This is a sample listing for demonstration — not a real property for sale.</span> <a href="/contact/" data-i18n="listingdetail.contactJulia">Contact Julia</a> <span data-i18n="listingdetail.sampleBannerPost">for current listings.</span></p>
+  {% endif %}
+
+  {% if listing.openHouse %}
+  <p class="open-house-banner"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ listing.openHouse }}</p>
   {% endif %}
 
   <div class="listing-detail__media" id="listing-gallery">
@@ -43,7 +47,7 @@ eleventyComputed:
     {% else %}
     {{ listingPlaceholder(pagination.pageNumber) }}
     {% endif %}
-    <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}">{{ listing.status }}</span>
+    <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}" data-i18n="status.{{ listing.status | slugify }}">{{ listing.status }}</span>
   </div>
 
   <div class="listing-detail__header">
@@ -52,10 +56,10 @@ eleventyComputed:
       <div class="listing-detail__header-actions">
         <button type="button" class="listing-card__save listing-card__save--detail" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
           {% include "components/star-icon.njk" %}
-          <span>Save</span>
+          <span data-i18n="listingdetail.save">Save</span>
         </button>
         <button type="button" class="listing-detail__share" data-share-listing data-title="{{ listing.address }}, {{ listing.location }}">
-          <span>Share</span>
+          <span data-i18n="listingdetail.share">Share</span>
         </button>
       </div>
     </div>
@@ -64,11 +68,11 @@ eleventyComputed:
   </div>
 
   <dl class="listing-detail__stats">
-    <div><dt>Beds</dt><dd>{{ listing.beds }}</dd></div>
-    <div><dt>Baths</dt><dd>{{ listing.baths }}</dd></div>
-    <div><dt>Sqft</dt><dd>{{ listing.sqft }}</dd></div>
-    {% if listing.yearBuilt %}<div><dt>Year Built</dt><dd>{{ listing.yearBuilt }}</dd></div>{% endif %}
-    {% if listing.lotSize %}<div><dt>Lot Size</dt><dd>{{ listing.lotSize }}</dd></div>{% endif %}
+    <div><dt data-i18n="listingdetail.beds">Beds</dt><dd>{{ listing.beds }}</dd></div>
+    <div><dt data-i18n="listingdetail.baths">Baths</dt><dd>{{ listing.baths }}</dd></div>
+    <div><dt data-i18n="listingdetail.sqft">Sqft</dt><dd>{{ listing.sqft }}</dd></div>
+    {% if listing.yearBuilt %}<div><dt data-i18n="listingdetail.yearBuilt">Year Built</dt><dd>{{ listing.yearBuilt }}</dd></div>{% endif %}
+    {% if listing.lotSize %}<div><dt data-i18n="listingdetail.lotSize">Lot Size</dt><dd>{{ listing.lotSize }}</dd></div>{% endif %}
   </dl>
 
   {% if listing.description %}
@@ -77,7 +81,7 @@ eleventyComputed:
 
   {% if listing.features and listing.features.length %}
   <div class="listing-detail__features">
-    <h2>Features</h2>
+    <h2 data-i18n="listingdetail.featuresHeading">Features</h2>
     <ul>
       {% for feature in listing.features %}
       <li>{{ feature }}</li>
@@ -88,7 +92,7 @@ eleventyComputed:
 
   {% if videoEmbedUrl %}
   <div class="video-embed-wrap">
-    <h2>Video Tour</h2>
+    <h2 data-i18n="listingdetail.videoTourHeading">Video Tour</h2>
     <div class="video-embed">
       <iframe src="{{ videoEmbedUrl }}" title="Video tour of {{ listing.address }}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
     </div>
@@ -97,13 +101,13 @@ eleventyComputed:
 
   {% if listing.zillowUrl or listing.redfinUrl %}
   <div class="listing-detail__external-links">
-    <h2>Also Listed On</h2>
+    <h2 data-i18n="listingdetail.alsoListedOn">Also Listed On</h2>
     <div class="listing-detail__external-links-list">
       {% if listing.zillowUrl %}
-      <a href="{{ listing.zillowUrl }}" target="_blank" rel="noopener noreferrer">View on Zillow <span aria-hidden="true">↗</span></a>
+      <a href="{{ listing.zillowUrl }}" target="_blank" rel="noopener noreferrer"><span data-i18n="listingdetail.viewOnZillow">View on Zillow</span> <span aria-hidden="true">↗</span></a>
       {% endif %}
       {% if listing.redfinUrl %}
-      <a href="{{ listing.redfinUrl }}" target="_blank" rel="noopener noreferrer">View on Redfin <span aria-hidden="true">↗</span></a>
+      <a href="{{ listing.redfinUrl }}" target="_blank" rel="noopener noreferrer"><span data-i18n="listingdetail.viewOnRedfin">View on Redfin</span> <span aria-hidden="true">↗</span></a>
       {% endif %}
     </div>
   </div>

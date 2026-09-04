@@ -11,9 +11,13 @@
     <nav id="site-nav" aria-label="Primary">
       <ul>
         {% for item in navigation %}
-        <li><a href="{{ item.url }}"{% if page.url == item.url %} class="is-active" aria-current="page"{% endif %}>{{ item.text }}</a></li>
+        <li><a href="{{ item.url }}"{% if page.url == item.url %} class="is-active" aria-current="page"{% endif %} data-i18n="{{ item.i18nKey }}">{{ item.text }}</a></li>
         {% endfor %}
       </ul>
+      <div class="lang-toggle" role="group" aria-label="Language">
+        <button type="button" class="lang-toggle__btn" data-lang-toggle="en" aria-pressed="true">EN</button>
+        <button type="button" class="lang-toggle__btn" data-lang-toggle="es" aria-pressed="false">ES</button>
+      </div>
     </nav>
   </div>
 </header>

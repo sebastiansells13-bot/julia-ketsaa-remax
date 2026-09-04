@@ -14,28 +14,35 @@ You can update your site's content without touching any code.
   description, date, tags, an optional cover image, and the body text.
 - **Listings** — the properties shown on the Home and Listings pages: address,
   price, beds/baths/sqft, year built, lot size, status (For Sale / Pending /
-  Sold), a cover photo, additional photos (shown as a gallery on the
-  listing's own page — click a photo to view it full-screen), an optional
-  video tour link (paste any YouTube or Vimeo link), optional Zillow and
-  Redfin links (shown as buttons on the listing's page — leave blank if the
-  property isn't posted there), a full description, and a features list. The
-  site starts with 4 example listings marked "This is a sample listing" —
-  when you add a real one, leave that box unchecked and upload a real photo;
-  leave it checked (or the photo blank) and it'll show a "Sample" badge
-  instead.
+  Sold), whether it's "Just Listed" (shows it under that tab plus a small
+  "New" tag), an Open House date/time (e.g. "Sat, Sep 13 · 1–3 PM" — shows
+  it under the "Open Houses" tab and as a banner on its own page; leave
+  blank if there isn't one scheduled), a cover photo, additional photos
+  (shown as a gallery on the listing's own page — click a photo to view it
+  full-screen), an optional video tour link (paste any YouTube or Vimeo
+  link), optional Zillow and Redfin links (shown as buttons on the
+  listing's page — leave blank if the property isn't posted there), a full
+  description, and a features list. Remember to uncheck "Just Listed"
+  yourself once a listing isn't new anymore — it doesn't expire on its own.
+  The site starts with 4 example listings marked "This is a sample
+  listing" — when you add a real one, leave that box unchecked and upload
+  a real photo; leave it checked (or the photo blank) and it'll show a
+  "Sample" badge instead.
 - **How I Can Help** — the three service cards shown on the Home and How I Help
   pages.
 - **Testimonials** — client quotes shown on the homepage.
 - **Agent & Business Info** — your name, brokerage, tagline, contact details,
-  license text, and bio shown across the site.
+  license text and number, and bio shown across the site.
 
 ## What you *can't* edit here
 
 The FAQ page, the mortgage calculator's default numbers, the wording on
-the "What's My Home Worth?", Privacy, and "Why Live in Las Cruces" pages,
-and the "Schedule a Tour" and "Ask Julia About This Property" forms on
-each listing page aren't in this CMS — they're part of the site's code.
-If you'd like something changed there, contact your developer.
+the "What's My Home Worth?", Privacy, "Why Live in Las Cruces", Fair
+Housing, and Accessibility pages, the "Schedule a Tour" and "Ask Julia
+About This Property" forms on each listing page, and the Spanish
+translations behind the EN/ES toggle in the header aren't in this CMS —
+they're part of the site's code. If you'd like something changed there,
+contact your developer.
 
 ## 3. Making a change
 

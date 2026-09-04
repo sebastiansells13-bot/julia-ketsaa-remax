@@ -4,24 +4,24 @@ title: Contact
 permalink: /contact/
 ---
 <div class="wrapper">
-  <h1>Contact</h1>
-  <p>Thinking about buying or selling in the Las Cruces area? Reach out for a no-obligation conversation.</p>
+  <h1 data-i18n="contact.heading">Contact</h1>
+  <p data-i18n="contact.intro">Thinking about buying or selling in the Las Cruces area? Reach out for a no-obligation conversation.</p>
 </div>
 <dl class="contact-details wrapper">
   {% if business.phoneCell %}
-  <dt>Cell</dt>
+  <dt data-i18n="contact.cell">Cell</dt>
   <dd><a href="tel:{{ business.phoneCell }}">{{ business.phoneCell }}</a></dd>
   {% endif %}
   {% if business.phoneOffice %}
-  <dt>Office</dt>
+  <dt data-i18n="contact.office">Office</dt>
   <dd><a href="tel:{{ business.phoneOffice }}">{{ business.phoneOffice }}</a></dd>
   {% endif %}
   {% if business.email %}
-  <dt>Email</dt>
+  <dt data-i18n="form.email">Email</dt>
   <dd><a href="mailto:{{ business.email }}">{{ business.email }}</a></dd>
   {% endif %}
   {% if business.address %}
-  <dt>Office Address</dt>
+  <dt data-i18n="contact.officeAddress">Office Address</dt>
   <dd>{{ business.address }}</dd>
   {% endif %}
 </dl>
@@ -31,9 +31,9 @@ permalink: /contact/
   {% include "components/map-embed.njk" %}
 </div>
 {% endif %}
-<p class="wrapper agent-bio__license">{{ business.license }}<br>{{ business.disclaimer }}</p>
+<p class="wrapper agent-bio__license">{{ business.license }}{% if business.licenseNumber %} · License #{{ business.licenseNumber }}{% endif %}<br>{{ business.disclaimer }}</p>
 
 <div class="wrapper">
-  <h2>Send a Message</h2>
+  <h2 data-i18n="contact.sendMessage">Send a Message</h2>
 </div>
 {% include "components/contact-form.njk" %}

@@ -6,24 +6,24 @@ noindex: true
 eleventyExcludeFromCollections: true
 ---
 <div class="wrapper not-found">
-  <h1>Page Not Found</h1>
-  <p>Sorry, that page doesn't exist — it may have moved, or the link might be out of date.</p>
+  <h1 data-i18n="notfound.heading">Page Not Found</h1>
+  <p data-i18n="notfound.message">Sorry, that page doesn't exist — it may have moved, or the link might be out of date.</p>
 
   <form class="not-found__search" action="/listings/" method="get">
-    <label for="not-found-search">Search listings</label>
+    <label for="not-found-search" data-i18n="notfound.searchLabel">Search listings</label>
     <div class="not-found__search-row">
-      <input type="search" id="not-found-search" name="q" placeholder="Address, area, keyword...">
-      <button type="submit">Search</button>
+      <input type="search" id="not-found-search" name="q" placeholder="Address, area, keyword..." data-i18n-placeholder="search.addressAreaKeyword">
+      <button type="submit" data-i18n="notfound.searchButton">Search</button>
     </div>
   </form>
 
-  <p class="not-found__links-label">Or try one of these:</p>
+  <p class="not-found__links-label" data-i18n="notfound.orTryLabel">Or try one of these:</p>
   <ul class="not-found__links">
-    <li><a href="/">Home</a></li>
-    <li><a href="/listings/">Listings</a></li>
-    <li><a href="/mortgage-calculator/">Mortgage Calculator</a></li>
-    <li><a href="/about/">About</a></li>
-    <li><a href="/faq/">FAQ</a></li>
-    <li><a href="/contact/">Contact</a></li>
+    <li><a href="/" data-i18n="nav.home">Home</a></li>
+    <li><a href="/listings/" data-i18n="nav.listings">Listings</a></li>
+    <li><a href="/mortgage-calculator/" data-i18n="notfound.mortgageCalculator">Mortgage Calculator</a></li>
+    <li><a href="/about/" data-i18n="nav.about">About</a></li>
+    <li><a href="/faq/" data-i18n="footer.faq">FAQ</a></li>
+    <li><a href="/contact/" data-i18n="nav.contact">Contact</a></li>
   </ul>
 </div>

@@ -6,7 +6,7 @@
   forms" note before duplicating any of its validate/submit/honesty logic.
 #}
 <div class="listing-detail__tour" id="schedule-tour">
-  <h2>Schedule a Tour</h2>
+  <h2 data-i18n="tour.heading">Schedule a Tour</h2>
   <form
     class="contact-form"
     id="tour-form"
@@ -18,41 +18,41 @@
   >
     <input type="hidden" name="listing" value="{{ listing.address }}, {{ listing.location }}">
     <fieldset class="contact-form__row tour-form__type">
-      <legend>Tour Type</legend>
+      <legend data-i18n="tour.type">Tour Type</legend>
       <div class="tour-form__type-options">
-        <label class="tour-form__radio"><input type="radio" name="tourType" value="In-Person" checked> In-Person</label>
-        <label class="tour-form__radio"><input type="radio" name="tourType" value="Virtual"> Virtual</label>
+        <label class="tour-form__radio"><input type="radio" name="tourType" value="In-Person" checked> <span data-i18n="tour.inPerson">In-Person</span></label>
+        <label class="tour-form__radio"><input type="radio" name="tourType" value="Virtual"> <span data-i18n="tour.virtual">Virtual</span></label>
       </div>
     </fieldset>
     <div class="contact-form__row">
-      <label for="tour-date">Preferred Date</label>
+      <label for="tour-date" data-i18n="tour.preferredDate">Preferred Date</label>
       <input type="date" id="tour-date" name="preferredDate" required>
     </div>
     <div class="contact-form__row">
-      <label for="tour-time">Preferred Time</label>
+      <label for="tour-time" data-i18n="tour.preferredTime">Preferred Time</label>
       <select id="tour-time" name="preferredTime">
-        <option value="Morning">Morning</option>
-        <option value="Afternoon">Afternoon</option>
-        <option value="Evening">Evening</option>
+        <option value="Morning" data-i18n="tour.morning">Morning</option>
+        <option value="Afternoon" data-i18n="tour.afternoon">Afternoon</option>
+        <option value="Evening" data-i18n="tour.evening">Evening</option>
       </select>
     </div>
     <div class="contact-form__row">
-      <label for="tour-name">Name</label>
+      <label for="tour-name" data-i18n="form.name">Name</label>
       <input type="text" id="tour-name" name="name" autocomplete="name" required>
     </div>
     <div class="contact-form__row">
-      <label for="tour-email">Email</label>
+      <label for="tour-email" data-i18n="form.email">Email</label>
       <input type="email" id="tour-email" name="email" autocomplete="email" required>
     </div>
     <div class="contact-form__row">
-      <label for="tour-phone">Phone <span class="contact-form__optional">(optional)</span></label>
+      <label for="tour-phone"><span data-i18n="form.phone">Phone</span> <span class="contact-form__optional" data-i18n="form.optional">(optional)</span></label>
       <input type="tel" id="tour-phone" name="phone" autocomplete="tel">
     </div>
     <div class="contact-form__row">
-      <label for="tour-message">Anything else? <span class="contact-form__optional">(optional)</span></label>
+      <label for="tour-message"><span data-i18n="form.anythingElse">Anything else?</span> <span class="contact-form__optional" data-i18n="form.optional">(optional)</span></label>
       <textarea id="tour-message" name="message" rows="3"></textarea>
     </div>
-    <button type="submit">Schedule a Tour</button>
+    <button type="submit" data-i18n="tour.button">Schedule a Tour</button>
     <p class="contact-form__status" data-lead-form-status role="status" aria-live="polite"></p>
   </form>
 </div>

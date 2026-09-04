@@ -5,30 +5,35 @@ permalink: /listings/
 ---
 {% from "macros/listing-placeholder.njk" import listingPlaceholder %}
 <div class="wrapper">
-  <h1>Current Listings</h1>
+  <h1 data-i18n="listings.heading">Current Listings</h1>
   <div class="recently-viewed" id="recently-viewed" hidden>
-    <h2>Recently Viewed</h2>
+    <h2 data-i18n="listings.recentlyViewed">Recently Viewed</h2>
     <ul></ul>
   </div>
   {% if listings.list.length %}
+  <div class="listings-tabs" id="listings-tabs" role="tablist" aria-label="Filter listings by">
+    <button type="button" class="listings-tabs__tab is-active" data-tab="all" role="tab" aria-selected="true" data-i18n="listings.tabAll">All Listings</button>
+    <button type="button" class="listings-tabs__tab" data-tab="just-listed" role="tab" aria-selected="false" data-i18n="listings.tabJustListed">Just Listed</button>
+    <button type="button" class="listings-tabs__tab" data-tab="open-houses" role="tab" aria-selected="false" data-i18n="listings.tabOpenHouses">Open Houses</button>
+  </div>
   <div class="listings-toolbar" id="listings-toolbar">
     <div class="listings-toolbar__field">
-      <label for="filter-search">Search</label>
-      <input type="search" id="filter-search" placeholder="Address, area, keyword...">
+      <label for="filter-search" data-i18n="listings.searchLabel">Search</label>
+      <input type="search" id="filter-search" placeholder="Address, area, keyword..." data-i18n-placeholder="search.addressAreaKeyword">
     </div>
     <div class="listings-toolbar__field">
-      <label for="filter-status">Status</label>
+      <label for="filter-status" data-i18n="listings.statusLabel">Status</label>
       <select id="filter-status">
-        <option value="all">All statuses</option>
-        <option value="for-sale">For Sale</option>
-        <option value="pending">Pending</option>
-        <option value="sold">Sold</option>
+        <option value="all" data-i18n="listings.statusAll">All statuses</option>
+        <option value="for-sale" data-i18n="status.for-sale">For Sale</option>
+        <option value="pending" data-i18n="status.pending">Pending</option>
+        <option value="sold" data-i18n="status.sold">Sold</option>
       </select>
     </div>
     <div class="listings-toolbar__field">
-      <label for="filter-beds">Min. beds</label>
+      <label for="filter-beds" data-i18n="listings.bedsLabel">Min. beds</label>
       <select id="filter-beds">
-        <option value="0">Any</option>
+        <option value="0" data-i18n="listings.anyOption">Any</option>
         <option value="1">1+</option>
         <option value="2">2+</option>
         <option value="3">3+</option>
@@ -36,9 +41,9 @@ permalink: /listings/
       </select>
     </div>
     <div class="listings-toolbar__field">
-      <label for="filter-baths">Min. baths</label>
+      <label for="filter-baths" data-i18n="listings.bathsLabel">Min. baths</label>
       <select id="filter-baths">
-        <option value="0">Any</option>
+        <option value="0" data-i18n="listings.anyOption">Any</option>
         <option value="1">1+</option>
         <option value="1.5">1.5+</option>
         <option value="2">2+</option>
@@ -47,19 +52,19 @@ permalink: /listings/
       </select>
     </div>
     <div class="listings-toolbar__field">
-      <label for="sort-listings">Sort by</label>
+      <label for="sort-listings" data-i18n="listings.sortLabel">Sort by</label>
       <select id="sort-listings">
-        <option value="default">Featured</option>
-        <option value="price-asc">Price: Low to High</option>
-        <option value="price-desc">Price: High to Low</option>
-        <option value="beds-desc">Beds: Most to Fewest</option>
-        <option value="baths-desc">Baths: Most to Fewest</option>
-        <option value="sqft-desc">Sqft: Largest to Smallest</option>
+        <option value="default" data-i18n="listings.sortDefault">Featured</option>
+        <option value="price-asc" data-i18n="listings.sortPriceAsc">Price: Low to High</option>
+        <option value="price-desc" data-i18n="listings.sortPriceDesc">Price: High to Low</option>
+        <option value="beds-desc" data-i18n="listings.sortBedsDesc">Beds: Most to Fewest</option>
+        <option value="baths-desc" data-i18n="listings.sortBathsDesc">Baths: Most to Fewest</option>
+        <option value="sqft-desc" data-i18n="listings.sortSqftDesc">Sqft: Largest to Smallest</option>
       </select>
     </div>
     <div class="listings-toolbar__field listings-toolbar__field--checkbox">
-      <label><input type="checkbox" id="filter-saved-only"> Saved only <span id="saved-count"></span></label>
-      <a href="/compare/" id="compare-link" hidden>Compare →</a>
+      <label><input type="checkbox" id="filter-saved-only"> <span data-i18n="listings.savedOnly">Saved only</span> <span id="saved-count"></span></label>
+      <a href="/compare/" id="compare-link" hidden data-i18n="listings.compareLink">Compare →</a>
     </div>
   </div>
   {% endif %}
@@ -67,7 +72,7 @@ permalink: /listings/
 <section class="listings-grid wrapper" id="listings-grid">
   {% for listing in listings.list %}
   {% set slug = listing.address | slugify %}
-  <div class="listing-card" data-slug="{{ slug }}" data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}" data-search="{{ (listing.address + ' ' + listing.location + ' ' + listing.blurb) | lower }}">
+  <div class="listing-card" data-slug="{{ slug }}" data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}" data-just-listed="{{ 'true' if listing.justListed else 'false' }}" data-open-house="{{ 'true' if listing.openHouse else 'false' }}" data-search="{{ (listing.address + ' ' + listing.location + ' ' + listing.blurb) | lower }}">
     <a class="listing-card__link" href="/listings/{{ slug }}/" aria-label="View details for {{ listing.address }}"></a>
     <div class="listing-card__media">
       {% if listing.image %}
@@ -75,24 +80,25 @@ permalink: /listings/
       {% else %}
       {{ listingPlaceholder(loop.index0) }}
       {% endif %}
-      <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}">{{ listing.status }}</span>
-      {% if listing.isSample %}<span class="listing-card__sample">Sample</span>{% endif %}
+      <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}" data-i18n="status.{{ listing.status | slugify }}">{{ listing.status }}</span>
+      {% if listing.isSample %}<span class="listing-card__sample" data-i18n="listings.sampleBadge">Sample</span>{% endif %}
       <button type="button" class="listing-card__save" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
         {% include "components/star-icon.njk" %}
       </button>
     </div>
     <div class="listing-card__body">
-      <p class="listing-card__price">{{ listing.price }}</p>
+      <p class="listing-card__price">{{ listing.price }}{% if listing.justListed %} <span class="listing-card__new-tag" data-i18n="listings.newTag">New</span>{% endif %}</p>
       <h3>{{ listing.address }}</h3>
       <p class="listing-card__location">{{ listing.location }}</p>
       <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
+      {% if listing.openHouse %}<p class="listing-card__openhouse"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ listing.openHouse }}</p>{% endif %}
       <p>{{ listing.blurb }}</p>
     </div>
   </div>
   {% else %}
-  <p>No active listings right now — <a href="/contact/">get in touch</a> and Julia can fill you in on what's coming up.</p>
+  <p><span data-i18n="listings.noActiveListingsPre">No active listings right now —</span> <a href="/contact/" data-i18n="listings.getInTouch">get in touch</a> <span data-i18n="listings.noActiveListingsPost">and Julia can fill you in on what's coming up.</span></p>
   {% endfor %}
 </section>
 {% if listings.list.length %}
-<p class="listings-empty wrapper" id="listings-empty" hidden>No listings match your filters — <a href="/contact/">contact Julia</a> or try adjusting them.</p>
+<p class="listings-empty wrapper" id="listings-empty" hidden><span data-i18n="listings.emptyMessagePre">No listings match your filters —</span> <a href="/contact/" data-i18n="listings.contactJulia">contact Julia</a> <span data-i18n="listings.emptyMessagePost">or try adjusting them.</span></p>
 {% endif %}
