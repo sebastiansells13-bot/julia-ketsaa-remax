@@ -1393,9 +1393,16 @@
 
 // Combined "Ask Julia About This Property" form (components/listing-inquiry-form.njk,
 // which also carries the "Schedule a Tour" fields — see that file's comment
-// for why the two were merged) — reuses the shared .contact-form field
-// styles above; this just covers the section heading.
+// for why the two were merged) — given the same card treatment as
+// .listing-agent-card/.listing-detail__attributes above (border + warm
+// off-white fill) so it reads as a distinct section instead of a plain
+// white gap between those cards and the page's own white background.
 .listing-detail__inquiry {
+  padding: 1.25rem 1.5rem;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  background: #faf8f3;
+
   h2 {
     font-size: 1.15rem;
     margin-bottom: 0.5rem;
@@ -1403,16 +1410,22 @@
 
   // The standalone .contact-form's own top/bottom padding is meant to give
   // it breathing room as a page's main content; here it's one section among
-  // several, already spaced out by .listing-detail's own `> * + *` rule.
-  // Its own max-width (34rem) is kept, though — .listing-detail is
-  // full-width now, and an unconstrained single-column form stretched
-  // that wide would mean giant, awkward input boxes.
+  // several, already padded/spaced by this wrapper. Its own max-width
+  // (34rem) is kept, though — .listing-detail is full-width now, and an
+  // unconstrained single-column form stretched that wide would mean giant,
+  // awkward input boxes.
   .contact-form {
     padding: 0;
   }
 }
 
-.contact-form__row--checkbox {
+// Chained with .contact-form__row so this beats that class's own
+// `flex-direction: column` on specificity rather than relying on source
+// order — .contact-form__row is declared later in this file, so a plain
+// `.contact-form__row--checkbox { flex-direction: row }` was losing the
+// cascade and the checkbox/label were rendering centered (column direction
+// + align-items: center), not left-aligned like every other row.
+.contact-form__row.contact-form__row--checkbox {
   flex-direction: row;
   align-items: center;
 
