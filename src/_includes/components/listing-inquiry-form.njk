@@ -1,11 +1,16 @@
 {#
-  "Get More Information"-style inquiry form for a listing detail page —
-  replaces a plain "Ask Julia about this property" link with an inline
-  lead-capture form. Caller must have `listing` in scope (true on
+  Combined lead-capture form for a listing detail page — general
+  questions plus an "I'd also like to schedule a tour" checkbox that
+  reveals tour-specific fields, so the page carries one heading/form/
+  Name+Email+Phone set instead of two separate ones (was
+  listing-inquiry-form.njk + tour-form.njk — merged to keep the page
+  shorter). Caller must have `listing` in scope (true on
   listing-detail.njk, which aliases the paginated item to `listing`).
   Submits via the shared src/_includes/js/lead-form.js handler — see
   AGENTS.md's "Lead-capture forms" note before duplicating any of its
-  validate/submit/honesty logic.
+  validate/submit/honesty logic. The checkbox reveal, and the "Request a
+  Showing" quick-action link pre-checking it, are wired up by
+  src/_includes/js/listing-inquiry-form.js.
 #}
 <div class="listing-detail__inquiry" id="ask-about-listing">
   <h2 data-i18n="listingdetail.askJulia">Ask Julia About This Property</h2>
@@ -31,6 +36,30 @@
     <div class="contact-form__row">
       <label for="inquiry-phone"><span data-i18n="form.phone">Phone</span> <span class="contact-form__optional" data-i18n="form.optional">(optional)</span></label>
       <input type="tel" id="inquiry-phone" name="phone" autocomplete="tel">
+    </div>
+    <div class="contact-form__row contact-form__row--checkbox">
+      <label><input type="checkbox" id="inquiry-wants-tour" name="wantsTour"> <span data-i18n="inquiry.wantsTour">I'd also like to schedule a tour</span></label>
+    </div>
+    <div class="listing-inquiry-form__tour-fields" id="inquiry-tour-fields" hidden>
+      <fieldset class="contact-form__row tour-form__type">
+        <legend data-i18n="tour.type">Tour Type</legend>
+        <div class="tour-form__type-options">
+          <label class="tour-form__radio"><input type="radio" name="tourType" value="In-Person" checked> <span data-i18n="tour.inPerson">In-Person</span></label>
+          <label class="tour-form__radio"><input type="radio" name="tourType" value="Virtual"> <span data-i18n="tour.virtual">Virtual</span></label>
+        </div>
+      </fieldset>
+      <div class="contact-form__row">
+        <label for="inquiry-tour-date" data-i18n="tour.preferredDate">Preferred Date</label>
+        <input type="date" id="inquiry-tour-date" name="preferredDate">
+      </div>
+      <div class="contact-form__row">
+        <label for="inquiry-tour-time" data-i18n="tour.preferredTime">Preferred Time</label>
+        <select id="inquiry-tour-time" name="preferredTime">
+          <option value="Morning" data-i18n="tour.morning">Morning</option>
+          <option value="Afternoon" data-i18n="tour.afternoon">Afternoon</option>
+          <option value="Evening" data-i18n="tour.evening">Evening</option>
+        </select>
+      </div>
     </div>
     <div class="contact-form__row">
       <label for="inquiry-message" data-i18n="form.message">Message</label>

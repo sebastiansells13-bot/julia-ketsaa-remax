@@ -76,7 +76,7 @@ eleventyComputed:
 
   <div class="listing-detail__quick-actions">
     <a href="#ask-about-listing" class="listing-detail__quick-action" data-i18n="listingdetail.askQuestion">Ask a Question</a>
-    <a href="#schedule-tour" class="listing-detail__quick-action listing-detail__quick-action--primary" data-i18n="listingdetail.requestShowing">Request a Showing</a>
+    <a href="#ask-about-listing" class="listing-detail__quick-action listing-detail__quick-action--primary" data-i18n="listingdetail.requestShowing" data-reveal-tour>Request a Showing</a>
   </div>
 
   {% include "components/listing-agent-card.njk" %}
@@ -133,7 +133,7 @@ eleventyComputed:
   </div>
   {% endif %}
 
-  {% include "components/tour-form.njk" %}
+  {% include "components/listing-inquiry-form.njk" %}
 
   {% if listing.address %}
   {% set mapQuery = listing.address + ", " + listing.location %}
@@ -151,8 +151,6 @@ eleventyComputed:
     </div>
     <a href="/home-value/" class="cta-banner__button" data-i18n="howihelp.homeworthButton">What's My Home Worth? →</a>
   </div>
-
-  {% include "components/listing-inquiry-form.njk" %}
 
   {% if similar.length %}
   <div class="listing-detail__similar">
