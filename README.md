@@ -60,7 +60,9 @@ validated but **not connected to a real backend yet** — see "What isn't
 connected yet" below.
 
 **Other pages** — [FAQ](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/faq/)
-(generic buying/selling questions, `FAQPage` schema), [Privacy Notice](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/privacy/)
+(generic buying/selling questions, `FAQPage` schema), [Why Live in Las Cruces](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/why-las-cruces/)
+(a local-appeal page — climate, affordability, outdoor life, food, and more),
+[Privacy Notice](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/privacy/)
 (plain-language, accurate to what the site actually does), a rebuilt 404
 page (quick links + a listings search box), and a blog with a few generic
 buyer/seller-tips posts.
