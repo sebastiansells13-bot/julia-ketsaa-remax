@@ -155,12 +155,15 @@ module.exports = function (eleventyConfig) {
       Pending: "https://schema.org/LimitedAvailability",
       Sold: "https://schema.org/SoldOut",
     };
+    // Other places this same property is listed (Zillow, Redfin) — both optional.
+    const sameAs = [listing.zillowUrl, listing.redfinUrl].filter(Boolean);
     const schema = {
       "@context": "https://schema.org",
       "@type": "RealEstateListing",
       name: [listing.address, listing.location].filter(Boolean).join(", "),
       description: listing.blurb,
       url: `${absoluteSiteUrl}/listings/${slug}/`,
+      sameAs: sameAs.length ? sameAs : undefined,
       about: {
         "@type": "SingleFamilyResidence",
         name: listing.address,

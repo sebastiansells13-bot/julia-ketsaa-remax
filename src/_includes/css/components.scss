@@ -1002,6 +1002,44 @@
   }
 }
 
+// Links out to this listing's page on Zillow/Redfin, if the agent added one.
+.listing-detail__external-links {
+  h2 {
+    font-size: 1.15rem;
+    margin-bottom: 0.5rem;
+  }
+}
+
+.listing-detail__external-links-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    border-radius: 2rem;
+    padding: 0.5rem 0.9rem;
+    background: #fff;
+    border: 1px solid $color-border;
+    color: $color-text;
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-decoration: none;
+
+    &:hover {
+      border-color: $color-remax-blue;
+      color: $color-remax-blue;
+    }
+
+    &:focus-visible {
+      outline: 2px solid $color-remax-blue;
+      outline-offset: 2px;
+    }
+  }
+}
+
 .listing-detail__header {
   h1 {
     margin: 0.2rem 0;

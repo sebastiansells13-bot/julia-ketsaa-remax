@@ -143,6 +143,16 @@ content:
             type: string
             description: A YouTube or Vimeo link (any format — a share link is fine). Leave blank if there isn't one.
 
+          - name: zillowUrl
+            label: Zillow Listing URL
+            type: string
+            description: Link to this property's page on Zillow. Leave blank if it isn't listed there (or not yet).
+
+          - name: redfinUrl
+            label: Redfin Listing URL
+            type: string
+            description: Link to this property's page on Redfin. Leave blank if it isn't listed there (or not yet).
+
           - name: blurb
             label: Short Description
             type: string

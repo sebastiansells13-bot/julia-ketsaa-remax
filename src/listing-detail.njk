@@ -95,6 +95,20 @@ eleventyComputed:
   </div>
   {% endif %}
 
+  {% if listing.zillowUrl or listing.redfinUrl %}
+  <div class="listing-detail__external-links">
+    <h2>Also Listed On</h2>
+    <div class="listing-detail__external-links-list">
+      {% if listing.zillowUrl %}
+      <a href="{{ listing.zillowUrl }}" target="_blank" rel="noopener noreferrer">View on Zillow <span aria-hidden="true">↗</span></a>
+      {% endif %}
+      {% if listing.redfinUrl %}
+      <a href="{{ listing.redfinUrl }}" target="_blank" rel="noopener noreferrer">View on Redfin <span aria-hidden="true">↗</span></a>
+      {% endif %}
+    </div>
+  </div>
+  {% endif %}
+
   {% if listing.address %}
   {% set mapQuery = listing.address + ", " + listing.location %}
   {% include "components/map-embed.njk" %}
