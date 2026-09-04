@@ -4,7 +4,7 @@
 (function () {
   const wrap = document.getElementById("compare-table-wrap");
   const emptyState = document.getElementById("compare-empty");
-  if (!wrap || !emptyState) return;
+  if (!wrap || !emptyState || typeof window.t !== "function") return;
 
   const dataEl = document.getElementById("listings-data");
   if (!dataEl) return;
@@ -16,16 +16,22 @@
     return;
   }
 
-  const rows = [
-    { label: "Status", get: (l) => l.status },
-    { label: "Price", get: (l) => l.price },
-    { label: "Beds", get: (l) => l.beds },
-    { label: "Baths", get: (l) => l.baths },
-    { label: "Sqft", get: (l) => l.sqft },
-    { label: "Year Built", get: (l) => l.yearBuilt || "—" },
-    { label: "Lot Size", get: (l) => l.lotSize || "—" },
-    { label: "Location", get: (l) => l.location },
-  ];
+  function statusKey(status) {
+    return "status." + String(status || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");
+  }
+
+  function rows() {
+    return [
+      { label: window.t("listings.statusLabel"), get: (l) => window.t(statusKey(l.status)) },
+      { label: window.t("listingdetail.priceLabel"), get: (l) => l.price },
+      { label: window.t("listingdetail.beds"), get: (l) => l.beds },
+      { label: window.t("listingdetail.baths"), get: (l) => l.baths },
+      { label: window.t("listingdetail.sqft"), get: (l) => l.sqft },
+      { label: window.t("listingdetail.yearBuilt"), get: (l) => l.yearBuilt || "—" },
+      { label: window.t("listingdetail.lotSize"), get: (l) => l.lotSize || "—" },
+      { label: window.t("compare.location"), get: (l) => l.location },
+    ];
+  }
 
   function render() {
     const saved = (window.SavedListings && window.SavedListings.getAll()) || [];
@@ -63,7 +69,7 @@
       const removeBtn = document.createElement("button");
       removeBtn.type = "button";
       removeBtn.className = "compare-table__remove";
-      removeBtn.textContent = "Remove";
+      removeBtn.textContent = window.t("compare.remove");
       removeBtn.addEventListener("click", function () {
         window.SavedListings.toggle(item.slug);
       });
@@ -72,7 +78,7 @@
     });
     thead.appendChild(headRow);
 
-    rows.forEach(function (row) {
+    rows().forEach(function (row) {
       const tr = document.createElement("tr");
       const th = document.createElement("th");
       th.textContent = row.label;
@@ -89,4 +95,6 @@
   render();
   // Removing a listing (here or on any other page) should re-render live.
   window.addEventListener("savedlistings:change", render);
+  // Rebuild with translated labels/status values on a language switch.
+  window.addEventListener("lang:changed", render);
 })();

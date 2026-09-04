@@ -49,7 +49,9 @@
     const isSaved = SavedListings.isSaved(slug);
     button.setAttribute("aria-pressed", isSaved ? "true" : "false");
     const label = button.dataset.label || "listing";
-    button.setAttribute("aria-label", (isSaved ? "Remove " : "Save ") + label + (isSaved ? " from" : " to") + " your saved list");
+    const key = isSaved ? "saved.removeAria" : "saved.saveAria";
+    const fallback = (isSaved ? "Remove " : "Save ") + label + (isSaved ? " from" : " to") + " your saved list";
+    button.setAttribute("aria-label", window.t ? window.t(key, { label: label }) : fallback);
   }
 
   function wireButton(button) {
@@ -67,6 +69,10 @@
   // Keep every save button on the page in sync if state changes elsewhere
   // (e.g. the "Saved only" filter unsaving something from a filtered list).
   window.addEventListener("savedlistings:change", function () {
+    document.querySelectorAll("[data-save-toggle]").forEach(refreshButton);
+  });
+  // Re-translate the aria-label on a language switch.
+  window.addEventListener("lang:changed", function () {
     document.querySelectorAll("[data-save-toggle]").forEach(refreshButton);
   });
 })();

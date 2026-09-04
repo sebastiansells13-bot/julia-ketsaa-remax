@@ -55,6 +55,18 @@
   <script type="application/json" id="i18n-data">{{ i18n | dump | safe }}</script>
   <script>window.SITE_BASE = "{{ sitePathPrefix }}";</script>
   <script>window.GOOGLE_MAPS_API_KEY = {{ googleMapsApiKey | dump | safe }};</script>
+  {#
+    i18n-runtime.js (window.t/window.i18nLang) and i18n.js (applies
+    [data-i18n]/[data-i18n-lang] to the DOM) load first, before anything
+    that depends on either — a script reading translated textContent at
+    load time (share-listing.js's captured default label) or calling
+    window.t() (newsletter.js, saved-listings.js, mortgage-calculator.js,
+    lead-form.js, compare.js, listings-map.js) needs both already in place.
+    All these scripts are `defer`, so they still run after DOMContentLoaded
+    and in this exact source order.
+  #}
+  <script src="/js/i18n-runtime.js" defer></script>
+  <script src="/js/i18n.js" defer></script>
   <script src="/js/nav.js" defer></script>
   <script src="/js/newsletter.js" defer></script>
   <script src="/js/saved-listings.js" defer></script>
@@ -66,7 +78,6 @@
   <script src="/js/share-listing.js" defer></script>
   <script src="/js/gallery.js" defer></script>
   <script src="/js/address-autocomplete.js" defer></script>
-  <script src="/js/i18n.js" defer></script>
   {% if page.url == "/listings/" %}
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" defer></script>
   <script src="/js/listings-map.js" defer></script>

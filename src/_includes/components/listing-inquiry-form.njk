@@ -14,8 +14,9 @@
     id="listing-inquiry-form"
     data-lead-form
     data-endpoint="LISTING_INQUIRY_ENDPOINT_NOT_CONFIGURED"
-    data-not-connected-message="Thanks for reaching out! This form isn't connected yet — please call, text, or email Julia directly in the meantime using the info above."
-    data-success-message="Message sent — Julia will be in touch soon about {{ listing.address }}."
+    data-not-connected-key="inquiry.notConnected"
+    data-success-key="inquiry.success"
+    data-message-vars="{{ {"address": listing.address} | dump }}"
     method="post"
   >
     <input type="hidden" name="listing" value="{{ listing.address }}, {{ listing.location }}">

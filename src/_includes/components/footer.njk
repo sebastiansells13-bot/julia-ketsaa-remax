@@ -1,3 +1,4 @@
+{% from "macros/bilingual.njk" import bilingual %}
 <section class="newsletter">
   <div class="wrapper">
     <div class="newsletter__inner">
@@ -17,7 +18,7 @@
         {% include "components/equal-housing-icon.njk" %}
         <span data-i18n="equalhousing.label">Equal Housing Opportunity</span>
       </div>
-      <p class="site-footer__disclaimer">{{ business.disclaimer }}</p>
+      <p class="site-footer__disclaimer">{{ bilingual(business.disclaimer, business.disclaimerEs) }}</p>
     </div>
 
     <div class="site-footer__bottom">

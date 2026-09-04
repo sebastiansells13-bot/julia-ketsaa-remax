@@ -3,6 +3,7 @@ layout: layouts/page.njk
 title: Contact
 permalink: /contact/
 ---
+{% from "macros/bilingual.njk" import bilingual %}
 <div class="wrapper">
   <h1 data-i18n="contact.heading">Contact</h1>
   <p data-i18n="contact.intro">Thinking about buying or selling in the Las Cruces area? Reach out for a no-obligation conversation.</p>
@@ -31,7 +32,7 @@ permalink: /contact/
   {% include "components/map-embed.njk" %}
 </div>
 {% endif %}
-<p class="wrapper agent-bio__license">{{ business.license }}{% if business.licenseNumber %} · License #{{ business.licenseNumber }}{% endif %}<br>{{ business.disclaimer }}</p>
+<p class="wrapper agent-bio__license">{{ business.license }}{% if business.licenseNumber %} · License #{{ business.licenseNumber }}{% endif %}<br>{{ bilingual(business.disclaimer, business.disclaimerEs) }}</p>
 
 <div class="wrapper">
   <h2 data-i18n="contact.sendMessage">Send a Message</h2>

@@ -6,12 +6,13 @@ eleventyNavigation:
   order: 1
 ---
 {% from "macros/listing-placeholder.njk" import listingPlaceholder %}
+{% from "macros/bilingual.njk" import bilingual %}
 <div class="hero hero--photo">
   <img class="hero__bg" src="/img/hero/realty-hero.jpg" alt="" width="1920" height="900">
   <div class="hero__content wrapper">
     <h1>{{ business.name }}</h1>
     <p class="hero__title">{{ business.title }}</p>
-    <p>{{ business.tagline }}</p>
+    <p>{{ bilingual(business.tagline, business.taglineEs) }}</p>
   </div>
 </div>
 

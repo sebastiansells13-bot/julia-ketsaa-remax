@@ -25,11 +25,10 @@ eleventyComputed:
 <div class="wrapper faq-page">
   <h1 data-i18n="faq.heading">Frequently Asked Questions</h1>
   <p class="faq-page__intro"><span data-i18n="faq.introPre">General answers to get you oriented — every situation is different, so reach out to</span> <a href="/contact/" data-i18n="common.julia">Julia</a> <span data-i18n="faq.introPost">for guidance specific to yours.</span></p>
-  <p class="faq-page__intro" data-i18n="faq.contentNote">Answers below are in English — call, text, or email Julia (see Contact) and she's glad to go through any of this with you in Spanish.</p>
   {% for item in faqs %}
   <details class="faq-item">
-    <summary>{{ item.question }}</summary>
-    <p>{{ item.answer }}</p>
+    <summary data-i18n="faq.q{{ loop.index }}">{{ item.question }}</summary>
+    <p data-i18n="faq.a{{ loop.index }}">{{ item.answer }}</p>
   </details>
   {% endfor %}
 </div>
