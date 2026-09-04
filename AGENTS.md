@@ -30,9 +30,12 @@ Keep it up to date as the site diverges from the template.
   The FAQ, mortgage calculator defaults, and Home Value/Privacy page copy are template
   content, not CMS-managed — editing those needs a code change.
 - **Data**: `src/_data/business.json` holds the agent's real name, brokerage, contact
-  info (`phoneCell`/`phoneOffice`, not a single `phone` field), license text, RE/MAX
-  disclaimer, and social links — taken from Julia's actual business card, not an intake
+  info (`phoneCell`/`phoneOffice`, not a single `phone` field), license text and number
+  (`license`/`licenseNumber`), RE/MAX disclaimer, and social links — taken from Julia's
+  actual business card and her RE/MAX Classic Realty broker profile, not an intake
   worksheet placeholder. Reference it in templates rather than hardcoding business details.
+  `src/_data/i18n.json` holds the English/Spanish dictionary for the language toggle —
+  see the "Language toggle" bullet below.
 - **Eleventy filters** (all in `eleventy.config.cjs`): `slugify`, `listingsWithSlugs`
   (adds a precomputed `slug` to each listing, used by the `#listings-data` JSON island
   in `base.njk`), `galleryImages` (combines a listing's cover `image` + `images` into
@@ -58,6 +61,21 @@ Keep it up to date as the site diverges from the template.
   `window.GOOGLE_MAPS_API_KEY`, set in `base.njk` from the `googleMapsApiKey` global data
   (an env var, `GOOGLE_MAPS_API_KEY` — never hardcode a real key into `eleventy.config.cjs`
   or a template). No key, no script load — the field just stays a plain input.
+- **Language toggle**: `src/_includes/js/i18n.js` + `src/_data/i18n.json` power the
+  EN/ES buttons in the header. Any element with `data-i18n="key"` gets its `textContent`
+  replaced on toggle (`data-i18n-placeholder="key"` for an input's `placeholder`); the
+  choice persists per visitor via `localStorage`. It only covers this site's own
+  template chrome and static marketing pages — never CMS-authored content (blog posts,
+  listing descriptions, services, testimonials, FAQ answers), which stays in whatever
+  language Julia wrote it in. See README.md's "How the language toggle works" before
+  adding a new translated string — in particular, never put `data-i18n` on an element
+  that also has non-text children (an `<input>`, a nested `<span>`); it overwrites
+  `textContent` and silently deletes them. Reuse an existing key (`nav.home`, `form.email`,
+  `common.julia`, etc.) before adding a new one for the same word.
+- **Listing tabs**: `justListed` (boolean) and `openHouse` (string) on a listing power
+  the "Just Listed"/"Open Houses" tabs on `/listings/` (`src/_includes/js/listings-filter.js`)
+  and the "New" tag / open-house banner on its cards and detail page. Both are manual
+  flags, same spirit as `isSample` — nothing expires or clears itself automatically.
 - **Deployment**: pushes to `main` build the site and deploy to GitHub Pages;
   pull requests run the build to catch errors but do not deploy.
 
@@ -107,6 +125,10 @@ Keep it up to date as the site diverges from the template.
   checks (`newsletter.js` and the shared `lead-form.js`) until a real backend is wired up
 - Don't add the official RE/MAX logo graphic without it being supplied directly by
   RE/MAX/the broker — see README.md
+- Don't extend the language toggle to CMS-authored content (blog posts, listing
+  descriptions, services, testimonials, FAQ answers) — there's no translation pipeline
+  for content that changes as often as those do; it stays in whatever language Julia
+  wrote it in, same as any real i18n setup with a single-language content source
 - Don't let `README.md`, `AGENTS.md`, or `CMS-GUIDE.md` drift from reality — this repo
   has a history of going several feature commits without a docs update; when you add or
   change a page/feature, update the relevant doc in the same batch of work, not later

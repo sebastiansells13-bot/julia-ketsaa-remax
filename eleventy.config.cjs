@@ -143,6 +143,7 @@ module.exports = function (eleventyConfig) {
       image: business.photo ? `${absoluteSiteUrl}${business.photo}` : undefined,
       telephone: business.phoneCell,
       email: business.email,
+      identifier: business.licenseNumber,
       address: {
         "@type": "PostalAddress",
         streetAddress: business.streetAddress,
