@@ -8,15 +8,8 @@
   const mapEl = document.getElementById("listings-map");
   if (!mapEl || typeof L === "undefined" || typeof window.t !== "function") return;
 
-  const dataEl = document.getElementById("listings-data");
-  if (!dataEl) return;
-
-  let listings;
-  try {
-    listings = JSON.parse(dataEl.textContent);
-  } catch (err) {
-    return;
-  }
+  const listings = window.getListingsData();
+  if (!listings) return;
 
   const geocoded = listings.filter(function (l) {
     return typeof l.lat === "number" && typeof l.lng === "number";

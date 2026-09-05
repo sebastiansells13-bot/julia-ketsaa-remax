@@ -5,23 +5,14 @@
 (function () {
   const STORAGE_KEY = "julia-ketsaa-remax:saved-listings";
 
+  // See site-data.js for the shared read/write-a-JSON-array-in-localStorage
+  // behavior (silent failure in private mode / disabled storage / quota).
   function readSaved() {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      const parsed = raw ? JSON.parse(raw) : [];
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (err) {
-      return [];
-    }
+    return window.readJSONArray(STORAGE_KEY);
   }
 
   function writeSaved(slugs) {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(slugs));
-    } catch (err) {
-      // Storage unavailable (private mode, disabled, quota) — fail silently,
-      // buttons just won't persist state across reloads.
-    }
+    window.writeJSONArray(STORAGE_KEY, slugs);
   }
 
   const SavedListings = {

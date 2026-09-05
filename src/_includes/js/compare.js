@@ -6,15 +6,8 @@
   const emptyState = document.getElementById("compare-empty");
   if (!wrap || !emptyState || typeof window.t !== "function") return;
 
-  const dataEl = document.getElementById("listings-data");
-  if (!dataEl) return;
-
-  let allListings;
-  try {
-    allListings = JSON.parse(dataEl.textContent);
-  } catch (err) {
-    return;
-  }
+  const allListings = window.getListingsData();
+  if (!allListings) return;
 
   function statusKey(status) {
     return "status." + String(status || "").toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, "");

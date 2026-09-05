@@ -3,7 +3,7 @@ layout: layouts/page.njk
 title: Listings
 permalink: /listings/
 ---
-{% from "macros/listing-placeholder.njk" import listingPlaceholder %}
+{% from "macros/listing-card.njk" import listingCard %}
 <div class="wrapper">
   <h1 data-i18n="listings.heading">Current Listings</h1>
   <div class="recently-viewed" id="recently-viewed" hidden>
@@ -76,30 +76,7 @@ permalink: /listings/
 {% endif %}
 <section class="listings-grid wrapper" id="listings-grid">
   {% for listing in listings.list %}
-  {% set slug = listing.address | slugify %}
-  <div class="listing-card" data-slug="{{ slug }}" data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}" data-just-listed="{{ 'true' if listing.justListed else 'false' }}" data-open-house="{{ 'true' if listing.openHouse else 'false' }}" data-search="{{ (listing.address + ' ' + listing.location + ' ' + listing.blurb) | lower }}">
-    <a class="listing-card__link" href="/listings/{{ slug }}/" aria-label="View details for {{ listing.address }}"></a>
-    <div class="listing-card__media">
-      {% if listing.image %}
-      <img src="{{ listing.image }}" alt="{{ listing.address }}" loading="lazy" decoding="async">
-      {% else %}
-      {{ listingPlaceholder(loop.index0) }}
-      {% endif %}
-      <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}" data-i18n="status.{{ listing.status | slugify }}">{{ listing.status }}</span>
-      {% if listing.isSample %}<span class="listing-card__sample" data-i18n="listings.sampleBadge">Sample</span>{% endif %}
-      <button type="button" class="listing-card__save" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
-        {% include "components/star-icon.njk" %}
-      </button>
-    </div>
-    <div class="listing-card__body">
-      <p class="listing-card__price">{{ listing.price }}{% if listing.justListed %} <span class="listing-card__new-tag" data-i18n="listings.newTag">New</span>{% endif %}</p>
-      <h3>{{ listing.address }}</h3>
-      <p class="listing-card__location">{{ listing.location }}</p>
-      <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
-      {% if listing.openHouse %}<p class="listing-card__openhouse"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ listing.openHouse }}</p>{% endif %}
-      <p>{{ listing.blurb }}</p>
-    </div>
-  </div>
+  {{ listingCard(listing, { showSave: true, showNewTag: true, showOpenHouse: true, showLocation: true, showBlurb: true, filterAttrs: true, placeholderSeed: loop.index0 }) }}
   {% else %}
   <p><span data-i18n="listings.noActiveListingsPre">No active listings right now —</span> <a href="/contact/" data-i18n="listings.getInTouch">get in touch</a> <span data-i18n="listings.noActiveListingsPost">and Julia can fill you in on what's coming up.</span></p>
   {% endfor %}
