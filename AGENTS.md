@@ -46,6 +46,21 @@ Keep it up to date as the site diverges from the template.
   href rewriting — it isn't HTML the plugin ever sees. Use `window.SITE_BASE` (set
   inline in `base.njk` from the `sitePathPrefix` global) to prefix those links. Getting
   this wrong silently double- or zero-prefixes the link; it's bitten this project before.
+- **Shared listing-card markup**: `macros/listing-card.njk`'s `listingCard(listing,
+  options)` is the one copy of the `.listing-card` grid markup, used by the homepage's
+  "Featured Listings", the full `/listings/` grid, and a listing's own "Similar
+  Properties" — these three used to each carry their own near-identical copy, which had
+  already drifted out of sync. `options` toggles what differs per call site (`showSave`,
+  `showNewTag`, `showOpenHouse`, `showLocation`, `showBlurb`, `filterAttrs`,
+  `placeholderSeed`) — see that file's own comment before adding a fourth listing-card
+  call site or changing the markup, so all three don't need editing separately again.
+- **Shared listings-data/localStorage helpers**: `src/_includes/js/site-data.js` (loads
+  first, before i18n) exposes `window.getListingsData()` (parses the `#listings-data`
+  JSON island — used by `compare.js`, `listings-map.js`, `recently-viewed.js`) and
+  `window.readJSONArray`/`writeJSONArray` (a JSON array in localStorage with silent
+  failure in private mode/disabled storage/quota — used by `saved-listings.js` and
+  `recently-viewed.js`). Add to these rather than re-inlining the same parse/try-catch
+  in a new script.
 - **Lead-capture forms**: any form collecting visitor contact info uses the shared
   `src/_includes/js/lead-form.js` handler via `data-lead-form` + `data-endpoint` +
   `data-not-connected-key`/`data-success-key` (i18n.json keys, looked up through

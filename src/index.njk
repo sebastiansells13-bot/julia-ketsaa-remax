@@ -5,7 +5,7 @@ eleventyNavigation:
   key: Home
   order: 1
 ---
-{% from "macros/listing-placeholder.njk" import listingPlaceholder %}
+{% from "macros/listing-card.njk" import listingCard %}
 {% from "macros/bilingual.njk" import bilingual %}
 <div class="hero hero--photo">
   <img class="hero__bg" src="/img/hero/realty-hero.jpg" alt="" width="1920" height="900">
@@ -24,28 +24,7 @@ eleventyNavigation:
 </section>
 <section class="listings-grid wrapper">
   {% for listing in listings.list | head(3) %}
-  {% set slug = listing.address | slugify %}
-  <div class="listing-card" data-slug="{{ slug }}">
-    <a class="listing-card__link" href="/listings/{{ slug }}/" aria-label="View details for {{ listing.address }}"></a>
-    <div class="listing-card__media">
-      {% if listing.image %}
-      <img src="{{ listing.image }}" alt="{{ listing.address }}" loading="lazy" decoding="async">
-      {% else %}
-      {{ listingPlaceholder(loop.index0) }}
-      {% endif %}
-      <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}" data-i18n="status.{{ listing.status | slugify }}">{{ listing.status }}</span>
-      {% if listing.isSample %}<span class="listing-card__sample" data-i18n="listings.sampleBadge">Sample</span>{% endif %}
-      <button type="button" class="listing-card__save" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
-        {% include "components/star-icon.njk" %}
-      </button>
-    </div>
-    <div class="listing-card__body">
-      <p class="listing-card__price">{{ listing.price }}{% if listing.justListed %} <span class="listing-card__new-tag" data-i18n="listings.newTag">New</span>{% endif %}</p>
-      <h3>{{ listing.address }}</h3>
-      <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
-      {% if listing.openHouse %}<p class="listing-card__openhouse"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ listing.openHouse }}</p>{% endif %}
-    </div>
-  </div>
+  {{ listingCard(listing, { showSave: true, showNewTag: true, showOpenHouse: true, placeholderSeed: loop.index0 }) }}
   {% else %}
   <p><span data-i18n="home.newListingsPre">New listings are on the way —</span> <a href="/contact/" data-i18n="home.reachOut">reach out</a> <span data-i18n="home.newListingsPost">for what's currently available.</span></p>
   {% endfor %}

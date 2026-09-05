@@ -5,22 +5,14 @@
   const STORAGE_KEY = "julia-ketsaa-remax:recently-viewed";
   const MAX_ENTRIES = 6;
 
+  // See site-data.js for the shared read/write-a-JSON-array-in-localStorage
+  // behavior (silent failure in private mode / disabled storage / quota).
   function readViewed() {
-    try {
-      const raw = window.localStorage.getItem(STORAGE_KEY);
-      const parsed = raw ? JSON.parse(raw) : [];
-      return Array.isArray(parsed) ? parsed : [];
-    } catch (err) {
-      return [];
-    }
+    return window.readJSONArray(STORAGE_KEY);
   }
 
   function writeViewed(slugs) {
-    try {
-      window.localStorage.setItem(STORAGE_KEY, JSON.stringify(slugs));
-    } catch (err) {
-      // Storage unavailable — recently-viewed just won't persist.
-    }
+    window.writeJSONArray(STORAGE_KEY, slugs);
   }
 
   // On a listing's own detail page: record it as viewed.
@@ -40,15 +32,8 @@
   const strip = document.getElementById("recently-viewed");
   if (!strip) return;
 
-  const dataEl = document.getElementById("listings-data");
-  if (!dataEl) return;
-
-  let allListings;
-  try {
-    allListings = JSON.parse(dataEl.textContent);
-  } catch (err) {
-    return;
-  }
+  const allListings = window.getListingsData();
+  if (!allListings) return;
 
   const viewedSlugs = readViewed();
   const viewedListings = viewedSlugs

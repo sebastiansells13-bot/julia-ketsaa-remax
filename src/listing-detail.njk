@@ -11,6 +11,7 @@ eleventyComputed:
   description: "{{ listing.blurb }}"
 ---
 {% from "macros/listing-placeholder.njk" import listingPlaceholder %}
+{% from "macros/listing-card.njk" import listingCard %}
 {% set slug = listing.address | slugify %}
 {% set gallery = listing | galleryImages %}
 {% set videoEmbedUrl = listing.videoUrl | embedVideoUrl %}
@@ -157,24 +158,7 @@ eleventyComputed:
     <h2 data-i18n="listingdetail.similarProperties">Similar Properties</h2>
     <div class="listings-grid">
       {% for other in similar %}
-      {% set otherSlug = other.address | slugify %}
-      <div class="listing-card" data-slug="{{ otherSlug }}">
-        <a class="listing-card__link" href="/listings/{{ otherSlug }}/" aria-label="View details for {{ other.address }}"></a>
-        <div class="listing-card__media">
-          {% if other.image %}
-          <img src="{{ other.image }}" alt="{{ other.address }}" loading="lazy" decoding="async">
-          {% else %}
-          {{ listingPlaceholder(loop.index0) }}
-          {% endif %}
-          <span class="listing-card__status listing-card__status--{{ other.status | slugify }}" data-i18n="status.{{ other.status | slugify }}">{{ other.status }}</span>
-          {% if other.isSample %}<span class="listing-card__sample" data-i18n="listings.sampleBadge">Sample</span>{% endif %}
-        </div>
-        <div class="listing-card__body">
-          <p class="listing-card__price">{{ other.price }}</p>
-          <h3>{{ other.address }}</h3>
-          <p class="listing-card__stats">{{ other.beds }} bed · {{ other.baths }} bath · {{ other.sqft }} sqft</p>
-        </div>
-      </div>
+      {{ listingCard(other, { placeholderSeed: loop.index0 }) }}
       {% endfor %}
     </div>
   </div>

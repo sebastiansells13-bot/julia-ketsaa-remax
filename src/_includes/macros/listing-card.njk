@@ -1,0 +1,53 @@
+{#
+  The listing-card grid markup, shared by the homepage's "Featured Listings"
+  section (index.njk), the full /listings/ grid (listings.njk), and the
+  "Similar Properties" section on a listing's own detail page
+  (listing-detail.njk) — these three used to carry near-identical copies of
+  this block, which had already drifted slightly out of sync with each
+  other. `options` toggles the bits that differ between call sites instead:
+
+  - `showSave` (bool): the star/save-listing button (listings grids only —
+    not shown on the compact "Similar Properties" cards)
+  - `showNewTag` (bool): the "New" badge for `listing.justListed` (same —
+    omitted on Similar Properties to keep those cards compact)
+  - `showOpenHouse` (bool): the open-house line (same)
+  - `showLocation` (bool): the city/neighborhood line (full grid only)
+  - `showBlurb` (bool): the one-line description (full grid only)
+  - `filterAttrs` (bool): the `data-status`/`data-beds`/etc. attributes
+    src/_includes/js/listings-filter.js reads (full grid only — the
+    homepage and Similar Properties cards aren't filterable)
+  - `placeholderSeed` (number): forwarded to listingPlaceholder() for the
+    no-photo illustration's palette — pass the loop index
+
+  Callers still need their own `{% for %}` loop (for `loop.index0` and the
+  `{% else %}` empty-state message, which differs per page).
+#}
+{% from "macros/listing-placeholder.njk" import listingPlaceholder %}
+{% macro listingCard(listing, options) %}
+{% set slug = listing.address | slugify %}
+<div class="listing-card" data-slug="{{ slug }}"{% if options.filterAttrs %} data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}" data-just-listed="{{ 'true' if listing.justListed else 'false' }}" data-open-house="{{ 'true' if listing.openHouse else 'false' }}" data-search="{{ (listing.address + ' ' + listing.location + ' ' + listing.blurb) | lower }}"{% endif %}>
+  <a class="listing-card__link" href="/listings/{{ slug }}/" aria-label="View details for {{ listing.address }}"></a>
+  <div class="listing-card__media">
+    {% if listing.image %}
+    <img src="{{ listing.image }}" alt="{{ listing.address }}" loading="lazy" decoding="async">
+    {% else %}
+    {{ listingPlaceholder(options.placeholderSeed) }}
+    {% endif %}
+    <span class="listing-card__status listing-card__status--{{ listing.status | slugify }}" data-i18n="status.{{ listing.status | slugify }}">{{ listing.status }}</span>
+    {% if listing.isSample %}<span class="listing-card__sample" data-i18n="listings.sampleBadge">Sample</span>{% endif %}
+    {% if options.showSave %}
+    <button type="button" class="listing-card__save" data-save-toggle data-slug="{{ slug }}" data-label="{{ listing.address }}" aria-pressed="false">
+      {% include "components/star-icon.njk" %}
+    </button>
+    {% endif %}
+  </div>
+  <div class="listing-card__body">
+    <p class="listing-card__price">{{ listing.price }}{% if options.showNewTag and listing.justListed %} <span class="listing-card__new-tag" data-i18n="listings.newTag">New</span>{% endif %}</p>
+    <h3>{{ listing.address }}</h3>
+    {% if options.showLocation %}<p class="listing-card__location">{{ listing.location }}</p>{% endif %}
+    <p class="listing-card__stats">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
+    {% if options.showOpenHouse and listing.openHouse %}<p class="listing-card__openhouse"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ listing.openHouse }}</p>{% endif %}
+    {% if options.showBlurb %}<p>{{ listing.blurb }}</p>{% endif %}
+  </div>
+</div>
+{% endmacro %}

@@ -56,8 +56,10 @@
   <script>window.SITE_BASE = "{{ sitePathPrefix }}";</script>
   <script>window.GOOGLE_MAPS_API_KEY = {{ googleMapsApiKey | dump | safe }};</script>
   {#
-    i18n-runtime.js (window.t/window.i18nLang) and i18n.js (applies
-    [data-i18n]/[data-i18n-lang] to the DOM) load first, before anything
+    site-data.js (window.getListingsData/readJSONArray/writeJSONArray) has
+    no dependencies of its own, so it loads first. i18n-runtime.js
+    (window.t/window.i18nLang) and i18n.js (applies
+    [data-i18n]/[data-i18n-lang] to the DOM) load next, before anything
     that depends on either — a script reading translated textContent at
     load time (share-listing.js's captured default label) or calling
     window.t() (newsletter.js, saved-listings.js, mortgage-calculator.js,
@@ -65,6 +67,7 @@
     All these scripts are `defer`, so they still run after DOMContentLoaded
     and in this exact source order.
   #}
+  <script src="/js/site-data.js" defer></script>
   <script src="/js/i18n-runtime.js" defer></script>
   <script src="/js/i18n.js" defer></script>
   <script src="/js/nav.js" defer></script>

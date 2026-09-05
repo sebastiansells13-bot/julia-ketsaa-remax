@@ -9,6 +9,15 @@ $color-accent: $color-remax-red;
 $color-dark: #101820;
 $color-border: #e2e2e2;
 
+// Repeated section-background tints (previously copy-pasted as literal hex
+// values across a dozen-plus selectors in components.scss — testimonial,
+// agent card, attributes grid, inquiry form, mortgage calc, cta-banner,
+// table headers, etc.). Centralized here so a color tweak is a one-line
+// change instead of a find-and-replace across the stylesheet.
+$color-card-bg: #faf8f3; // warm off-white "card" fill (informational, neutral)
+$color-info-bg: #eaf1fb; // light blue "informational" fill (open house, tour fields)
+$color-caution-bg: #fdf1e8; // light peach "cautionary/sample" fill (sample-banner)
+
 $font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
 $font-heading: $font-body;
 
