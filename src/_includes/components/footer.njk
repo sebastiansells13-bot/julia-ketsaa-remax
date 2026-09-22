@@ -21,6 +21,20 @@
       <p class="site-footer__disclaimer">{{ bilingual(business.disclaimer, business.disclaimerEs) }}</p>
     </div>
 
+    {% if business.social and (business.social.instagram or business.social.facebook or business.social.linkedin) %}
+    {#
+      business.social.* is CMS-editable (.pages.yml "Social Links") but
+      starts empty, so this renders nothing until Julia actually fills one
+      in. Platform names are proper nouns — same in English and Spanish —
+      so no data-i18n here, same treatment as the business name.
+    #}
+    <nav class="site-footer__social" aria-label="Follow Julia Ketsaa">
+      {% if business.social.instagram %}<a href="{{ business.social.instagram }}" target="_blank" rel="noopener noreferrer">Instagram</a>{% endif %}
+      {% if business.social.facebook %}<a href="{{ business.social.facebook }}" target="_blank" rel="noopener noreferrer">Facebook</a>{% endif %}
+      {% if business.social.linkedin %}<a href="{{ business.social.linkedin }}" target="_blank" rel="noopener noreferrer">LinkedIn</a>{% endif %}
+    </nav>
+    {% endif %}
+
     <div class="site-footer__bottom">
       <span>&copy; {% year %} {{ business.name or metadata.title }}, {{ business.title }}</span>
       <span>
