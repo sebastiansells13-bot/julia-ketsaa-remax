@@ -145,7 +145,9 @@ this repo, no separate hosting or database. Julia (or anyone given repo
 access) can log in at https://app.pagescms.org, connect this repo, and edit:
 
 - **Agent & Business Info** — name, title, phone numbers, email, address,
-  license text and number, bio, disclaimer, agent photo, social links
+  license text and number, bio, disclaimer, agent photo, social links (any of
+  Instagram/Facebook/LinkedIn left blank simply doesn't appear — the row of
+  links in the site footer only shows the ones that are filled in)
 - **Listings** — add/edit/remove property listings, including the photo
   gallery, video tour URL, property type, Just Listed flag, Open House
   date/time, and map coordinates for its pin on the Listings page map

@@ -317,6 +317,27 @@
   }
 }
 
+// Instagram/Facebook/LinkedIn — only rendered at all once Julia fills one
+// in through the CMS (see footer.njk), so this is unstyled dead weight on
+// the site today but needs to be ready the moment she does. Same visual
+// treatment as .site-footer__links, kept separate since it's a list of
+// external profile links rather than internal site pages.
+.site-footer__social {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem 1.25rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+
+  a {
+    color: #fff;
+
+    &:hover {
+      color: $color-remax-red;
+    }
+  }
+}
+
 .hero {
   padding: 4rem 0;
   text-align: center;
