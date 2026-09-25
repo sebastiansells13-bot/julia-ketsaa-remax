@@ -394,6 +394,52 @@
     padding: 0.4rem 0.9rem;
     border-radius: 2rem;
     margin: 0 0 1rem;
+    // The h1/p text-shadow below is for white-on-photo text; on this white
+    // pill it just blurs the red lettering.
+    text-shadow: none;
+
+    @media (max-width: 40rem) {
+      font-size: 0.75rem;
+      letter-spacing: 0.04em;
+    }
+  }
+
+  .hero__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.75rem;
+    margin-top: 1.75rem;
+  }
+
+  .hero__button {
+    display: inline-block;
+    min-width: 11rem;
+    text-align: center;
+    text-decoration: none;
+    font-weight: 700;
+    padding: 0.75rem 1.4rem;
+    border-radius: 0.3rem;
+    color: #fff;
+    border: 2px solid #fff;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.12);
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 3px;
+    }
+  }
+
+  .hero__button--primary {
+    background: $color-remax-red;
+    border-color: $color-remax-red;
+
+    &:hover {
+      background: darken($color-remax-red, 8%);
+    }
   }
 
   h1,
@@ -552,11 +598,14 @@
   }
 }
 
+// A grid rather than a wrapping flex row, so every control lines up to the
+// same column widths instead of each sizing to its own content (which left a
+// lone "Sort by" stranded on its own row and ragged widths on mobile).
 .listings-toolbar {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1rem 1.5rem;
-  align-items: flex-end;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(9rem, 1fr));
+  gap: 1rem 1.25rem;
+  align-items: end;
   padding-top: 1rem;
 }
 
@@ -582,12 +631,23 @@
     font-family: inherit;
     background: #fff;
     color: $color-text;
-    min-width: 10rem;
+    width: 100%;
+    min-width: 0;
 
     &:focus-visible {
       outline: 2px solid $color-remax-blue;
       outline-offset: 1px;
     }
+  }
+}
+
+.listings-toolbar__field--search {
+  grid-column: span 2;
+
+  // Below two 9rem columns' worth of room, a span-2 item would force an
+  // extra implicit column and overflow the page sideways.
+  @media (max-width: 22rem) {
+    grid-column: auto;
   }
 }
 
@@ -1668,6 +1728,10 @@
   }
 }
 
+.contact-form-heading {
+  padding-top: 1.5rem;
+}
+
 .how-i-help__faq-link {
   color: $color-muted;
   padding-bottom: 3rem;
@@ -1675,7 +1739,7 @@
 
 // Highlighted CTA banner — a bordered, cream-colored callout with a button,
 // shared by any page that wants to end on a "here's the next step" note
-// (How I Can Help, Why Live in Las Cruces).
+// (How I Can Help, Why Live in Las Cruces, About).
 .cta-banner {
   display: flex;
   align-items: center;

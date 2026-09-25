@@ -79,8 +79,14 @@
   "home.newListingsPre": { "en": "New listings are on the way —", "es": "Pronto habrá nuevas propiedades —" },
   "home.reachOut": { "en": "reach out", "es": "comuníquese" },
   "home.newListingsPost": { "en": "for what's currently available.", "es": "para ver lo que hay disponible ahora." },
+  "home.heroBrowse": { "en": "Browse Listings", "es": "Ver Propiedades" },
+  "home.heroContact": { "en": "Contact Julia", "es": "Contactar a Julia" },
+  "home.howIHelp": { "en": "How I Can Help", "es": "Cómo Puedo Ayudar" },
+  "home.learnMore": { "en": "Learn more →", "es": "Más información →" },
 
   "about.prefix": { "en": "About", "es": "Acerca de" },
+  "about.ctaHeading": { "en": "Ready to talk about your next move?", "es": "¿Listo para hablar sobre su próxima mudanza?" },
+  "about.ctaText": { "en": "Buying or selling, Julia is happy to start with a no-obligation conversation.", "es": "Ya sea que compre o venda, Julia con gusto empieza con una conversación sin compromiso." },
 
   "contact.heading": { "en": "Contact", "es": "Contacto" },
   "contact.intro": { "en": "Thinking about buying or selling in the Las Cruces area? Reach out for a no-obligation conversation.", "es": "¿Está pensando en comprar o vender en el área de Las Cruces? Comuníquese para una conversación sin compromiso." },

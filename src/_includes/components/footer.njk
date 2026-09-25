@@ -39,8 +39,8 @@
       <span>&copy; {% year %} {{ business.name or metadata.title }}, {{ business.title }}</span>
       <span>
         {% if business.email %}<a href="mailto:{{ business.email }}">{{ business.email }}</a>{% endif %}
-        {% if business.phoneCell %} · <span data-i18n="contact.cell">Cell</span> {{ business.phoneCell }}{% endif %}
-        {% if business.phoneOffice %} · <span data-i18n="contact.office">Office</span> {{ business.phoneOffice }}{% endif %}
+        {% if business.phoneCell %} · <span data-i18n="contact.cell">Cell</span> <a href="tel:{{ business.phoneCell }}">{{ business.phoneCell }}</a>{% endif %}
+        {% if business.phoneOffice %} · <span data-i18n="contact.office">Office</span> <a href="tel:{{ business.phoneOffice }}">{{ business.phoneOffice }}</a>{% endif %}
       </span>
     </div>
     {% if business.phoneOffice %}
