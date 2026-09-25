@@ -14,6 +14,10 @@ eleventyNavigation:
     <h1>{{ business.name }}</h1>
     <p class="hero__title">{{ business.title }}</p>
     <p>{{ bilingual(business.tagline, business.taglineEs) }}</p>
+    <div class="hero__actions">
+      <a href="/listings/" class="hero__button hero__button--primary" data-i18n="home.heroBrowse">Browse Listings</a>
+      <a href="/contact/" class="hero__button" data-i18n="home.heroContact">Contact Julia</a>
+    </div>
   </div>
 </div>
 
@@ -31,12 +35,18 @@ eleventyNavigation:
   {% endfor %}
 </section>
 
+<section class="wrapper">
+  <div class="section-heading">
+    <h2 data-i18n="home.howIHelp">How I Can Help</h2>
+    <a href="/how-i-help/" data-i18n="home.learnMore">Learn more →</a>
+  </div>
+</section>
 <section class="services-grid wrapper">
   {% for service in services.list %}
   <div class="service-card">
     {% if service.icon %}<img src="{{ service.icon }}" alt="" class="service-card__icon" loading="lazy" decoding="async">{% endif %}
     <h3>{{ service.title }}</h3>
-    <p>{{ service.description }}</p>
+    <p>{{ service.description | safe }}</p>
   </div>
   {% endfor %}
 </section>
