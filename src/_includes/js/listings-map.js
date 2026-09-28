@@ -26,6 +26,20 @@
     attribution: '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors',
   }).addTo(map);
 
+  // Leaflet builds its zoom buttons with hardcoded English titles/labels.
+  function translateZoomControl() {
+    [
+      [".leaflet-control-zoom-in", "map.zoomIn"],
+      [".leaflet-control-zoom-out", "map.zoomOut"],
+    ].forEach(function (pair) {
+      const btn = mapEl.querySelector(pair[0]);
+      if (!btn) return;
+      btn.setAttribute("title", window.t(pair[1]));
+      btn.setAttribute("aria-label", window.t(pair[1]));
+    });
+  }
+  translateZoomControl();
+
   const markers = {};
   const bounds = [];
 
@@ -40,7 +54,9 @@
   }
 
   geocoded.forEach(function (listing) {
-    const marker = L.marker([listing.lat, listing.lng]);
+    // Leaflet's default pin alt text is the English word "Marker" — the
+    // address says more and needs no translation.
+    const marker = L.marker([listing.lat, listing.lng], { alt: listing.address });
     marker.bindPopup(popupHtml(listing));
     marker.addTo(map);
     markers[listing.slug] = marker;
@@ -71,6 +87,7 @@
   // word and the link label are ever translated) when the language toggle
   // switches, so a popup opened after that shows the right language.
   window.addEventListener("lang:changed", function () {
+    translateZoomControl();
     geocoded.forEach(function (listing) {
       const marker = markers[listing.slug];
       if (marker) marker.setPopupContent(popupHtml(listing));

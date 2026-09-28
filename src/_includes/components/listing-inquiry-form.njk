@@ -63,7 +63,7 @@
     </div>
     <div class="contact-form__row">
       <label for="inquiry-message" data-i18n="form.message">Message</label>
-      <textarea id="inquiry-message" name="message" rows="4">I'm interested in {{ listing.address }}. Please send me more information.</textarea>
+      <textarea id="inquiry-message" name="message" rows="4" data-i18n="listingdetail.inquiryDefault" data-i18n-vars="{{ {address: listing.address} | dump }}">I'm interested in {{ listing.address }}. Please send me more information.</textarea>
     </div>
     <button type="submit" data-i18n="form.submit">Submit</button>
     <p class="contact-form__status" data-lead-form-status role="status" aria-live="polite"></p>

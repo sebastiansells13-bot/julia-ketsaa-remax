@@ -14,6 +14,16 @@
 // Markup contract:
 //   data-i18n="key"             → element's text content is replaced
 //   data-i18n-placeholder="key" → element's `placeholder` attribute is replaced
+//   data-i18n-attr="aria-label:key;title:key2" → each listed attribute is
+//     replaced (screen-reader labels, iframe titles — text a sighted visitor
+//     never sees but a screen reader announces)
+//   data-i18n-vars='{"address":"..."}' → optional {name} substitutions for
+//     the element's data-i18n / data-i18n-attr keys; build it in Nunjucks
+//     with `| dump` (NOT `| safe` — see lead-form.js's data-message-vars)
+//   data-i18n-date (on a <time datetime="...">) → the date is re-formatted
+//     in the current language
+//   data-i18n-title="key" (on <title>) → the page name before " · Julia
+//     Ketsaa" is replaced, so the browser tab/screen reader matches too
 //   data-i18n-lang="en"|"es"    → element is shown only when that's the
 //     current language (the other is `hidden`) — for content that comes
 //     from business.json rather than the dictionary (bio, tagline,
@@ -27,6 +37,28 @@
 (function () {
   if (typeof window.t !== "function") return;
 
+  function vars(el) {
+    if (!el.dataset.i18nVars) return undefined;
+    try {
+      return JSON.parse(el.dataset.i18nVars);
+    } catch (err) {
+      return undefined;
+    }
+  }
+
+  // Same formatting as the readableDate filter in eleventy.config.cjs
+  // ("18 Aug 2026"), just in the visitor's language.
+  function formatDate(el, lang) {
+    const date = new Date(el.getAttribute("datetime"));
+    if (isNaN(date)) return el.dataset.i18nEnCache;
+    return new Intl.DateTimeFormat(lang === "es" ? "es-MX" : "en-GB", {
+      day: "2-digit",
+      month: "short",
+      year: "numeric",
+      timeZone: "UTC",
+    }).format(date);
+  }
+
   function applyTo(el, lang) {
     // Cache the original English copy once, on the element itself, so
     // switching back to English restores exactly what the template
@@ -34,7 +66,31 @@
     // for elements where the template text IS the English string.
     if (el.dataset.i18n) {
       if (el.dataset.i18nEnCache === undefined) el.dataset.i18nEnCache = el.textContent;
-      el.textContent = lang === "en" ? el.dataset.i18nEnCache : window.t(el.dataset.i18n);
+      el.textContent = lang === "en" ? el.dataset.i18nEnCache : window.t(el.dataset.i18n, vars(el));
+    }
+    if (el.hasAttribute("data-i18n-date")) {
+      if (el.dataset.i18nEnCache === undefined) el.dataset.i18nEnCache = el.textContent;
+      el.textContent = lang === "en" ? el.dataset.i18nEnCache : formatDate(el, lang);
+    }
+    if (el.dataset.i18nAttr) {
+      el.dataset.i18nAttr.split(";").forEach(function (pair) {
+        const parts = pair.split(":");
+        const attr = parts[0].trim();
+        const key = (parts[1] || "").trim();
+        if (!attr || !key) return;
+        const cacheName = "i18nAttrEn_" + attr.replace(/[^a-z]/gi, "");
+        if (el.dataset[cacheName] === undefined) el.dataset[cacheName] = el.getAttribute(attr) || "";
+        el.setAttribute(attr, lang === "en" ? el.dataset[cacheName] : window.t(key, vars(el)));
+      });
+    }
+    if (el.dataset.i18nTitle) {
+      // <title> reads "Page · Julia Ketsaa" — swap only the part before
+      // the first " · ", keeping the name suffix as rendered.
+      if (el.dataset.i18nEnCache === undefined) el.dataset.i18nEnCache = el.textContent;
+      const cached = el.dataset.i18nEnCache;
+      const sep = cached.indexOf(" · ");
+      const suffix = sep === -1 ? "" : cached.slice(sep);
+      el.textContent = lang === "en" ? cached : window.t(el.dataset.i18nTitle) + suffix;
     }
     if (el.dataset.i18nPlaceholder) {
       if (el.dataset.i18nPlaceholderEnCache === undefined) {
@@ -49,9 +105,11 @@
 
   function applyAll(lang) {
     document.documentElement.lang = lang;
-    document.querySelectorAll("[data-i18n], [data-i18n-placeholder]").forEach(function (el) {
-      applyTo(el, lang);
-    });
+    document
+      .querySelectorAll("[data-i18n], [data-i18n-placeholder], [data-i18n-attr], [data-i18n-date], [data-i18n-title]")
+      .forEach(function (el) {
+        applyTo(el, lang);
+      });
     document.querySelectorAll("[data-i18n-lang]").forEach(function (el) {
       el.hidden = el.dataset.i18nLang !== lang;
     });

@@ -1,6 +1,7 @@
 ---
 layout: layouts/page.njk
 title: About
+titleKey: nav.about
 permalink: /about/
 description: "Meet Julia Ketsaa, REALTOR® Associate Broker with RE/MAX Classic Realty, bringing local Las Cruces knowledge and personal attention to every buyer and seller."
 ---
@@ -12,7 +13,7 @@ description: "Meet Julia Ketsaa, REALTOR® Associate Broker with RE/MAX Classic 
     <div>
       <p class="agent-bio__title">{{ business.title }}</p>
       <p>{{ bilingual(business.bio, business.bioEs, "span", true) }}</p>
-      <p class="agent-bio__license">{{ business.license }}{% if business.licenseNumber %} · License #{{ business.licenseNumber }}{% endif %}<br>{{ bilingual(business.disclaimer, business.disclaimerEs) }}</p>
+      <p class="agent-bio__license">{{ business.license }}{% if business.licenseNumber %} · <span data-i18n="common.licenseNumber">License #</span>{{ business.licenseNumber }}{% endif %}<br>{{ bilingual(business.disclaimer, business.disclaimerEs) }}</p>
     </div>
   </div>
 </div>
