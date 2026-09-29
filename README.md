@@ -309,10 +309,11 @@ edits live, so keeping it bilingual doesn't create an ongoing translation
 burden), 404, Why Live in Las Cruces, Mortgage Calculator, Compare, Privacy,
 Fair Housing, Accessibility.
 
-A handful of strings come from `business.json` instead of the dictionary —
-the homepage tagline, the About-page bio, and the RE/MAX franchise
-disclaimer — because Julia can change any of those through the CMS at any
-time. Rather than auto-translating (and risking a Spanish version silently
+A handful of strings come from the CMS instead of the dictionary — the
+homepage tagline, the About-page bio, and the RE/MAX franchise disclaimer
+(`business.json`), plus the three "How I Can Help" service cards
+(`services.json`, `titleEs`/`descriptionEs`) — because Julia can change any
+of those through the CMS at any time. Rather than auto-translating (and risking a Spanish version silently
 drifting out of sync with an edited English one), each has an optional
 `*Es` sibling field (`taglineEs`, `bioEs`, `disclaimerEs`) she can fill in
 through the CMS; `macros/bilingual.njk` renders both as `data-i18n-lang`
@@ -320,8 +321,7 @@ siblings and lets the toggle pick one, falling back to showing the English
 version in both languages if no Spanish one has been provided yet.
 
 **What it deliberately does NOT translate:** everything else Julia writes
-herself through the CMS — blog posts, listing descriptions, the services
-list, testimonials. Those stay in whatever language she wrote them in,
+herself through the CMS — blog posts, listing descriptions, testimonials. Those stay in whatever language she wrote them in,
 exactly like any real i18n setup with a single-language content source;
 there's no ongoing translation pipeline for content that changes as often
 as listings and blog posts do. The template chrome *around* that content

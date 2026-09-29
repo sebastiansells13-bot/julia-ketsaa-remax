@@ -93,8 +93,9 @@ page's `titleKey` front matter — see README.md — to the DOM) power the EN/ES
   persists per visitor via `localStorage`. It covers this site's own template chrome and
   every static page (including the full FAQ Q&A and Privacy, both template content Julia
   doesn't edit live) — never CMS-authored content that changes as often as listings/blog
-  posts do (blog posts, listing descriptions, services, testimonials). A few `business.json`
-  fields she *can* edit live (`tagline`, `bio`, `disclaimer`) get an optional `*Es` sibling
+  posts do (blog posts, listing descriptions, testimonials). A few CMS fields that rarely
+  change (`business.json`'s `tagline`, `bio`, `disclaimer`, and each service's `title`/
+  `description` in `services.json`) get an optional `*Es` sibling
   field instead of a dictionary entry, rendered via `{{ bilingual(en, es) }}`
   (`macros/bilingual.njk`) — see README.md before adding another one. See README.md's "How
   the language toggle works" before adding any new translated string — in particular, never
@@ -194,7 +195,8 @@ page's `titleKey` front matter — see README.md — to the DOM) power the EN/ES
 - Don't add the official RE/MAX logo graphic without it being supplied directly by
   RE/MAX/the broker — see README.md
 - Don't extend the language toggle to CMS-authored content (blog posts, listing
-  descriptions, services, testimonials, FAQ answers) — there's no translation pipeline
+  descriptions, testimonials) beyond the optional `*Es` sibling fields above (services,
+  bio, tagline, disclaimer) — there's no translation pipeline
   for content that changes as often as those do; it stays in whatever language Julia
   wrote it in, same as any real i18n setup with a single-language content source
 - Don't add a fabricated price-history timeline or a "vs. area average" market-stats

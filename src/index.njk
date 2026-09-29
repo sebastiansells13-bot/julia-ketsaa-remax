@@ -46,8 +46,8 @@ eleventyNavigation:
   {% for service in services.list %}
   <div class="service-card">
     {% if service.icon %}<img src="{{ service.icon }}" alt="" class="service-card__icon" loading="lazy" decoding="async">{% endif %}
-    <h3>{{ service.title }}</h3>
-    <p>{{ service.description | safe }}</p>
+    <h3>{{ bilingual(service.title, service.titleEs) }}</h3>
+    <p>{{ bilingual(service.description, service.descriptionEs, "span", true) }}</p>
   </div>
   {% endfor %}
 </section>

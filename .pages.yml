@@ -220,11 +220,21 @@ content:
             type: string
             required: true
 
+          - name: titleEs
+            label: Service Name (Spanish)
+            type: string
+            description: Optional. Shown when a visitor switches the site to Spanish; leave blank to show the English name in both languages.
+
           - name: description
             label: Description
             type: rich-text
             required: true
             description: What this service is and who it's for (1–3 sentences).
+
+          - name: descriptionEs
+            label: Description (Spanish)
+            type: rich-text
+            description: Optional Spanish version of the description. If you change the English one, please update this too so the two don't drift apart.
 
           - name: icon
             label: Icon Image
