@@ -92,11 +92,13 @@ page's `titleKey` front matter — see README.md — to the DOM) power the EN/ES
   `i18n.js` on every switch) to re-render if it has something already on screen. The choice
   persists per visitor via `localStorage`. It covers this site's own template chrome and
   every static page (including the full FAQ Q&A and Privacy, both template content Julia
-  doesn't edit live) — never CMS-authored content that changes as often as listings/blog
-  posts do (blog posts, listing descriptions, testimonials). A few CMS fields that rarely
-  change (`business.json`'s `tagline`, `bio`, `disclaimer`, and each service's `title`/
-  `description` in `services.json`) get an optional `*Es` sibling
-  field instead of a dictionary entry, rendered via `{{ bilingual(en, es) }}`
+  doesn't edit live) — but never CMS-authored content through the dictionary. Instead,
+  CMS text gets an optional Julia-written `*Es` sibling field —
+  `business.json`'s `tagline`/`bio`/`disclaimer`, each service's `titleEs`/`descriptionEs`,
+  each listing's `blurbEs`/`descriptionEs`/`featuresEs`/`openHouseEs`, and each blog post's
+  `titleEs`/`bodyEs` front matter (rendered with the `markdown` filter) — with the English
+  shown in both languages whenever one is blank. Testimonials are the one exception (a
+  client's quote shouldn't be re-worded). They're rendered via `{{ bilingual(en, es) }}`
   (`macros/bilingual.njk`) — see README.md before adding another one. See README.md's "How
   the language toggle works" before adding any new translated string — in particular, never
   put `data-i18n` on an element that also has non-text children (an `<input>`, a nested
@@ -194,9 +196,8 @@ page's `titleKey` front matter — see README.md — to the DOM) power the EN/ES
   (`newsletter.js` and the shared `lead-form.js`) until a real backend is wired up
 - Don't add the official RE/MAX logo graphic without it being supplied directly by
   RE/MAX/the broker — see README.md
-- Don't extend the language toggle to CMS-authored content (blog posts, listing
-  descriptions, testimonials) beyond the optional `*Es` sibling fields above (services,
-  bio, tagline, disclaimer) — there's no translation pipeline
+- Don't auto-translate CMS-authored content or translate it anywhere but its optional
+  `*Es` sibling fields above — there's no translation pipeline
   for content that changes as often as those do; it stays in whatever language Julia
   wrote it in, same as any real i18n setup with a single-language content source
 - Don't add a fabricated price-history timeline or a "vs. area average" market-stats

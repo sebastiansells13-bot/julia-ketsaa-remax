@@ -10,6 +10,7 @@ eleventyComputed:
   title: "{{ listing.address }}"
   description: "{{ listing.blurb }}"
 ---
+{% from "macros/bilingual.njk" import bilingual %}
 {% from "macros/listing-placeholder.njk" import listingPlaceholder %}
 {% from "macros/listing-card.njk" import listingCard %}
 {% set slug = listing.address | slugify %}
@@ -29,7 +30,7 @@ eleventyComputed:
   {% endif %}
 
   {% if listing.openHouse %}
-  <p class="open-house-banner"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ listing.openHouse }}</p>
+  <p class="open-house-banner"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ bilingual(listing.openHouse, listing.openHouseEs) }}</p>
   {% endif %}
 
   <div class="listing-detail__media" id="listing-gallery">
@@ -96,18 +97,25 @@ eleventyComputed:
   {% if listing.description %}
   <div class="listing-detail__description-wrap">
     <h2 data-i18n="listingdetail.descriptionHeading">Property Description</h2>
-    <p class="listing-detail__description">{{ listing.description | safe }}</p>
+    <p class="listing-detail__description">{{ bilingual(listing.description, listing.descriptionEs, "span", true) }}</p>
   </div>
   {% endif %}
 
   {% if listing.features and listing.features.length %}
   <div class="listing-detail__features">
     <h2 data-i18n="listingdetail.featuresHeading">Features</h2>
-    <ul>
+    <ul{% if listing.featuresEs and listing.featuresEs.length %} data-i18n-lang="en"{% endif %}>
       {% for feature in listing.features %}
       <li>{{ feature }}</li>
       {% endfor %}
     </ul>
+    {% if listing.featuresEs and listing.featuresEs.length %}
+    <ul data-i18n-lang="es" hidden>
+      {% for feature in listing.featuresEs %}
+      <li>{{ feature }}</li>
+      {% endfor %}
+    </ul>
+    {% endif %}
   </div>
   {% endif %}
 

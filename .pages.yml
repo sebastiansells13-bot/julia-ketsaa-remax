@@ -20,6 +20,11 @@ content:
         required: true
         description: The main headline for the post. Keep it concise and descriptive.
 
+      - name: titleEs
+        label: Title (Spanish)
+        type: string
+        description: Optional. Shown when a visitor switches the site to Spanish; leave blank to show the English title in both languages.
+
       - name: description
         label: Description
         type: string
@@ -63,6 +68,11 @@ content:
         label: Body
         type: rich-text
         description: Post content.
+
+      - name: bodyEs
+        label: Body (Spanish)
+        type: rich-text
+        description: Optional Spanish version of the post. Leave blank to show the English post in both languages. If you edit the English body, please update this too.
 
   - name: listings
     label: Listings
@@ -151,6 +161,11 @@ content:
             type: string
             description: "Date and time, e.g. \"Sat, Sep 13 · 1–3 PM\". Leave blank if there isn't one scheduled — shows this listing under the \"Open Houses\" tab and as a banner on its own page."
 
+          - name: openHouseEs
+            label: Open House (Spanish)
+            type: string
+            description: "Optional Spanish version, e.g. \"Sáb, 13 de sep · 1–3 PM\". Leave blank to show the English one in both languages."
+
           - name: image
             label: Cover Photo
             type: image
@@ -186,16 +201,32 @@ content:
             type: string
             description: One sentence shown on the listing card.
 
+          - name: blurbEs
+            label: Short Description (Spanish)
+            type: string
+            description: Optional. Shown on the listing card when a visitor switches the site to Spanish.
+
           - name: description
             label: Full Description
             type: rich-text
             description: Longer write-up shown on the listing's own page.
+
+          - name: descriptionEs
+            label: Full Description (Spanish)
+            type: rich-text
+            description: Optional Spanish version of the full description.
 
           - name: features
             label: Features
             type: string
             list: true
             description: Short bullet points, e.g. "2-car garage"
+
+          - name: featuresEs
+            label: Features (Spanish)
+            type: string
+            list: true
+            description: Optional Spanish version of the features list, e.g. "Cochera para 2 autos". Leave empty to show the English list in both languages.
 
           - name: isSample
             label: This is a sample listing (not a real property)

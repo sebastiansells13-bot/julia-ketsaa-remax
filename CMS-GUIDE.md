@@ -11,7 +11,10 @@ You can update your site's content without touching any code.
 ## 2. What you can edit
 
 - **Blog Posts** — add, edit, or remove posts. Each post has a title, short
-  description, date, tags, an optional cover image, and the body text.
+  description, date, tags, an optional cover image, and the body text. The
+  optional **Title (Spanish)** and **Body (Spanish)** are shown when a
+  visitor switches the site to Spanish; leave them blank and the English
+  post shows in both languages.
 - **Listings** — the properties shown on the Home and Listings pages: address,
   price, property type (Single Family / Condo / Townhome / Land /
   Manufactured), beds/baths/sqft, year built, lot size, status (For Sale /
@@ -31,7 +34,11 @@ You can update your site's content without touching any code.
   The site starts with 4 example listings marked "This is a sample
   listing" — when you add a real one, leave that box unchecked and upload
   a real photo; leave it checked (or the photo blank) and it'll show a
-  "Sample" badge instead.
+  "Sample" badge instead. The Short Description, Full Description,
+  Features, and Open House each have an optional **(Spanish)** version
+  shown when a visitor switches the site to Spanish — leave one blank and
+  the English shows in both languages. If you change the English, please
+  update the Spanish too so the two don't drift apart.
 - **How I Can Help** — the three service cards shown on the Home and How I Help
   pages. Each card has an optional **Service Name (Spanish)** and
   **Description (Spanish)** — shown when a visitor switches the site to

@@ -126,6 +126,9 @@ module.exports = function (eleventyConfig) {
     permalink: markdownItAnchor.permalink.headerLink({ class: "direct-link", symbol: "#" }),
   });
   eleventyConfig.setLibrary("md", markdownLibrary);
+  // For Markdown/rich-text stored in front matter rather than a file body —
+  // a blog post's optional Spanish `bodyEs` (see layouts/post.njk).
+  eleventyConfig.addFilter("markdown", (str) => (str ? markdownLibrary.render(str) : ""));
 
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
