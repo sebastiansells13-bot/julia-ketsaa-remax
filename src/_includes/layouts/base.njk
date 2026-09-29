@@ -7,7 +7,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title{% if titleKey %} data-i18n-title="{{ titleKey }}"{% endif %}>{{ pageTitle }}</title>
+  <title{% if titleKey %} data-i18n-title="{{ titleKey }}"{% elif titleEs %} data-i18n-title-es="{{ titleEs }}"{% endif %}>{{ pageTitle }}</title>
   <meta name="description" content="{{ pageDescription }}">
   <link rel="canonical" href="{{ pageUrl }}">
   {% if noindex or listing.isSample %}<meta name="robots" content="noindex, nofollow">{% endif %}

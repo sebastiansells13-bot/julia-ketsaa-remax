@@ -311,20 +311,22 @@ Fair Housing, Accessibility.
 
 A handful of strings come from the CMS instead of the dictionary — the
 homepage tagline, the About-page bio, and the RE/MAX franchise disclaimer
-(`business.json`), plus the three "How I Can Help" service cards
-(`services.json`, `titleEs`/`descriptionEs`) — because Julia can change any
-of those through the CMS at any time. Rather than auto-translating (and risking a Spanish version silently
+(`business.json`), the "How I Can Help" service cards (`services.json`,
+`titleEs`/`descriptionEs`), each listing's short/full description, features
+and open-house time (`blurbEs`/`descriptionEs`/`featuresEs`/`openHouseEs`),
+and each blog post's title and body (`titleEs`/`bodyEs` front matter,
+rendered through the `markdown` filter) — because Julia writes all of those
+through the CMS. Rather than auto-translating (and risking a Spanish version silently
 drifting out of sync with an edited English one), each has an optional
 `*Es` sibling field (`taglineEs`, `bioEs`, `disclaimerEs`) she can fill in
 through the CMS; `macros/bilingual.njk` renders both as `data-i18n-lang`
 siblings and lets the toggle pick one, falling back to showing the English
 version in both languages if no Spanish one has been provided yet.
 
-**What it deliberately does NOT translate:** everything else Julia writes
-herself through the CMS — blog posts, listing descriptions, testimonials. Those stay in whatever language she wrote them in,
-exactly like any real i18n setup with a single-language content source;
-there's no ongoing translation pipeline for content that changes as often
-as listings and blog posts do. The template chrome *around* that content
+**What it deliberately does NOT translate:** testimonials (a client's own
+words), and any CMS text whose Spanish field Julia leaves blank — that
+falls back to the English. Nothing is machine-translated; a new listing or
+post is only bilingual once she fills in its Spanish fields. The template chrome *around* that content
 is still translated: the listing stats line ("3 bed · 2 bath · 1850 sqft"),
 the listing inquiry form's pre-filled message, blog dates, and the
 screen-reader labels on listing cards, maps, and the photo lightbox.

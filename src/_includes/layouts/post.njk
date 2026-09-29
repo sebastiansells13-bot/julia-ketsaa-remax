@@ -1,11 +1,22 @@
 ---
 layout: layouts/base.njk
 ---
+{% from "macros/bilingual.njk" import bilingual %}
 <article class="wrapper post">
-  <h1>{{ title }}</h1>
+  <h1>{{ bilingual(title, titleEs) }}</h1>
   <time datetime="{{ date | htmlDateString }}" data-i18n-date>{{ date | readableDate }}</time>
   {% if image %}<img src="{{ image }}" alt="">{% endif %}
-  <div class="post-body">
+  {#
+    bodyEs is an optional Spanish version of the post (Markdown or the CMS's
+    rich-text HTML) kept in front matter; with none, the English body shows
+    in both languages.
+  #}
+  <div class="post-body"{% if bodyEs %} data-i18n-lang="en"{% endif %}>
     {{ content | safe }}
   </div>
+  {% if bodyEs %}
+  <div class="post-body" data-i18n-lang="es" hidden>
+    {{ bodyEs | markdown | safe }}
+  </div>
+  {% endif %}
 </article>

@@ -23,9 +23,10 @@
   `{% else %}` empty-state message, which differs per page).
 #}
 {% from "macros/listing-placeholder.njk" import listingPlaceholder %}
+{% from "macros/bilingual.njk" import bilingual %}
 {% macro listingCard(listing, options) %}
 {% set slug = listing.address | slugify %}
-<div class="listing-card" data-slug="{{ slug }}"{% if options.filterAttrs %} data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}" data-just-listed="{{ 'true' if listing.justListed else 'false' }}" data-open-house="{{ 'true' if listing.openHouse else 'false' }}" data-search="{{ (listing.address + ' ' + listing.location + ' ' + listing.blurb) | lower }}"{% endif %}>
+<div class="listing-card" data-slug="{{ slug }}"{% if options.filterAttrs %} data-status="{{ listing.status | slugify }}" data-beds="{{ listing.beds }}" data-baths="{{ listing.baths }}" data-sqft="{{ listing.sqft }}" data-price="{{ listing.price }}" data-just-listed="{{ 'true' if listing.justListed else 'false' }}" data-open-house="{{ 'true' if listing.openHouse else 'false' }}" data-search="{{ (listing.address + ' ' + listing.location + ' ' + listing.blurb + ' ' + (listing.blurbEs or '')) | lower }}"{% endif %}>
   <a class="listing-card__link" href="/listings/{{ slug }}/" aria-label="View details for {{ listing.address }}" data-i18n-attr="aria-label:listingcard.viewDetails" data-i18n-vars="{{ {address: listing.address} | dump }}"></a>
   <div class="listing-card__media">
     {% if listing.image %}
@@ -46,8 +47,8 @@
     <h3>{{ listing.address }}</h3>
     {% if options.showLocation %}<p class="listing-card__location">{{ listing.location }}</p>{% endif %}
     <p class="listing-card__stats" data-i18n="listingcard.stats" data-i18n-vars="{{ {beds: listing.beds, baths: listing.baths, sqft: listing.sqft} | dump }}">{{ listing.beds }} bed · {{ listing.baths }} bath · {{ listing.sqft }} sqft</p>
-    {% if options.showOpenHouse and listing.openHouse %}<p class="listing-card__openhouse"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ listing.openHouse }}</p>{% endif %}
-    {% if options.showBlurb %}<p>{{ listing.blurb }}</p>{% endif %}
+    {% if options.showOpenHouse and listing.openHouse %}<p class="listing-card__openhouse"><span data-i18n="listingdetail.openHousePrefix">🏠 Open House:</span> {{ bilingual(listing.openHouse, listing.openHouseEs) }}</p>{% endif %}
+    {% if options.showBlurb %}<p>{{ bilingual(listing.blurb, listing.blurbEs) }}</p>{% endif %}
   </div>
 </div>
 {% endmacro %}

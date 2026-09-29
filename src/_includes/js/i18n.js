@@ -23,7 +23,8 @@
 //   data-i18n-date (on a <time datetime="...">) → the date is re-formatted
 //     in the current language
 //   data-i18n-title="key" (on <title>) → the page name before " · Julia
-//     Ketsaa" is replaced, so the browser tab/screen reader matches too
+//     Ketsaa" is replaced, so the browser tab/screen reader matches too;
+//     data-i18n-title-es="Spanish text" does the same with literal CMS text
 //   data-i18n-lang="en"|"es"    → element is shown only when that's the
 //     current language (the other is `hidden`) — for content that comes
 //     from business.json rather than the dictionary (bio, tagline,
@@ -83,14 +84,17 @@
         el.setAttribute(attr, lang === "en" ? el.dataset[cacheName] : window.t(key, vars(el)));
       });
     }
-    if (el.dataset.i18nTitle) {
+    if (el.dataset.i18nTitle || el.dataset.i18nTitleEs) {
       // <title> reads "Page · Julia Ketsaa" — swap only the part before
       // the first " · ", keeping the name suffix as rendered.
       if (el.dataset.i18nEnCache === undefined) el.dataset.i18nEnCache = el.textContent;
       const cached = el.dataset.i18nEnCache;
       const sep = cached.indexOf(" · ");
       const suffix = sep === -1 ? "" : cached.slice(sep);
-      el.textContent = lang === "en" ? cached : window.t(el.dataset.i18nTitle) + suffix;
+      // data-i18n-title-es carries CMS-authored Spanish (a blog post's
+      // titleEs) instead of a dictionary key.
+      const es = el.dataset.i18nTitleEs || window.t(el.dataset.i18nTitle);
+      el.textContent = lang === "en" ? cached : es + suffix;
     }
     if (el.dataset.i18nPlaceholder) {
       if (el.dataset.i18nPlaceholderEnCache === undefined) {
@@ -106,7 +110,7 @@
   function applyAll(lang) {
     document.documentElement.lang = lang;
     document
-      .querySelectorAll("[data-i18n], [data-i18n-placeholder], [data-i18n-attr], [data-i18n-date], [data-i18n-title]")
+      .querySelectorAll("[data-i18n], [data-i18n-placeholder], [data-i18n-attr], [data-i18n-date], [data-i18n-title], [data-i18n-title-es]")
       .forEach(function (el) {
         applyTo(el, lang);
       });
