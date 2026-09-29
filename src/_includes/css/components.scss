@@ -1,7 +1,12 @@
 .site-header {
-  background: $color-bg;
-  border-bottom: 3px solid $color-remax-blue;
-  padding: 1.1rem 0;
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: rgba($color-surface, 0.88);
+  backdrop-filter: saturate(1.4) blur(12px);
+  -webkit-backdrop-filter: saturate(1.4) blur(12px);
+  border-bottom: 1px solid $color-border;
+  padding: 0.85rem 0;
 
   .wrapper {
     display: flex;
@@ -49,44 +54,72 @@
   nav ul {
     list-style: none;
     display: flex;
-    gap: 1.5rem;
+    gap: 1.35rem;
     margin: 0;
     padding: 0;
   }
 
   nav a {
+    position: relative;
     text-decoration: none;
     color: $color-text;
-    font-weight: 600;
+    font-weight: 500;
+    font-size: 0.95rem;
     white-space: nowrap;
+    padding: 0.35rem 0;
 
-    &:hover,
+    // Underline that grows in on hover and stays on the current page.
+    &::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      border-radius: 2px;
+      background: $color-remax-red;
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.2s ease;
+    }
+
+    &:hover::after,
+    &.is-active::after {
+      transform: scaleX(1);
+    }
+
     &.is-active {
-      color: $color-remax-red;
+      color: $color-text;
+      font-weight: 600;
     }
   }
 
   .lang-toggle {
     display: flex;
     flex-shrink: 0;
-    border: 1px solid $color-border;
-    border-radius: 2rem;
-    overflow: hidden;
+    gap: 2px;
+    padding: 2px;
+    background: $color-sand;
+    border-radius: $radius-pill;
   }
 
   .lang-toggle__btn {
     border: none;
-    background: #fff;
+    background: transparent;
     color: $color-muted;
+    font-family: inherit;
     font-weight: 700;
-    font-size: 0.75rem;
-    letter-spacing: 0.02em;
-    padding: 0.3rem 0.65rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.04em;
+    padding: 0.3rem 0.7rem;
+    border-radius: $radius-pill;
     cursor: pointer;
+    transition: background 0.15s ease, color 0.15s ease;
 
     &[aria-pressed="true"] {
-      background: $color-remax-blue;
-      color: #fff;
+      background: $color-surface;
+      color: $color-remax-blue;
+      box-shadow: $shadow-sm;
     }
 
     &:focus-visible {
@@ -133,7 +166,10 @@
     }
   }
 
-  @media (max-width: 40rem) {
+  // Eight nav items plus the EN/ES toggle need ~68rem of room in one line
+  // (the Spanish labels are the longer set);
+  // below that (phones and tablets) they collapse behind the menu button.
+  @media (max-width: 68rem) {
     .site-header__toggle {
       display: block;
     }
@@ -162,25 +198,55 @@
 
     nav a {
       display: block;
-      padding: 0.65rem 0;
+      padding: 0.7rem 0;
       white-space: normal;
+      font-size: 1rem;
+
+      &::after {
+        display: none;
+      }
+
+      &.is-active {
+        color: $color-remax-red;
+      }
+    }
+
+    .lang-toggle {
+      display: inline-flex;
+      margin: 0.5rem 0 0.75rem;
     }
   }
 }
 
+// Newsletter band + footer share one dusk-navy block, topped by a jagged
+// ridgeline that echoes the Organ Mountains skyline (inline SVG, drawn in
+// $color-dark so it reads as the band's own top edge).
 .newsletter {
-  background: $color-remax-blue;
+  position: relative;
+  background: $color-dark;
   color: #fff;
-  padding: 2.5rem 0;
-  margin-top: 4rem;
+  padding: 3.5rem 0 3rem;
+  margin-top: 6rem;
+
+  &::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 100%;
+    height: clamp(2.5rem, 6vw, 5.5rem);
+    background: url("data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1440 90' preserveAspectRatio='none'><path fill='%2313213a' d='M0 90V72L60 60L110 66L158 50L195 57L225 35L251 48L273 29L293 41L311 23L335 38L365 29L405 41L449 35L505 48L576 41L636 51L716 47L786 32L826 36L862 18L886 27L907 11L925 21L947 8L973 23L1007 17L1057 29L1117 24L1187 33L1268 27L1332 35L1390 26L1440 32V90Z'/></svg>") bottom / 100% 100% no-repeat;
+    pointer-events: none;
+  }
 
   h2 {
-    margin: 0 0 0.25rem;
+    margin: 0 0 0.35rem;
+    color: #fff;
   }
 
   p {
     margin: 0;
-    color: #d7e2f5;
+    color: $color-dark-muted;
   }
 }
 
@@ -199,19 +265,33 @@
   align-items: flex-start;
 
   input[type="email"] {
-    padding: 0.65rem 0.9rem;
-    border: none;
-    border-radius: 0.25rem;
+    padding: 0.75rem 1.1rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: $radius-pill;
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    font-family: inherit;
     font-size: 1rem;
     min-width: 16rem;
+
+    &::placeholder {
+      color: $color-dark-muted;
+    }
+
+    &:focus-visible {
+      outline: 2px solid #fff;
+      outline-offset: 2px;
+    }
   }
 
   button {
-    padding: 0.65rem 1.25rem;
+    padding: 0.75rem 1.5rem;
     border: none;
-    border-radius: 0.25rem;
+    border-radius: $radius-pill;
     background: $color-remax-red;
     color: #fff;
+    font-family: inherit;
+    font-size: 1rem;
     font-weight: 700;
     cursor: pointer;
 
@@ -235,8 +315,9 @@
 
 .site-footer {
   background: $color-dark;
-  padding: 2rem 0;
-  color: #b8b2a2;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 2.5rem 0 3rem;
+  color: $color-dark-muted;
   font-size: 0.9rem;
 
   .wrapper {
@@ -280,7 +361,7 @@
 
 .site-footer__disclaimer {
   margin: 0;
-  color: #b8b2a2;
+  color: $color-dark-muted;
 }
 
 .site-footer__bottom {
@@ -293,7 +374,7 @@
 .site-footer__a11y-note {
   margin: 0;
   font-size: 0.85rem;
-  color: #b8b2a2;
+  color: $color-dark-muted;
 
   a {
     color: #fff;
@@ -309,7 +390,7 @@
   font-size: 0.85rem;
 
   a {
-    color: #b8b2a2;
+    color: $color-dark-muted;
 
     &:hover {
       color: #fff;
@@ -358,6 +439,10 @@
   padding: 0;
   overflow: hidden;
   isolation: isolate;
+  text-align: left;
+  display: flex;
+  align-items: flex-end;
+  min-height: clamp(26rem, 72vh, 40rem);
 
   .hero__bg {
     position: absolute;
@@ -368,48 +453,77 @@
     z-index: -2;
     // Darken the photo itself rather than leaning only on the overlay below —
     // keeps text legible no matter how bright or busy the underlying photo is.
-    filter: brightness(0.5) saturate(0.9);
+    filter: brightness(0.62) saturate(0.95);
   }
 
+  // Dusk-navy wash, heaviest behind the text (bottom-left), clearing toward
+  // the top-right so the photo still reads.
   &::before {
     content: "";
     position: absolute;
     inset: 0;
-    background: linear-gradient(180deg, rgba(8, 8, 10, 0.55) 0%, rgba(8, 8, 10, 0.8) 100%);
+    background:
+      linear-gradient(90deg, rgba($color-dark, 0.85) 0%, rgba($color-dark, 0.45) 55%, rgba($color-dark, 0.1) 100%),
+      linear-gradient(0deg, rgba($color-dark, 0.7) 0%, rgba($color-dark, 0) 60%);
     z-index: -1;
   }
 
   .hero__content {
-    padding: 6rem 1.5rem;
+    width: 100%;
+    padding-top: 6rem;
+    padding-bottom: clamp(3rem, 8vw, 5.5rem);
+
+    > * {
+      max-width: 38rem;
+    }
   }
 
-  .hero__title {
-    display: inline-block;
-    background: #fff;
-    color: $color-remax-red;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: 0.06em;
-    font-size: 0.85rem;
-    padding: 0.4rem 0.9rem;
-    border-radius: 2rem;
+  h1 {
+    font-size: clamp(2.75rem, 1.75rem + 4.5vw, 4.75rem);
+    font-weight: 600;
+    letter-spacing: -0.025em;
+    line-height: 1.02;
     margin: 0 0 1rem;
-    // The h1/p text-shadow below is for white-on-photo text; on this white
-    // pill it just blurs the red lettering.
-    text-shadow: none;
+  }
+
+  // Julia's title as an eyebrow label above her name — reads as a
+  // credential, not a button.
+  .hero__title {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: #fff;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    font-size: 0.78rem;
+    margin: 0 0 1.25rem;
+
+    &::before {
+      content: "";
+      flex-shrink: 0;
+      width: 2rem;
+      height: 2px;
+      background: $color-remax-red;
+    }
 
     @media (max-width: 40rem) {
-      font-size: 0.75rem;
-      letter-spacing: 0.04em;
+      font-size: 0.7rem;
+      letter-spacing: 0.1em;
     }
+  }
+
+  p {
+    font-size: clamp(1.05rem, 1rem + 0.4vw, 1.25rem);
+    color: rgba(255, 255, 255, 0.88);
+    margin: 0;
   }
 
   .hero__actions {
     display: flex;
     flex-wrap: wrap;
-    justify-content: center;
     gap: 0.75rem;
-    margin-top: 1.75rem;
+    margin-top: 2rem;
   }
 
   .hero__button {
@@ -417,14 +531,18 @@
     min-width: 11rem;
     text-align: center;
     text-decoration: none;
-    font-weight: 700;
-    padding: 0.75rem 1.4rem;
-    border-radius: 0.3rem;
+    font-weight: 600;
+    padding: 0.85rem 1.6rem;
+    border-radius: $radius-pill;
     color: #fff;
-    border: 2px solid #fff;
+    border: 1px solid rgba(255, 255, 255, 0.6);
+    background: rgba(255, 255, 255, 0.06);
+    backdrop-filter: blur(4px);
+    transition: background 0.15s ease, border-color 0.15s ease, transform 0.15s ease;
 
     &:hover {
-      background: rgba(255, 255, 255, 0.12);
+      background: rgba(255, 255, 255, 0.16);
+      border-color: #fff;
     }
 
     &:focus-visible {
@@ -438,14 +556,14 @@
     border-color: $color-remax-red;
 
     &:hover {
-      background: darken($color-remax-red, 8%);
+      background: darken($color-remax-red, 6%);
+      border-color: darken($color-remax-red, 6%);
+      transform: translateY(-1px);
     }
   }
 
-  h1,
-  p {
+  h1 {
     color: #fff;
-    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
   }
 }
 
@@ -454,8 +572,8 @@
   align-items: baseline;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 0.5rem;
-  padding-top: 3rem;
+  gap: 0.5rem 1rem;
+  padding-top: clamp(3rem, 2rem + 3vw, 5rem);
 
   h2 {
     margin: 0;
@@ -465,34 +583,47 @@
     text-decoration: none;
     color: $color-accent;
     font-weight: 600;
+    font-size: 0.95rem;
     white-space: nowrap;
+
+    &:hover {
+      text-decoration: underline;
+    }
   }
 }
 
 .services-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(16rem, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
   // padding-top/-bottom only — this is also a .wrapper (for its horizontal
   // gutter/centering); the `padding` shorthand would zero that out.
-  padding-top: 2rem;
-  padding-bottom: 4rem;
+  padding-top: 1.75rem;
+  padding-bottom: 2rem;
 }
 
 .service-card {
+  background: $color-surface;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
-  padding: 1.5rem;
+  border-radius: $radius-lg;
+  padding: 1.75rem;
   overflow: hidden;
+  box-shadow: $shadow-sm;
 
   h3 {
+    margin-top: 0;
+    margin-bottom: 0.6rem;
+  }
+
+  p {
+    color: $color-muted;
     margin-top: 0;
   }
 }
 
 .service-card__icon {
-  width: calc(100% + 3rem);
-  margin: -1.5rem -1.5rem 1rem;
+  width: calc(100% + 3.5rem);
+  margin: -1.75rem -1.75rem 1.25rem;
   aspect-ratio: 16 / 10;
   object-fit: cover;
 }
@@ -501,23 +632,25 @@
 .listings-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(18rem, 1fr));
-  gap: 2rem;
+  gap: 1.5rem;
   // See .services-grid above re: padding-top/-bottom only.
-  padding-top: 1.5rem;
+  padding-top: 1.75rem;
   padding-bottom: 1rem;
 }
 
 .listing-card {
   position: relative;
+  background: $color-surface;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   overflow: hidden;
-  transition: box-shadow 0.15s ease, transform 0.15s ease;
+  box-shadow: $shadow-sm;
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
 
   &:hover,
   &:focus-within {
-    box-shadow: 0 0.5rem 1.25rem rgba(0, 0, 0, 0.1);
-    transform: translateY(-2px);
+    box-shadow: $shadow-md;
+    transform: translateY(-3px);
   }
 
   &[hidden] {
@@ -545,7 +678,7 @@
   height: 22rem;
   margin: 1.5rem 0;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   overflow: hidden;
   background: #f4f2ec;
 
@@ -556,7 +689,7 @@
   // Leaflet's own popup chrome, restyled to match the site rather than
   // its default look.
   .leaflet-popup-content-wrapper {
-    border-radius: 0.4rem;
+    border-radius: $radius-md;
   }
 
   .leaflet-popup-content a {
@@ -573,10 +706,11 @@
 }
 
 .listings-tabs__tab {
-  padding: 0.5rem 1rem;
+  padding: 0.5rem 1.1rem;
   border: 1px solid $color-border;
-  border-radius: 2rem;
-  background: #fff;
+  border-radius: $radius-pill;
+  font-family: inherit;
+  background: $color-surface;
   color: $color-text;
   font-weight: 600;
   font-size: 0.9rem;
@@ -624,12 +758,12 @@
 
   select,
   input[type="search"] {
-    padding: 0.5rem 0.75rem;
+    padding: 0.6rem 0.85rem;
     border: 1px solid $color-border;
-    border-radius: 0.3rem;
+    border-radius: $radius-md;
     font-size: 0.95rem;
     font-family: inherit;
-    background: #fff;
+    background: $color-surface;
     color: $color-text;
     width: 100%;
     min-width: 0;
@@ -721,7 +855,7 @@
     gap: 0.1rem;
     padding: 0.5rem 0.85rem;
     border: 1px solid $color-border;
-    border-radius: 0.4rem;
+    border-radius: $radius-md;
     text-decoration: none;
     color: $color-text;
     font-size: 0.85rem;
@@ -775,9 +909,9 @@
   font-size: 0.75rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.3rem 0.6rem;
-  border-radius: 0.25rem;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.7rem;
+  border-radius: $radius-pill;
 
   &--pending {
     background: $color-remax-blue;
@@ -794,15 +928,16 @@
   position: absolute;
   top: 0.75rem;
   right: 0.75rem;
-  background: #fff;
+  background: rgba($color-surface, 0.92);
   color: $color-text;
-  border: 1px solid $color-border;
-  font-size: 0.75rem;
+  border: none;
+  font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 0.3rem 0.6rem;
-  border-radius: 0.25rem;
+  letter-spacing: 0.06em;
+  padding: 0.35rem 0.7rem;
+  border-radius: $radius-pill;
+  box-shadow: $shadow-sm;
 }
 
 .listing-card__save {
@@ -849,7 +984,7 @@
   position: static;
   width: auto;
   height: auto;
-  border-radius: 2rem;
+  border-radius: $radius-pill;
   padding: 0.5rem 0.9rem;
   gap: 0.4rem;
   background: #fff;
@@ -860,13 +995,22 @@
 }
 
 .listing-card__body {
-  padding: 1.25rem;
+  padding: 1.25rem 1.4rem 1.4rem;
+
+  h3 {
+    font-family: $font-body;
+    font-size: 1.05rem;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
 }
 
 .listing-card__price {
-  color: $color-accent;
-  font-weight: 700;
-  font-size: 1.25rem;
+  font-family: $font-heading;
+  color: $color-text;
+  font-weight: 600;
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
   margin: 0;
 }
 
@@ -878,9 +1022,10 @@
   font-size: 0.7rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.03em;
-  padding: 0.15rem 0.45rem;
-  border-radius: 0.25rem;
+  letter-spacing: 0.05em;
+  padding: 0.2rem 0.55rem;
+  border-radius: $radius-pill;
+  font-family: $font-body;
 }
 
 .listing-card__openhouse {
@@ -897,7 +1042,7 @@
   border: 1px solid $color-remax-blue;
   color: $color-text;
   padding: 0.75rem 1rem;
-  border-radius: 0.4rem;
+  border-radius: $radius-md;
   font-size: 0.9rem;
   font-weight: 600;
 }
@@ -970,7 +1115,7 @@
   width: 100%;
   aspect-ratio: 1;
   object-fit: cover;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
 }
 
 .agent-bio__title {
@@ -984,6 +1129,35 @@
 .agent-bio__license {
   color: $color-muted;
   font-size: 0.85rem;
+}
+
+// A single blog post (layouts/post.njk) — capped at a comfortable reading
+// width rather than the full 72rem .wrapper.
+.post {
+  max-width: 46rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1rem;
+
+  > time {
+    display: block;
+    color: $color-muted;
+    font-size: 0.9rem;
+    margin-top: -0.25rem;
+  }
+
+  img {
+    border-radius: $radius-lg;
+    margin: 1.5rem 0;
+  }
+
+  .post-body {
+    font-size: 1.05rem;
+    line-height: 1.7;
+
+    li {
+      margin: 0.5rem 0;
+    }
+  }
 }
 
 .post-list {
@@ -1007,14 +1181,34 @@
   // being a .wrapper — that shorthand zeroing left/right padding is what
   // pushed this block flush against the viewport edge.
   padding-top: 2rem;
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
 
   dt {
+    font-size: 0.75rem;
     font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: $color-muted;
   }
 
   dd {
-    margin: 0 0 1rem;
+    margin: 0.25rem 0 1.25rem;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+
+  // Wide screens: each dt/dd pair becomes one column (dt on row 1, dd on
+  // row 2) — a single row of contact facts instead of a long stacked list.
+  @media (min-width: 48rem) {
+    display: grid;
+    grid-template-rows: auto auto;
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
+    column-gap: 2rem;
+
+    dd {
+      margin-bottom: 0;
+    }
   }
 }
 
@@ -1024,7 +1218,7 @@
   border: 1px solid $color-remax-red;
   color: $color-text;
   padding: 0.75rem 1rem;
-  border-radius: 0.4rem;
+  border-radius: $radius-md;
   font-size: 0.9rem;
 
   a {
@@ -1070,7 +1264,7 @@
 
 .listing-detail__media {
   position: relative;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   overflow: hidden;
 
   > img,
@@ -1111,7 +1305,7 @@
   height: 3.4rem;
   padding: 0;
   border: 2px solid transparent;
-  border-radius: 0.3rem;
+  border-radius: $radius-md;
   overflow: hidden;
   cursor: pointer;
   opacity: 0.7;
@@ -1152,7 +1346,7 @@
   max-width: 88vw;
   max-height: 85vh;
   object-fit: contain;
-  border-radius: 0.25rem;
+  border-radius: $radius-md;
 }
 
 .lightbox__close,
@@ -1214,7 +1408,7 @@
 .video-embed {
   position: relative;
   aspect-ratio: 16 / 9;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   overflow: hidden;
 
   iframe {
@@ -1243,7 +1437,7 @@
     display: inline-flex;
     align-items: center;
     gap: 0.4rem;
-    border-radius: 2rem;
+    border-radius: $radius-pill;
     padding: 0.5rem 0.9rem;
     background: #fff;
     border: 1px solid $color-border;
@@ -1312,11 +1506,12 @@
   text-decoration: none;
   text-align: center;
   flex: 0 1 16rem;
-  padding: 0.7rem 1.25rem;
-  border-radius: 0.3rem;
+  padding: 0.8rem 1.4rem;
+  border-radius: $radius-pill;
   border: 1px solid $color-remax-blue;
   color: $color-remax-blue;
-  font-weight: 700;
+  font-weight: 600;
+  transition: background 0.15s ease;
 
   &:hover {
     background: rgba(0, 61, 165, 0.06);
@@ -1342,7 +1537,7 @@
   max-width: 26rem;
   padding: 1rem;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   background: $color-card-bg;
 }
 
@@ -1383,7 +1578,7 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  border-radius: 2rem;
+  border-radius: $radius-pill;
   padding: 0.5rem 0.9rem;
   background: #fff;
   border: 1px solid $color-border;
@@ -1425,7 +1620,7 @@
   gap: 1rem 1.5rem;
   padding: 1rem;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   background: $color-card-bg;
 
   dt {
@@ -1481,7 +1676,7 @@
 .listing-detail__inquiry {
   padding: 1.25rem 1.5rem;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   background: $color-card-bg;
 
   h2 {
@@ -1567,7 +1762,7 @@
   width: 100%;
   aspect-ratio: 16 / 9;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
 }
 
 .map-directions {
@@ -1582,7 +1777,7 @@
 // Mortgage estimator (src/listing-detail.njk)
 .mortgage-calc {
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   padding: 1.5rem;
   background: $color-card-bg;
 
@@ -1610,7 +1805,7 @@
   select {
     padding: 0.5rem 0.6rem;
     border: 1px solid $color-border;
-    border-radius: 0.3rem;
+    border-radius: $radius-md;
     font-size: 1rem;
     font-family: inherit;
     color: $color-text;
@@ -1673,7 +1868,7 @@
     flex: 1;
     padding: 0.55rem 0.75rem;
     border: 1px solid $color-border;
-    border-radius: 0.3rem;
+    border-radius: $radius-md;
     font-size: 1rem;
     font-family: inherit;
 
@@ -1686,7 +1881,7 @@
   button {
     padding: 0.55rem 1.1rem;
     border: none;
-    border-radius: 0.3rem;
+    border-radius: $radius-md;
     background: $color-remax-red;
     color: #fff;
     font-weight: 700;
@@ -1715,7 +1910,7 @@
     display: block;
     padding: 0.5rem 0.9rem;
     border: 1px solid $color-border;
-    border-radius: 2rem;
+    border-radius: $radius-pill;
     text-decoration: none;
     color: $color-text;
     font-weight: 600;
@@ -1745,16 +1940,20 @@
   align-items: center;
   justify-content: space-between;
   flex-wrap: wrap;
-  gap: 1rem;
-  margin: 1rem auto 3rem;
-  padding: 1.5rem;
+  gap: 1.25rem 2rem;
+  margin: 2.5rem auto 3rem;
+  padding: 2rem 2.25rem;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
-  background: $color-card-bg;
+  border-radius: $radius-lg;
+  background: $color-sand;
+
+  @media (max-width: 30rem) {
+    padding: 1.5rem 1.25rem;
+  }
 
   h2 {
-    margin: 0 0 0.25rem;
-    font-size: 1.15rem;
+    margin: 0 0 0.35rem;
+    font-size: clamp(1.3rem, 1.15rem + 0.6vw, 1.6rem);
   }
 
   p {
@@ -1769,13 +1968,22 @@
   text-decoration: none;
   color: #fff;
   background: $color-remax-red;
-  font-weight: 700;
-  padding: 0.75rem 1.25rem;
-  border-radius: 0.3rem;
+  font-weight: 600;
+  padding: 0.85rem 1.6rem;
+  border-radius: $radius-pill;
   white-space: nowrap;
+  text-align: center;
+  transition: background 0.15s ease, transform 0.15s ease;
+
+  // Very narrow phones: let a long label wrap instead of overflowing.
+  @media (max-width: 24rem) {
+    white-space: normal;
+    flex-shrink: 1;
+  }
 
   &:hover {
-    background: darken($color-remax-red, 8%);
+    background: darken($color-remax-red, 6%);
+    transform: translateY(-1px);
   }
 }
 
@@ -1907,7 +2115,7 @@
   color: $color-muted;
   font-size: 0.75rem;
   padding: 0.2rem 0.5rem;
-  border-radius: 0.25rem;
+  border-radius: $radius-md;
   cursor: pointer;
 
   &:hover {
@@ -1948,17 +2156,25 @@
   }
 
   input,
-  textarea {
-    padding: 0.6rem 0.75rem;
+  textarea,
+  select {
+    padding: 0.7rem 0.9rem;
     border: 1px solid $color-border;
-    border-radius: 0.3rem;
+    border-radius: $radius-md;
+    background: $color-surface;
     font-size: 1rem;
     font-family: inherit;
     color: $color-text;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+
+    &:hover {
+      border-color: darken($color-border, 12%);
+    }
 
     &:focus-visible {
-      outline: 2px solid $color-remax-blue;
-      outline-offset: 1px;
+      outline: none;
+      border-color: $color-remax-blue;
+      box-shadow: 0 0 0 3px rgba($color-remax-blue, 0.18);
     }
   }
 
@@ -1973,17 +2189,20 @@
 }
 
 .contact-form button[type="submit"] {
-  padding: 0.75rem 1.5rem;
+  padding: 0.85rem 1.75rem;
   border: none;
-  border-radius: 0.3rem;
+  border-radius: $radius-pill;
   background: $color-remax-red;
   color: #fff;
-  font-weight: 700;
+  font-family: inherit;
+  font-weight: 600;
   font-size: 1rem;
   cursor: pointer;
+  transition: background 0.15s ease, transform 0.15s ease;
 
   &:hover {
-    background: darken($color-remax-red, 8%);
+    background: darken($color-remax-red, 6%);
+    transform: translateY(-1px);
   }
 
   &:disabled {
@@ -2014,9 +2233,12 @@
   display: flex;
   flex-direction: column;
 
+  transition: box-shadow 0.2s ease, transform 0.2s ease;
+
   &:hover,
   &:focus-within {
-    border-color: $color-remax-blue;
+    box-shadow: $shadow-md;
+    transform: translateY(-3px);
   }
 
   p {
@@ -2045,8 +2267,8 @@
 }
 
 .neighborhood-card__image {
-  width: calc(100% + 3rem);
-  margin: -1.5rem -1.5rem 1rem;
+  width: calc(100% + 3.5rem);
+  margin: -1.75rem -1.75rem 1.25rem;
   aspect-ratio: 16 / 9;
   object-fit: cover;
 }
@@ -2075,7 +2297,7 @@
 
 .neighborhood-guide__image {
   width: 100%;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   margin: 1rem 0;
 }
 
@@ -2083,7 +2305,7 @@
   margin: 1.5rem 0;
   padding: 1.25rem 1.5rem;
   border: 1px solid $color-border;
-  border-radius: 0.5rem;
+  border-radius: $radius-lg;
   background: $color-card-bg;
 
   h2 {

@@ -24,6 +24,20 @@ require any agent use of the mark to follow their official identity
 standards, so check with the broker/franchise before substituting anything
 that isn't provided directly by RE/MAX.
 
+### Visual design
+
+The look is "desert modern": warm adobe-white and sand neutrals with a deep
+dusk-navy for the newsletter band and footer, drawn from Las Cruces itself,
+with RE/MAX red and blue kept as the accents (primary buttons, links,
+badges). Headings are set in Fraunces and body text in Inter, both OFL-1.1
+variable fonts **self-hosted** from the `@fontsource-variable/*` npm
+packages (copied into `/assets/fonts/` by a passthrough in
+`eleventy.config.cjs`) — no Google Fonts request, so the Privacy Notice,
+which names the maps as the only outside services, stays accurate. The jagged ridgeline above
+the newsletter band is an inline SVG echoing the Organ Mountains skyline.
+All colors, radii, and shadows are tokens in
+`src/_includes/css/variables.scss`.
+
 Two disclosures required on real-estate marketing appear in the site footer
 (`src/_includes/components/footer.njk`) on every page:
 

@@ -70,6 +70,15 @@ Keep it up to date as the site diverges from the template.
   validate/submit/honesty logic in a new one-off script, and don't hardcode an English
   message string into a form's markup — add a dictionary key instead (see README.md's
   "How the language toggle works").
+- **Design tokens & fonts**: colors (`$color-bg`/`$color-surface`/`$color-sand`/
+  `$color-dark`…), radii (`$radius-sm/md/lg/pill`), and shadows (`$shadow-sm/md`) live in
+  `src/_includes/css/variables.scss` — use them rather than new literal values. Fonts
+  (Fraunces headings, Inter body) are self-hosted from `@fontsource-variable/*` via a
+  passthrough in `eleventy.config.cjs` and `@font-face` in `global.scss`; don't switch to a
+  Google Fonts `<link>` (a third-party service the Privacy Notice doesn't list — it
+  names only the maps). The header is sticky (`html { scroll-padding-top }` in `global.scss` keeps
+  anchors clear of it) and collapses to the menu button below 68rem — the Spanish nav
+  labels need that much room on one line, so re-check both languages if you add a nav item.
 - **Print styles**: `src/_includes/css/print.scss` hides chrome/interactive widgets on
   `listing-detail.njk` for a clean printable flyer. If you rename or add a class there
   (a new interactive block, a new nav item, etc.), update the hide-list in that file too.

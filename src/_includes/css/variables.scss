@@ -1,25 +1,41 @@
-// RE/MAX's real brand colors — red, blue, white. See README.md for why the
+// "Desert modern": warm adobe/sand neutrals and a deep dusk navy drawn from
+// Las Cruces itself, with RE/MAX's real brand red and blue kept as the
+// accent colors (primary buttons, links, badges). See README.md for why the
 // literal RE/MAX logo graphic isn't embedded (only the color/type system).
-$color-bg: #ffffff;
-$color-text: #1a1a1a;
-$color-muted: #666666;
+$color-bg: #fbf8f3; // adobe white — page background
+$color-surface: #ffffff; // cards, inputs, header
+$color-sand: #f3ece1; // section bands, quiet fills
+$color-text: #1f2433; // ink
+$color-muted: #5b6070;
 $color-remax-red: #e4002b;
 $color-remax-blue: #003da5;
 $color-accent: $color-remax-red;
-$color-dark: #101820;
-$color-border: #e2e2e2;
+$color-dark: #13213a; // dusk navy — newsletter band and footer
+$color-dark-muted: #b9c1d0; // secondary text on $color-dark
+$color-border: #e6ddd0;
 
 // Repeated section-background tints (previously copy-pasted as literal hex
 // values across a dozen-plus selectors in components.scss — testimonial,
 // agent card, attributes grid, inquiry form, mortgage calc, cta-banner,
 // table headers, etc.). Centralized here so a color tweak is a one-line
 // change instead of a find-and-replace across the stylesheet.
-$color-card-bg: #faf8f3; // warm off-white "card" fill (informational, neutral)
+$color-card-bg: #f7f1e7; // warm sand "card" fill (informational, neutral)
 $color-info-bg: #eaf1fb; // light blue "informational" fill (open house, tour fields)
 $color-caution-bg: #fdf1e8; // light peach "cautionary/sample" fill (sample-banner)
 
-$font-body: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-$font-heading: $font-body;
+// Self-hosted (see the @font-face rules in global.scss and the font
+// passthrough in eleventy.config.cjs) — no third-party font requests, so the
+// Privacy Notice stays accurate. System fonts are the fallback while they load.
+$font-body: "Inter Variable", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+$font-heading: "Fraunces Variable", Georgia, "Times New Roman", serif;
+
+$radius-sm: 0.375rem; // badges, small controls
+$radius-md: 0.625rem; // buttons' non-pill cousins, inputs, banners
+$radius-lg: 1rem; // cards, panels, media
+$radius-pill: 999px; // primary buttons, tabs, toggles
+
+$shadow-sm: 0 1px 2px rgba(31, 36, 51, 0.05), 0 1px 3px rgba(31, 36, 51, 0.06);
+$shadow-md: 0 12px 28px -12px rgba(31, 36, 51, 0.25), 0 2px 6px rgba(31, 36, 51, 0.06);
 
 $max-width: 72rem;
 $gutter: 1.5rem;

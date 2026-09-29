@@ -25,7 +25,12 @@
     display: none !important;
   }
 
+  // The on-screen header is sticky and translucent; on paper it's just a
+  // plain block at the top of the first page.
   .site-header {
+    position: static;
+    background: none;
+    backdrop-filter: none;
     border-bottom: 1px solid #000;
   }
 
@@ -49,7 +54,10 @@
     }
   }
 
-  .equal-housing__icon {
+  .equal-housing,
+  .equal-housing__icon,
+  .site-footer__disclaimer,
+  .site-footer__a11y-note {
     color: #000 !important;
   }
 }
