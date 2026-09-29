@@ -1,6 +1,7 @@
 ---
 layout: layouts/page.njk
 title: Blog
+titleKey: nav.blog
 permalink: /blog/
 ---
 <div class="wrapper">
@@ -9,7 +10,7 @@ permalink: /blog/
     {% for post in collections.posts | reverse %}
     <li>
       <a href="{{ post.url }}">{{ post.data.title }}</a><br>
-      <time datetime="{{ post.date | htmlDateString }}">{{ post.date | readableDate }}</time>
+      <time datetime="{{ post.date | htmlDateString }}" data-i18n-date>{{ post.date | readableDate }}</time>
     </li>
     {% endfor %}
   </ul>

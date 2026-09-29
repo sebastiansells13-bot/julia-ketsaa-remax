@@ -5,16 +5,16 @@
       <span class="site-header__agent">{{ business.name or metadata.title }}</span>
     </a>
     <button type="button" class="site-header__toggle" id="nav-toggle" aria-expanded="false" aria-controls="site-nav">
-      <span class="sr-only">Menu</span>
+      <span class="sr-only" data-i18n="nav.menu">Menu</span>
       <span class="site-header__toggle-icon" aria-hidden="true"></span>
     </button>
-    <nav id="site-nav" aria-label="Primary">
+    <nav id="site-nav" aria-label="Primary" data-i18n-attr="aria-label:nav.primaryLabel">
       <ul>
         {% for item in navigation %}
         <li><a href="{{ item.url }}"{% if page.url == item.url %} class="is-active" aria-current="page"{% endif %} data-i18n="{{ item.i18nKey }}">{{ item.text }}</a></li>
         {% endfor %}
       </ul>
-      <div class="lang-toggle" role="group" aria-label="Language">
+      <div class="lang-toggle" role="group" aria-label="Language" data-i18n-attr="aria-label:nav.languageLabel">
         <button type="button" class="lang-toggle__btn" data-lang-toggle="en" aria-pressed="true">EN</button>
         <button type="button" class="lang-toggle__btn" data-lang-toggle="es" aria-pressed="false">ES</button>
       </div>

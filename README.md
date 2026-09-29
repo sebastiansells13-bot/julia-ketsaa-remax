@@ -285,7 +285,15 @@ powered by two scripts sharing one dictionary, `src/_data/i18n.json`
   than keeping its own copy of the dictionary-reading logic.
 - **`i18n.js`** loads second and does the static-page work: any element
   with `data-i18n="key"` gets its text swapped on toggle; an input's
-  `placeholder` uses `data-i18n-placeholder="key"` instead.
+  `placeholder` uses `data-i18n-placeholder="key"` instead. Text a
+  screen reader announces but a sighted visitor never sees (an
+  `aria-label`, an iframe `title`) uses `data-i18n-attr="aria-label:key"`
+  (several as `"aria-label:key;title:key2"`). Any of these can take
+  `{name}`-style values from `data-i18n-vars='{"address": "..."}'`, built
+  in Nunjucks as `{{ {address: listing.address} | dump }}` (not `| safe`).
+  A `<time datetime="..." data-i18n-date>` is re-formatted in the current
+  language, and a page's browser-tab title follows the toggle when its
+  front matter sets `titleKey:` (usually the same key as its `<h1>`).
 
 Either way, the choice is remembered per visitor via `localStorage` and
 reapplied on every page load; a `lang:changed` event fires on every switch
@@ -316,8 +324,12 @@ herself through the CMS — blog posts, listing descriptions, the services
 list, testimonials. Those stay in whatever language she wrote them in,
 exactly like any real i18n setup with a single-language content source;
 there's no ongoing translation pipeline for content that changes as often
-as listings and blog posts do. The listing stats line ("3 bed · 2 bath ·
-1850 sqft") also stays as-is — a minor, deliberately-skipped gap.
+as listings and blog posts do. The template chrome *around* that content
+is still translated: the listing stats line ("3 bed · 2 bath · 1850 sqft"),
+the listing inquiry form's pre-filled message, blog dates, and the
+screen-reader labels on listing cards, maps, and the photo lightbox.
+Addresses, names, Julia's license title, and the map's library/OpenStreetMap
+credits stay as they are in both languages.
 
 **Known limitation:** this is a client-side toggle, not separate `/es/`
 pages — there's nothing here for a Spanish-language Google search to index.

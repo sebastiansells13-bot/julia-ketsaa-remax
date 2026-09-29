@@ -83,7 +83,8 @@ Keep it up to date as the site diverges from the template.
 - **Language toggle**: `src/_includes/js/i18n-runtime.js` (loads first; exposes
   `window.t(key, vars)` / `window.i18nLang()` from the `#i18n-data` dictionary island) and
   `src/_includes/js/i18n.js` (loads second; applies `[data-i18n]`/`[data-i18n-placeholder]`/
-  `[data-i18n-lang]` to the DOM) power the EN/ES buttons in the header, backed by the flat
+  `[data-i18n-lang]`, plus `data-i18n-attr`/`data-i18n-vars`/`data-i18n-date` and a
+page's `titleKey` front matter — see README.md — to the DOM) power the EN/ES buttons in the header, backed by the flat
   dictionary at `src/_data/i18n.json`. Any script that builds its own markup or messages at
   runtime (`lead-form.js`, `newsletter.js`, `saved-listings.js`, `share-listing.js`,
   `mortgage-calculator.js`, `compare.js`, `listings-map.js`) calls `window.t(...)` rather than

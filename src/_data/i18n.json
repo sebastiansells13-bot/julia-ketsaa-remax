@@ -308,5 +308,22 @@
   "mccalc.heading": { "en": "Mortgage Calculator", "es": "Calculadora de Hipoteca" },
   "mccalc.introPre": { "en": "Get a rough estimate of your monthly payment before you start touring homes. Browsing a specific property? Its own", "es": "Obtenga un estimado aproximado de su pago mensual antes de empezar a visitar casas. ¿Está viendo una propiedad específica? Su propia" },
   "mccalc.listingPageLink": { "en": "listing page", "es": "página de la propiedad" },
-  "mccalc.introPost": { "en": "has this same calculator pre-filled with that home's price.", "es": "tiene esta misma calculadora precargada con el precio de esa casa." }
+  "mccalc.introPost": { "en": "has this same calculator pre-filled with that home's price.", "es": "tiene esta misma calculadora precargada con el precio de esa casa." },
+  "nav.menu": { "en": "Menu", "es": "Menú" },
+  "nav.primaryLabel": { "en": "Primary", "es": "Principal" },
+  "nav.languageLabel": { "en": "Language", "es": "Idioma" },
+  "nav.breadcrumbLabel": { "en": "Breadcrumb", "es": "Ruta de navegación" },
+  "footer.morePagesLabel": { "en": "More pages", "es": "Más páginas" },
+  "form.emailPlaceholder": { "en": "you@example.com", "es": "usted@ejemplo.com" },
+  "common.licenseNumber": { "en": "License #", "es": "Licencia n.º " },
+  "common.mapShowing": { "en": "Map showing {place}", "es": "Mapa de {place}" },
+  "listings.tabsLabel": { "en": "Filter listings by", "es": "Filtrar propiedades por" },
+  "listingcard.viewDetails": { "en": "View details for {address}", "es": "Ver detalles de {address}" },
+  "listingcard.stats": { "en": "{beds} bed · {baths} bath · {sqft} sqft", "es": "{beds} rec. · {baths} baños · {sqft} pies²" },
+  "listingdetail.inquiryDefault": { "en": "I'm interested in {address}. Please send me more information.", "es": "Me interesa {address}. Por favor envíeme más información." },
+  "gallery.close": { "en": "Close", "es": "Cerrar" },
+  "gallery.prev": { "en": "Previous photo", "es": "Foto anterior" },
+  "gallery.next": { "en": "Next photo", "es": "Foto siguiente" },
+  "map.zoomIn": { "en": "Zoom in", "es": "Acercar" },
+  "map.zoomOut": { "en": "Zoom out", "es": "Alejar" }
 }

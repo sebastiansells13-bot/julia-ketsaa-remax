@@ -18,7 +18,7 @@ eleventyComputed:
 {% set crumbs = [{name: "Home", url: "/"}, {name: "Listings", url: "/listings/"}, {name: listing.address, url: "/listings/" + slug + "/"}] %}
 {% set similar = listings.list | similarListings(listing.address, 3) %}
 <div class="listing-detail wrapper" data-listing-slug="{{ slug }}">
-  <nav class="breadcrumbs" aria-label="Breadcrumb">
+  <nav class="breadcrumbs" aria-label="Breadcrumb" data-i18n-attr="aria-label:nav.breadcrumbLabel">
     <a href="/" data-i18n="nav.home">Home</a> <span aria-hidden="true">/</span>
     <a href="/listings/" data-i18n="nav.listings">Listings</a> <span aria-hidden="true">/</span>
     <span aria-current="page">{{ listing.address }}</span>
@@ -166,10 +166,10 @@ eleventyComputed:
 </div>
 
 <div class="lightbox" id="lightbox" hidden>
-  <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close">&times;</button>
-  <button type="button" class="lightbox__prev" data-lightbox-prev aria-label="Previous photo">&larr;</button>
+  <button type="button" class="lightbox__close" data-lightbox-close aria-label="Close" data-i18n-attr="aria-label:gallery.close">&times;</button>
+  <button type="button" class="lightbox__prev" data-lightbox-prev aria-label="Previous photo" data-i18n-attr="aria-label:gallery.prev">&larr;</button>
   <img class="lightbox__img" id="lightbox-img" src="" alt="">
-  <button type="button" class="lightbox__next" data-lightbox-next aria-label="Next photo">&rarr;</button>
+  <button type="button" class="lightbox__next" data-lightbox-next aria-label="Next photo" data-i18n-attr="aria-label:gallery.next">&rarr;</button>
 </div>
 
 <script type="application/ld+json">{{ listing | listingSchema(siteUrl, slug) | safe }}</script>

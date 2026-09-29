@@ -1,6 +1,7 @@
 ---
 layout: layouts/page.njk
 title: Listings
+titleKey: listings.heading
 permalink: /listings/
 description: "Browse current homes for sale in Las Cruces, NM with Julia Ketsaa, REALTOR® Associate Broker with RE/MAX Classic Realty."
 ---
@@ -12,7 +13,7 @@ description: "Browse current homes for sale in Las Cruces, NM with Julia Ketsaa,
     <ul></ul>
   </div>
   {% if listings.list.length %}
-  <div class="listings-tabs" id="listings-tabs" role="tablist" aria-label="Filter listings by">
+  <div class="listings-tabs" id="listings-tabs" role="tablist" aria-label="Filter listings by" data-i18n-attr="aria-label:listings.tabsLabel">
     <button type="button" class="listings-tabs__tab is-active" data-tab="all" role="tab" aria-selected="true" data-i18n="listings.tabAll">All Listings</button>
     <button type="button" class="listings-tabs__tab" data-tab="just-listed" role="tab" aria-selected="false" data-i18n="listings.tabJustListed">Just Listed</button>
     <button type="button" class="listings-tabs__tab" data-tab="open-houses" role="tab" aria-selected="false" data-i18n="listings.tabOpenHouses">Open Houses</button>

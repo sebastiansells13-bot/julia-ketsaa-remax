@@ -8,6 +8,8 @@
     class="map-embed"
     src="https://maps.google.com/maps?q={{ mapQuery | urlencode }}&z=14&output=embed"
     title="Map showing {{ mapQuery }}"
+    data-i18n-attr="title:common.mapShowing"
+    data-i18n-vars="{{ {place: mapQuery} | dump }}"
     loading="lazy"
     referrerpolicy="no-referrer-when-downgrade"></iframe>
   <p class="map-directions">
