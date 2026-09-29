@@ -9,6 +9,7 @@ eleventyNavigation:
 ---
 {% from "macros/listing-card.njk" import listingCard %}
 {% from "macros/bilingual.njk" import bilingual %}
+{% from "macros/neighborhood-card.njk" import neighborhoodCard %}
 <div class="hero hero--photo">
   <img class="hero__bg" src="/img/hero/realty-hero.jpg" alt="" width="1920" height="900">
   <div class="hero__content wrapper">
@@ -51,6 +52,20 @@ eleventyNavigation:
   </div>
   {% endfor %}
 </section>
+
+{% if collections.neighborhoods.length %}
+<section class="wrapper">
+  <div class="section-heading">
+    <h2 data-i18n="home.neighborhoods">Explore Las Cruces Neighborhoods</h2>
+    <a href="/neighborhoods/" data-i18n="home.allNeighborhoods">All neighborhood guides →</a>
+  </div>
+</section>
+<section class="services-grid wrapper">
+  {% for guide in collections.neighborhoods | head(3) %}
+  {{ neighborhoodCard(guide) }}
+  {% endfor %}
+</section>
+{% endif %}
 
 {% if testimonials.list.length %}
 <section class="testimonials wrapper">

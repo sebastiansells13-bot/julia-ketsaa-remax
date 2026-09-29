@@ -1,0 +1,49 @@
+---
+layout: layouts/base.njk
+---
+{% from "macros/bilingual.njk" import bilingual %}
+<article class="wrapper neighborhood-guide">
+  <nav class="breadcrumbs" aria-label="Breadcrumb" data-i18n-attr="aria-label:nav.breadcrumbLabel">
+    <a href="/" data-i18n="nav.home">Home</a> <span aria-hidden="true">/</span>
+    <a href="/neighborhoods/" data-i18n="nbhd.heading">Neighborhood Guides</a> <span aria-hidden="true">/</span>
+    <span aria-current="page">{{ bilingual(title, titleEs) }}</span>
+  </nav>
+  <h1>{{ bilingual(title, titleEs) }}</h1>
+  <p class="neighborhood-guide__summary">{{ bilingual(summary, summaryEs) }}</p>
+  {% if image %}<img src="{{ image }}" alt="" class="neighborhood-guide__image">{% endif %}
+
+  {% if highlights and highlights.length %}
+  <aside class="neighborhood-guide__glance">
+    <h2 data-i18n="nbhd.atAGlance">At a Glance</h2>
+    <ul{% if highlightsEs and highlightsEs.length %} data-i18n-lang="en"{% endif %}>
+      {% for item in highlights %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% if highlightsEs and highlightsEs.length %}
+    <ul data-i18n-lang="es" hidden>
+      {% for item in highlightsEs %}<li>{{ item }}</li>{% endfor %}
+    </ul>
+    {% endif %}
+  </aside>
+  {% endif %}
+
+  {# Same optional-Spanish-body pattern as layouts/post.njk. #}
+  <div class="post-body"{% if bodyEs %} data-i18n-lang="en"{% endif %}>
+    {{ content | safe }}
+  </div>
+  {% if bodyEs %}
+  <div class="post-body" data-i18n-lang="es" hidden>
+    {{ bodyEs | markdown | safe }}
+  </div>
+  {% endif %}
+
+  <p class="neighborhood-guide__note" data-i18n="nbhd.note">Neighborhood guides are general information, not guarantees. Always confirm details like school assignment, HOA rules, and utilities for the specific property you're considering.</p>
+</article>
+
+<div class="wrapper cta-banner">
+  <div>
+    <h2 data-i18n="nbhd.ctaHeading">Interested in this neighborhood?</h2>
+    <p data-i18n="nbhd.ctaText">Tell me what you're looking for and I'll send you homes that fit, or set up a tour.</p>
+  </div>
+  <a href="/contact/" class="cta-banner__button" data-i18n="home.heroContact">Contact Julia</a>
+</div>
+<p class="wrapper neighborhood-guide__back"><a href="/neighborhoods/" data-i18n="nbhd.allGuides">← All neighborhood guides</a></p>

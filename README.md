@@ -63,6 +63,14 @@ backend yet** — see "What isn't connected yet" below.
 **Other pages** — [FAQ](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/faq/)
 (generic buying/selling questions, `FAQPage` schema), [Why Live in Las Cruces](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/why-las-cruces/)
 (a local-appeal page — climate, affordability, outdoor life, food, and more),
+[Neighborhood Guides](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/neighborhoods/)
+(a CMS collection in `src/neighborhoods/*.md` — Mesilla, Downtown & the
+Historic Districts, Near NMSU, Sonoma Ranch, Picacho Hills, Talavera, Metro
+Verde — shown in their `order`, first three also on the homepage),
+[Relocating to Las Cruces](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/relocating/)
+(template content: commutes to NMSU, White Sands Missile Range, Spaceport
+America, Fort Bliss and Holloman; utilities, MVD, and school districts with
+links to each official source; buying from a distance),
 [Fair Housing Statement](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/fair-housing/),
 [Accessibility Statement](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/accessibility/),
 [Privacy Notice](https://sebastiansells13-bot.github.io/julia-ketsaa-remax/privacy/)
@@ -82,8 +90,10 @@ with a footer note pointing visitors to the office phone number for help.
 **English/Spanish toggle** — an EN/ES switch in the header (persisted per
 visitor via `localStorage`) translates this site's own chrome: nav, footer,
 every form's labels/buttons, and the static marketing pages (Home, About,
-Contact, Home Value, FAQ intro, 404, Why Live in Las Cruces, Mortgage
-Calculator, Fair Housing, Accessibility). See "How the language toggle
+Contact, Home Value, FAQ intro, 404, Why Live in Las Cruces, Relocating,
+Mortgage Calculator, Fair Housing, Accessibility), plus Julia's optional
+`*Es` Spanish fields on CMS content (bio, services, listings, blog posts,
+neighborhood guides). See "How the language toggle
 works" below for exactly what is and isn't covered, and why.
 
 ## Listings: 4 samples, clearly marked — testimonials still empty
@@ -154,10 +164,13 @@ access) can log in at https://app.pagescms.org, connect this repo, and edit:
 - **Testimonials** — add/edit/remove client quotes
 - **How I Can Help** — the services list
 - **Blog Posts** — market updates, tips, announcements
+- **Neighborhood Guides** — add/edit/reorder guides, each with a summary,
+  "At a Glance" bullets, an optional photo, the guide itself, and optional
+  Spanish versions of each
 
 **Not CMS-editable** (template/code content — ask the developer to change
 these): the FAQ questions/answers, the mortgage calculator's defaults, the
-wording on the Home Value, Privacy, Fair Housing, and Accessibility pages,
+wording on the Home Value, Relocating, Privacy, Fair Housing, and Accessibility pages,
 and the Spanish translations behind the language toggle (see below).
 
 Every CMS save commits directly to this repo and triggers a new deploy
@@ -306,7 +319,7 @@ status messages (including each one's honest "not connected yet" message),
 and every static page: Home, About, Contact, Home Value, FAQ (including all
 question/answer text — the FAQ is template content, not something Julia
 edits live, so keeping it bilingual doesn't create an ongoing translation
-burden), 404, Why Live in Las Cruces, Mortgage Calculator, Compare, Privacy,
+burden), 404, Why Live in Las Cruces, Relocating, Mortgage Calculator, Compare, Privacy,
 Fair Housing, Accessibility.
 
 A handful of strings come from the CMS instead of the dictionary — the
@@ -314,9 +327,10 @@ homepage tagline, the About-page bio, and the RE/MAX franchise disclaimer
 (`business.json`), the "How I Can Help" service cards (`services.json`,
 `titleEs`/`descriptionEs`), each listing's short/full description, features
 and open-house time (`blurbEs`/`descriptionEs`/`featuresEs`/`openHouseEs`),
-and each blog post's title and body (`titleEs`/`bodyEs` front matter,
-rendered through the `markdown` filter) — because Julia writes all of those
-through the CMS. Rather than auto-translating (and risking a Spanish version silently
+each blog post's title and body (`titleEs`/`bodyEs` front matter,
+rendered through the `markdown` filter), and each neighborhood guide's
+`titleEs`/`summaryEs`/`highlightsEs`/`bodyEs` — because Julia writes all of
+those through the CMS. Rather than auto-translating (and risking a Spanish version silently
 drifting out of sync with an edited English one), each has an optional
 `*Es` sibling field (`taglineEs`, `bioEs`, `disclaimerEs`) she can fill in
 through the CMS; `macros/bilingual.njk` renders both as `data-i18n-lang`

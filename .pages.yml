@@ -74,6 +74,70 @@ content:
         type: rich-text
         description: Optional Spanish version of the post. Leave blank to show the English post in both languages. If you edit the English body, please update this too.
 
+  - name: neighborhoods
+    label: Neighborhood Guides
+    type: collection
+    path: src/neighborhoods
+    view:
+      fields: [title, order]
+      sort: [order, title]
+      default:
+        sort: order
+        order: asc
+    fields:
+      - name: title
+        label: Neighborhood Name
+        type: string
+        required: true
+
+      - name: titleEs
+        label: Neighborhood Name (Spanish)
+        type: string
+        description: Optional. Usually the same as the English name.
+
+      - name: order
+        label: Display Order
+        type: number
+        description: Lower numbers show first on the Neighborhood Guides page. The first three also appear on the homepage.
+
+      - name: summary
+        label: Summary
+        type: string
+        required: true
+        description: One or two sentences shown on the guide's card and at the top of its page (also used for search results). Describe the place and what's nearby, not who lives there.
+
+      - name: summaryEs
+        label: Summary (Spanish)
+        type: string
+
+      - name: highlights
+        label: At a Glance
+        type: string
+        list: true
+        description: Short bullet points, e.g. "Walkable to the plaza".
+
+      - name: highlightsEs
+        label: At a Glance (Spanish)
+        type: string
+        list: true
+
+      - name: image
+        label: Photo
+        type: image
+        description: Optional photo of the area, shown on the guide's card and page.
+        options:
+          path: neighborhoods
+
+      - name: body
+        label: Guide
+        type: rich-text
+        description: The full guide. Stick to facts about the place (history, housing styles, amenities, things to check before buying), not the kind of people who live there, to stay within fair housing rules.
+
+      - name: bodyEs
+        label: Guide (Spanish)
+        type: rich-text
+        description: Optional Spanish version of the guide. If you edit the English guide, please update this too.
+
   - name: listings
     label: Listings
     type: file

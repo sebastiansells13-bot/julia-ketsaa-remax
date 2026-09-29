@@ -1,0 +1,14 @@
+{#
+  One neighborhood guide as a card — shared by the /neighborhoods/ index and
+  the homepage's "Explore Las Cruces Neighborhoods" section so the two don't
+  drift apart. `guide` is an item from collections.neighborhoods.
+#}
+{% from "macros/bilingual.njk" import bilingual %}
+{% macro neighborhoodCard(guide) %}
+<div class="service-card neighborhood-card">
+  {% if guide.data.image %}<img src="{{ guide.data.image }}" alt="" class="neighborhood-card__image" loading="lazy" decoding="async">{% endif %}
+  <h3><a href="{{ guide.url }}" class="neighborhood-card__link">{{ bilingual(guide.data.title, guide.data.titleEs) }}</a></h3>
+  <p>{{ bilingual(guide.data.summary, guide.data.summaryEs) }}</p>
+  <p class="neighborhood-card__more" aria-hidden="true" data-i18n="nbhd.readGuide">Read the guide →</p>
+</div>
+{% endmacro %}

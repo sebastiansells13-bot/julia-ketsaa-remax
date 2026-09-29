@@ -106,6 +106,18 @@ page's `titleKey` front matter — see README.md — to the DOM) power the EN/ES
   template (put it inside whichever language's string needs it — see the comment in
   `src/privacy.njk`'s "Maps and location services" paragraph). Reuse an existing key
   (`nav.home`, `form.email`, `common.julia`, etc.) before adding a new one for the same word.
+- **Neighborhood guides & relocation**: `src/neighborhoods/*.md` is a CMS collection
+  (`.pages.yml` "Neighborhood Guides"; `neighborhoods` collection in
+  `eleventy.config.cjs`, sorted by each file's `order`), rendered by
+  `layouts/neighborhood.njk` at `/neighborhoods/<slug>/`, listed at `/neighborhoods/`
+  (`src/neighborhoods.njk`) and — first three — on the homepage, both through
+  `macros/neighborhood-card.njk`. `/relocating/` (`src/relocating.njk`) is template
+  content on `relocate.*` i18n keys. Both are written to fair-housing norms: describe
+  places, housing, and amenities, never who lives there (no "great for families",
+  "popular with retirees"); keep distances rounded ("about", "roughly"); and point to
+  the official source for anything that changes (MVD deadlines, school boundaries)
+  instead of stating it. Don't add school ratings, crime stats, or price/market
+  figures — same rule as the no-invented-stats items under "What NOT to do".
 - **Listing tabs**: `justListed` (boolean) and `openHouse` (string) on a listing power
   the "Just Listed"/"Open Houses" tabs on `/listings/` (`src/_includes/js/listings-filter.js`)
   and the "New" tag / open-house banner on its cards and detail page. Both are manual
