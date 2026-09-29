@@ -113,6 +113,15 @@ module.exports = function (eleventyConfig) {
     [assetFiles.stylesheet]: assetPaths.stylesheet.slice(1),
   });
   eleventyConfig.addPassthroughCopy({ "src/_includes/favicons": "favicons" });
+  // Self-hosted variable fonts (OFL-1.1), straight out of node_modules so no
+  // binary font files live in the repo — see the @font-face rules in
+  // src/_includes/css/global.scss. Latin subset only (covers Spanish).
+  eleventyConfig.addPassthroughCopy({
+    "node_modules/@fontsource-variable/inter/files/inter-latin-wght-normal.woff2":
+      "assets/fonts/inter-latin-wght-normal.woff2",
+    "node_modules/@fontsource-variable/fraunces/files/fraunces-latin-standard-normal.woff2":
+      "assets/fonts/fraunces-latin-standard-normal.woff2",
+  });
   eleventyConfig.addPassthroughCopy(".nojekyll");
   // No CNAME yet — this deploys to the GitHub Pages project URL until Julia
   // has a real domain. Once she does: add a CNAME file with that domain,

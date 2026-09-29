@@ -1,3 +1,23 @@
+// Self-hosted variable fonts, copied out of node_modules at build time (see
+// the @fontsource-variable passthrough in eleventy.config.cjs). The paths
+// are relative to this stylesheet's own /assets/css/ URL so they keep
+// working under the GitHub Pages pathPrefix.
+@font-face {
+  font-family: "Inter Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../fonts/inter-latin-wght-normal.woff2") format("woff2-variations");
+}
+
+@font-face {
+  font-family: "Fraunces Variable";
+  font-style: normal;
+  font-display: swap;
+  font-weight: 100 900;
+  src: url("../fonts/fraunces-latin-standard-normal.woff2") format("woff2-variations");
+}
+
 * {
   box-sizing: border-box;
 }
@@ -8,15 +28,39 @@ body {
   padding: 0;
 }
 
+// Keeps in-page anchors (e.g. a listing's #ask-about-listing) from landing
+// underneath the sticky .site-header.
+html {
+  scroll-padding-top: 5.5rem;
+}
+
 body {
   font-family: $font-body;
   color: $color-text;
   background: $color-bg;
-  line-height: 1.5;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
 a {
   color: $color-accent;
+  text-underline-offset: 0.18em;
+  text-decoration-thickness: 1px;
+
+  &:hover {
+    text-decoration-thickness: 2px;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid $color-remax-blue;
+  outline-offset: 2px;
+}
+
+::selection {
+  background: rgba($color-remax-blue, 0.15);
 }
 
 .wrapper {
@@ -67,5 +111,24 @@ h1,
 h2,
 h3 {
   font-family: $font-heading;
-  line-height: 1.2;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  color: $color-text;
+  // Fraunces' optical-size axis: tighter, higher-contrast letterforms at
+  // display sizes, sturdier ones at card-title sizes.
+  font-optical-sizing: auto;
+}
+
+h1 {
+  font-size: clamp(2rem, 1.5rem + 2vw, 2.85rem);
+}
+
+h2 {
+  font-size: clamp(1.5rem, 1.25rem + 1vw, 2rem);
+}
+
+h3 {
+  font-size: 1.2rem;
+  letter-spacing: -0.005em;
 }
