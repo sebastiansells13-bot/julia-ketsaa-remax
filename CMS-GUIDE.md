@@ -33,7 +33,11 @@ You can update your site's content without touching any code.
   a real photo; leave it checked (or the photo blank) and it'll show a
   "Sample" badge instead.
 - **How I Can Help** — the three service cards shown on the Home and How I Help
-  pages.
+  pages. Each card has an optional **Service Name (Spanish)** and
+  **Description (Spanish)** — shown when a visitor switches the site to
+  Spanish; leave them blank and the English text shows in both languages.
+  If you change a card's English text, please update its Spanish at the
+  same time.
 - **Testimonials** — client quotes shown on the homepage.
 - **Agent & Business Info** — your name, brokerage, tagline, contact details,
   license text and number, and bio shown across the site. Tagline, bio, and

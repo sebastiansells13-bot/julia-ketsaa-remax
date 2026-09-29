@@ -2,15 +2,21 @@
   "list": [
     {
       "title": "Buying a Home",
-      "description": "From your first search to closing day, guidance at every step of buying in the Las Cruces area."
+      "titleEs": "Comprar una Casa",
+      "description": "From your first search to closing day, guidance at every step of buying in the Las Cruces area.",
+      "descriptionEs": "Desde su primera búsqueda hasta el día del cierre, orientación en cada paso de la compra de su casa en el área de Las Cruces."
     },
     {
       "title": "Selling Your Home",
-      "description": "Pricing strategy, staging advice, and access to RE/MAX's marketing network to help sell for the best price."
+      "titleEs": "Vender Su Casa",
+      "description": "Pricing strategy, staging advice, and access to RE/MAX's marketing network to help sell for the best price.",
+      "descriptionEs": "Estrategia de precios, consejos de presentación y acceso a la red de mercadeo de RE/MAX para ayudarle a vender al mejor precio."
     },
     {
       "title": "Free Market Analysis",
-      "description": "A no-obligation comparative market analysis, so you know exactly what your home is worth today."
+      "titleEs": "Análisis de Mercado Gratuito",
+      "description": "A no-obligation comparative market analysis, so you know exactly what your home is worth today.",
+      "descriptionEs": "Un análisis comparativo de mercado sin compromiso, para que sepa exactamente cuánto vale su casa hoy."
     }
   ]
 }
