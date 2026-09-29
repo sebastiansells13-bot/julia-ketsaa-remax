@@ -2005,3 +2005,146 @@
 .pac-container {
   font-family: $font-body;
 }
+
+// Neighborhood guide cards (macros/neighborhood-card.njk — /neighborhoods/,
+// the homepage, and Why Las Cruces' "Keep Exploring"). The title link is
+// stretched over the whole card so the entire card is one click target.
+.neighborhood-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+
+  &:hover,
+  &:focus-within {
+    border-color: $color-remax-blue;
+  }
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.neighborhood-card__link {
+  color: $color-text;
+  text-decoration: none;
+
+  &::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+  }
+
+  &:focus-visible {
+    outline: none;
+  }
+}
+
+.neighborhood-card:focus-within {
+  outline: 2px solid $color-remax-blue;
+  outline-offset: 2px;
+}
+
+.neighborhood-card__image {
+  width: calc(100% + 3rem);
+  margin: -1.5rem -1.5rem 1rem;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+}
+
+.neighborhood-card__more {
+  margin-top: auto;
+  padding-top: 1rem;
+  color: $color-accent;
+  font-weight: 700;
+}
+
+// A single neighborhood guide (layouts/neighborhood.njk).
+.neighborhood-guide {
+  max-width: 48rem;
+  padding-top: 1.5rem;
+
+  h1 {
+    margin-bottom: 0.5rem;
+  }
+}
+
+.neighborhood-guide__summary {
+  font-size: 1.15rem;
+  color: $color-muted;
+}
+
+.neighborhood-guide__image {
+  width: 100%;
+  border-radius: 0.5rem;
+  margin: 1rem 0;
+}
+
+.neighborhood-guide__glance {
+  margin: 1.5rem 0;
+  padding: 1.25rem 1.5rem;
+  border: 1px solid $color-border;
+  border-radius: 0.5rem;
+  background: $color-card-bg;
+
+  h2 {
+    margin: 0 0 0.5rem;
+    font-size: 1.1rem;
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin: 0.3rem 0;
+  }
+}
+
+.neighborhood-guide .post-body {
+  line-height: 1.65;
+}
+
+.neighborhood-guide__note {
+  margin-top: 2rem;
+  font-size: 0.85rem;
+  color: $color-muted;
+}
+
+.neighborhood-guide__back {
+  padding-bottom: 3rem;
+}
+
+// /relocating/ — section headings over the shared .services-grid cards.
+.relocate__section {
+  padding-top: 2rem;
+
+  h2 {
+    margin: 0;
+  }
+}
+
+.services-grid.relocate__grid {
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+.relocate__link {
+  margin: 0.4rem 0 0;
+
+  a {
+    font-weight: 600;
+  }
+}
+
+.relocate__next {
+  padding-bottom: 1rem;
+
+  ul {
+    padding-left: 1.25rem;
+  }
+
+  li {
+    margin: 0.4rem 0;
+  }
+}

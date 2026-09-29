@@ -1,0 +1,7 @@
+{
+  "layout": "layouts/neighborhood.njk",
+  "permalink": "/neighborhoods/{{ page.fileSlug }}/",
+  "eleventyComputed": {
+    "description": "{{ summary }}"
+  }
+}

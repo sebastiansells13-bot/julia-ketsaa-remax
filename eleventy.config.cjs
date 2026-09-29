@@ -132,6 +132,14 @@ module.exports = function (eleventyConfig) {
 
   eleventyConfig.addShortcode("year", () => `${new Date().getFullYear()}`);
 
+  // Neighborhood guides (src/neighborhoods/*.md, CMS-editable), in the
+  // `order` Julia sets in each guide's front matter.
+  eleventyConfig.addCollection("neighborhoods", (collectionApi) =>
+    collectionApi
+      .getFilteredByGlob("src/neighborhoods/*.md")
+      .sort((a, b) => (a.data.order ?? 999) - (b.data.order ?? 999))
+  );
+
   // Renders business.json as a schema.org RealEstateAgent JSON-LD block.
   // Missing/empty fields are dropped automatically by JSON.stringify.
   eleventyConfig.addFilter("businessSchema", (business, absoluteSiteUrl) => {

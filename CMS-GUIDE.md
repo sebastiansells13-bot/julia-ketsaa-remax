@@ -39,6 +39,13 @@ You can update your site's content without touching any code.
   shown when a visitor switches the site to Spanish — leave one blank and
   the English shows in both languages. If you change the English, please
   update the Spanish too so the two don't drift apart.
+- **Neighborhood Guides** — the guides on the Neighborhood Guides page (the
+  first three by **Display Order** also appear on the homepage). Each has a
+  name, a short summary, "At a Glance" bullet points, an optional photo, the
+  guide itself, and an optional Spanish version of each. To stay within fair
+  housing rules, describe the place — history, housing styles, amenities,
+  things to check before buying — and never the kind of people who live
+  there (families, retirees, students, and so on).
 - **How I Can Help** — the three service cards shown on the Home and How I Help
   pages. Each card has an optional **Service Name (Spanish)** and
   **Description (Spanish)** — shown when a visitor switches the site to
@@ -59,7 +66,7 @@ You can update your site's content without touching any code.
 
 The wording on every other page — the FAQ, the mortgage calculator's
 default numbers, "What's My Home Worth?", Privacy, "Why Live in Las
-Cruces", Fair Housing, and Accessibility — and the "Ask Julia About This
+Cruces", "Relocating to Las Cruces", Fair Housing, and Accessibility — and the "Ask Julia About This
 Property" form on each listing page (which also has an "I'd also like to
 schedule a tour" checkbox) aren't in this CMS, and neither are their
 Spanish translations behind the EN/ES toggle — all of that is part of the

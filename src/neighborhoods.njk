@@ -1,0 +1,24 @@
+---
+layout: layouts/page.njk
+title: Neighborhood Guides
+titleKey: nbhd.heading
+description: "Guides to Las Cruces neighborhoods — Mesilla, the historic districts, Sonoma Ranch, Picacho Hills, and more — from Julia Ketsaa, REALTOR® Associate Broker with RE/MAX Classic Realty."
+permalink: /neighborhoods/
+---
+{% from "macros/neighborhood-card.njk" import neighborhoodCard %}
+<div class="wrapper">
+  <h1 data-i18n="nbhd.heading">Neighborhood Guides</h1>
+  <p class="why-las-cruces__intro" data-i18n="nbhd.intro">Every part of Las Cruces has its own feel, from historic adobe streets to new master-planned communities. Here's a starting point for figuring out where you'd like to land.</p>
+</div>
+<section class="services-grid wrapper">
+  {% for guide in collections.neighborhoods %}
+  {{ neighborhoodCard(guide) }}
+  {% endfor %}
+</section>
+<div class="wrapper cta-banner">
+  <div>
+    <h2 data-i18n="nbhd.relocateHeading">Moving here from out of town?</h2>
+    <p data-i18n="nbhd.relocateText">See the relocation guide for commutes, utilities, and how to buy from a distance.</p>
+  </div>
+  <a href="/relocating/" class="cta-banner__button" data-i18n="relocate.button">Relocation Guide →</a>
+</div>
