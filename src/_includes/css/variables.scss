@@ -8,6 +8,9 @@ $color-sand: #f3ece1; // section bands, quiet fills
 $color-text: #1f2433; // ink
 $color-muted: #5b6070;
 $color-remax-red: #e4002b;
+// RE/MAX red, slightly deepened for small link text on the tinted card/sand
+// fills below, where #e4002b measures 4.1–4.4:1 (WCAG AA needs 4.5:1).
+$color-remax-red-text: #d60028;
 $color-remax-blue: #003da5;
 $color-accent: $color-remax-red;
 $color-dark: #13213a; // dusk navy — newsletter band and footer
