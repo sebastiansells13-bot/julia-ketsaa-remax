@@ -13,9 +13,13 @@ const OUTPUT_DIR = "docs";
 const IMG_EXT = /\.(jpe?g|png)$/i;
 // Icon files need to stay real PNGs: iOS only accepts PNG for
 // apple-touch-icon, and PNG favicons should match their declared
-// type="image/png" — so exclude everything under favicons/ from
-// WebP conversion entirely.
+// type="image/png" — so nothing under favicons/ is converted.
 const SKIP_DIR = `${path.sep}favicons${path.sep}`;
+// Tags whose images must keep their original format: icon links (iOS
+// apple-touch-icon is PNG-only) and social preview images (several link
+// preview crawlers don't render WebP). Their originals are still published.
+const KEEP_ORIGINAL_TAG =
+  /^<(?:link\b[^>]*\brel="[^"]*icon[^"]*"|meta\b[^>]*\b(?:property|name)="(?:og:image(?::url|:secure_url)?|twitter:image)")/i;
 
 async function walk(dir) {
   const entries = await readdir(dir, { withFileTypes: true });
@@ -44,39 +48,38 @@ async function main() {
     return;
   }
 
-  // Only rewrite an HTML reference once we know the WebP file for it was
-  // actually produced — otherwise a failed conversion (or a JPG/PNG we
-  // deliberately skipped, like favicons) would leave behind a reference to
-  // a file that doesn't exist.
-  const convertedSuffixes = [];
-  let converted = 0;
+  // Site-relative paths ("img/hero/a.jpg") of images that now have a WebP copy.
+  const converted = new Set();
   for (const imgPath of imageFiles) {
     const webpPath = imgPath.replace(IMG_EXT, ".webp");
     try {
       await sharp(imgPath).webp({ quality: 82 }).toFile(webpPath);
-      converted++;
-      convertedSuffixes.push(path.relative(OUTPUT_DIR, imgPath).split(path.sep).join("/"));
+      converted.add(path.relative(OUTPUT_DIR, imgPath).split(path.sep).join("/"));
     } catch (err) {
       console.warn(`[optimize-media] Skipped ${imgPath}: ${err.message}`);
     }
   }
 
-  // Rewrite HTML references from .jpg/.png to .webp, but only for paths
-  // that end in one of the relative paths we successfully converted above.
+  // Rewrite a .jpg/.png reference to .webp only when it's a local path to an
+  // image converted above, and it isn't inside an icon or social-preview tag.
+  const rewriteRef = (match, quote, ref) => {
+    if (/^(?:[a-z]+:)?\/\//i.test(ref)) return match;
+    const local = ref.split(/[?#]/)[0].replace(/^\.?\//, "");
+    const isConverted = [...converted].some((rel) => local === rel || local.endsWith(`/${rel}`));
+    return isConverted ? `${quote}${ref.replace(/\.(jpe?g|png)(?=$|[?#])/i, ".webp")}${quote}` : match;
+  };
+
   for (const htmlPath of htmlFiles) {
-    let html = await readFile(htmlPath, "utf8");
-    const before = html;
-    html = html.replace(/(["'])([^"'<>]+?\.(?:jpe?g|png))\1/gi, (match, quote, refPath) => {
-      const wasConverted = convertedSuffixes.some((suffix) => refPath.endsWith(suffix));
-      if (!wasConverted) return match;
-      return `${quote}${refPath.replace(IMG_EXT, ".webp")}${quote}`;
-    });
+    const before = await readFile(htmlPath, "utf8");
+    const html = before.replace(/<[^>]+>/g, (tag) =>
+      KEEP_ORIGINAL_TAG.test(tag) ? tag : tag.replace(/(["'])([^"'<>]+?\.(?:jpe?g|png)(?:[?#][^"'<>]*)?)\1/gi, rewriteRef)
+    );
     if (html !== before) {
       await writeFile(htmlPath, html, "utf8");
     }
   }
 
-  console.log(`[optimize-media] Converted ${converted}/${imageFiles.length} image(s) to WebP.`);
+  console.log(`[optimize-media] Converted ${converted.size}/${imageFiles.length} image(s) to WebP.`);
 }
 
 main().catch((err) => {
