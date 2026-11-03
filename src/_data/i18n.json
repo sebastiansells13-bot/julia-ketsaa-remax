@@ -384,5 +384,6 @@
   "relocate.nextCalc": { "en": "Estimate your monthly payment →", "es": "Calcular su pago mensual →" },
   "relocate.nextWhy": { "en": "Why people love living here →", "es": "Por qué a la gente le encanta vivir aquí →" },
   "relocate.ctaHeading": { "en": "Planning a move to Las Cruces?", "es": "¿Está planeando mudarse a Las Cruces?" },
-  "relocate.ctaText": { "en": "Let's talk about your timeline and what you're looking for, wherever you're moving from.", "es": "Hablemos de sus tiempos y de lo que busca, desde dondequiera que se mude." }
+  "relocate.ctaText": { "en": "Let's talk about your timeline and what you're looking for, wherever you're moving from.", "es": "Hablemos de sus tiempos y de lo que busca, desde dondequiera que se mude." },
+  "listing.placeholderLabel": { "en": "Illustration standing in for a listing photo", "es": "Ilustración en lugar de una foto de la propiedad" }
 }
