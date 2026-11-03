@@ -2,7 +2,7 @@
 layout: layouts/page.njk
 title: Neighborhood Guides
 titleKey: nbhd.heading
-description: "Guides to Las Cruces neighborhoods — Mesilla, the historic districts, Sonoma Ranch, Picacho Hills, and more — from Julia Ketsaa, REALTOR® Associate Broker with RE/MAX Classic Realty."
+description: "Guides to Las Cruces neighborhoods — Mesilla, the historic districts, Sonoma Ranch, Picacho Hills, and more — from Julia Ketsaa, RE/MAX Classic Realty."
 permalink: /neighborhoods/
 ---
 {% from "macros/neighborhood-card.njk" import neighborhoodCard %}
@@ -12,7 +12,7 @@ permalink: /neighborhoods/
 </div>
 <section class="services-grid wrapper">
   {% for guide in collections.neighborhoods %}
-  {{ neighborhoodCard(guide) }}
+  {{ neighborhoodCard(guide, 2) }}
   {% endfor %}
 </section>
 <div class="wrapper cta-banner">

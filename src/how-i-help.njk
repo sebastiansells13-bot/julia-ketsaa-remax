@@ -13,7 +13,7 @@ description: "How Julia Ketsaa, REALTOR® Associate Broker with RE/MAX Classic R
   {% for service in services.list %}
   <div class="service-card">
     {% if service.icon %}<img src="{{ service.icon }}" alt="" class="service-card__icon" loading="lazy" decoding="async">{% endif %}
-    <h3>{{ bilingual(service.title, service.titleEs) }}</h3>
+    <h2>{{ bilingual(service.title, service.titleEs) }}</h2>
     <p>{{ bilingual(service.description, service.descriptionEs, "span", true) }}</p>
   </div>
   {% endfor %}
